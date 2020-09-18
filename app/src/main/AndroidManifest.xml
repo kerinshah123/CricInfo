@@ -9,8 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginSignUpActivity" android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity android:name=".SplashScreen" android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity
+            android:name=".HomeActivity"
+            android:label="@string/title_activity_home"></activity>
+        <activity
+            android:name=".LoginSignUpActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".SplashScreen"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

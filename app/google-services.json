@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "971872281398",
+    "firebase_url": "https://cri-info.firebaseio.com",
+    "project_id": "cri-info",
+    "storage_bucket": "cri-info.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:971872281398:android:200a8bf121ac39c0c54997",
+        "android_client_info": {
+          "package_name": "com.example.criinfo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "971872281398-2o5tse6e2scm0und0t7ph8bvtsirropq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.criinfo",
+            "certificate_hash": "09bb69aafcb642acb44a99fd608ff70012abf9f1"
+          }
+        },
+        {
+          "client_id": "971872281398-bssc30siob7pl5e8090d9ceobbtmu5gt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcBIOUcs4Poy0e-uDY-T3I6V7DdeAaywA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "971872281398-bssc30siob7pl5e8090d9ceobbtmu5gt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
