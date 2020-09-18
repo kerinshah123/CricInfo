@@ -9,12 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".HomeActivity"
-            android:label="@string/title_activity_home"></activity>
+        <activity android:name=".Home.HomeActivity"></activity>
         <activity
             android:name=".LoginSignUpActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SplashScreen"
             android:theme="@style/AppTheme.NoActionBar">

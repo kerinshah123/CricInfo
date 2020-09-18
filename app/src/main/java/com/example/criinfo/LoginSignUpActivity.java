@@ -17,6 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.criinfo.Home.HomeActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
@@ -100,7 +102,7 @@ public class LoginSignUpActivity extends AppCompatActivity implements AdapterVie
         numbersign = findViewById(R.id.numberSign);
         passwordsign = findViewById(R.id.passwordSign);
         int pos=0;
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        final Spinner spinner = (Spinner) findViewById(R.id.spinner);
 
         // Spinner click listener
         spinner.setOnItemSelectedListener(this);
@@ -269,7 +271,11 @@ public class LoginSignUpActivity extends AppCompatActivity implements AdapterVie
                     passwordsignlayout.requestFocus();
                 } else if (!(txtsignnumber.length() == 10)) {
                     numberlayout.setError("Enter valid number");
-                } else {
+                }else if(usertype != "<---Select User--->")
+                {
+                    Toast.makeText(LoginSignUpActivity.this, "Plzz Select Valid User type", Toast.LENGTH_SHORT).show();
+                }
+                else {
                     Doseuserexist();
                 }
             }
@@ -296,7 +302,7 @@ public class LoginSignUpActivity extends AppCompatActivity implements AdapterVie
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                 startActivity(intent);
 
             }
