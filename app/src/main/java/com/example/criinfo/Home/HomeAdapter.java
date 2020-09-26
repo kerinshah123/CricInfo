@@ -15,12 +15,12 @@ import com.example.criinfo.R;
 
 import java.util.List;
 
-public class adapter extends RecyclerView.Adapter<adapter.ViewHolder> {
+public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     Context context;
-    List<pojo>  listdata;
+    List<Matchpojo>  listdata;
 
 
-    public adapter(Context context,List<pojo> listdata) {
+    public HomeAdapter(Context context, List<Matchpojo> listdata) {
         this.context=context;
         this.listdata=listdata;
 
@@ -38,7 +38,7 @@ public class adapter extends RecyclerView.Adapter<adapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
-        final pojo myListData = listdata.get(position);
+        final Matchpojo myListData = listdata.get(position);
 
         holder.series.setText(myListData.getSeries());
         holder.typeofmatch.setText(myListData.getTypeofmatch());
@@ -54,7 +54,7 @@ public class adapter extends RecyclerView.Adapter<adapter.ViewHolder> {
         holder.itemlayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-Intent intent=new Intent(context,matchopen.class);
+Intent intent=new Intent(context, MatchDetails.class);
 intent.putExtra("matchid",holder.matchid.getText().toString());
 context.startActivity(intent);
 

@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Home.HomeActivity"></activity>
-        <activity android:name=".Home.matchopen"></activity>
+        <activity android:name=".Home.MatchDetails"></activity>
 
         <activity
             android:name=".LoginSignUpActivity"

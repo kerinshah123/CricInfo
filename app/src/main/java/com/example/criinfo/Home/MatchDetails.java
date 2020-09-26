@@ -19,7 +19,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class matchopen extends AppCompatActivity {
+public class MatchDetails extends AppCompatActivity {
     TextView versus,result,teamone,teamtwo,scoreone,scoretwo,momname,resultmatch,batsmanone,batsmantwo,batsmanonescore,batsmantwoscore,bowlername,bowlerovers,commentary;
 String matchid;
     String matchcode;

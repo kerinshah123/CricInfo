@@ -38,9 +38,9 @@ public class HomeFragment extends Fragment {
 
     private RequestQueue mQueue;
     private StringRequest request;
-    adapter adp;
+    HomeAdapter adp;
     String url = "http://mapps.cricbuzz.com/cbzios/match/livematches";
-    List<pojo> ar1;
+    List<Matchpojo> ar1;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -127,7 +127,7 @@ public class HomeFragment extends Fragment {
                             String team2 = jsonobject9.getString("name");
 
 
-                            pojo pj = new pojo(seriesname, type, jsonobject2.getString("match_desc"), location, status, team1, team2, "", "", matchid);
+                            Matchpojo pj = new Matchpojo(seriesname, type, jsonobject2.getString("match_desc"), location, status, team1, team2, "", "", matchid);
                             ar1.add(pj);
                         }
 
@@ -151,7 +151,7 @@ public class HomeFragment extends Fragment {
                             String team2 = jsonobject9.getString("name");
 
 
-                            pojo pj = new pojo(seriesname, type, jsonobject2.getString("match_desc"), location, status, team1, team2, score1, "00/0", matchid);
+                            Matchpojo pj = new Matchpojo(seriesname, type, jsonobject2.getString("match_desc"), location, status, team1, team2, score1, "00/0", matchid);
                             ar1.add(pj);
 
                         }
@@ -179,7 +179,7 @@ public class HomeFragment extends Fragment {
                             String team2 = jsonobject9.getString("name");
 
 
-                            pojo pj = new pojo(seriesname, type, jsonobject2.getString("match_desc"), location, status, team1, team2, score1, score2, matchid);
+                            Matchpojo pj = new Matchpojo(seriesname, type, jsonobject2.getString("match_desc"), location, status, team1, team2, score1, score2, matchid);
                             ar1.add(pj);
 
                         }
@@ -187,7 +187,7 @@ public class HomeFragment extends Fragment {
 
 
                     }
-                    adp=new adapter(getContext(),ar1);
+                    adp=new HomeAdapter(getContext(),ar1);
                     recyclerView.setAdapter(adp);
                 }
                 catch (JSONException e) {

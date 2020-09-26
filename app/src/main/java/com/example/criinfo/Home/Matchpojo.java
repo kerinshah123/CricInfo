@@ -1,6 +1,6 @@
 package com.example.criinfo.Home;
 
-public class pojo {
+public class Matchpojo {
 
     public String series;
     public String typeofmatch;
@@ -13,7 +13,7 @@ public class pojo {
     public String score2;
     public String matchid;
 
-    public pojo(String series, String typeofmatch, String matchdescription, String venue, String result, String team1, String team2, String score1, String score2,String matchid) {
+    public Matchpojo(String series, String typeofmatch, String matchdescription, String venue, String result, String team1, String team2, String score1, String score2, String matchid) {
         this.series = series;
         this.typeofmatch = typeofmatch;
         this.matchdescription = matchdescription;

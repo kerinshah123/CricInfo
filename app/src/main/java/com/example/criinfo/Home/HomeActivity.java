@@ -35,7 +35,7 @@ public class HomeActivity extends AppCompatActivity {
         main_frame = findViewById(R.id.main_frame);
         main_nav = findViewById(R.id.main_nav);
 
-        setTitle("Car Rental");
+        setTitle("Cricinfo");
         setfragment(homeFragment);
 
 
