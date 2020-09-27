@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -105,6 +106,7 @@ public class HomeFragment extends Fragment {
 
                     JSONObject jsona = new JSONObject(response);
                     JSONArray jsonarray =   jsona.getJSONArray("matches");
+                 //   Log.d("--", String.valueOf(jsonarray));
                     int a=jsonarray.length();
 
                     for (int i=0;i<a;i++) {
@@ -117,10 +119,13 @@ public class HomeFragment extends Fragment {
                         JSONObject jsonobject2 = jsonobject.getJSONObject("header");
                         String type = jsonobject2.getString("type");
 
-                        String status = jsonobject2.getString("status");
-                        String sub = status.substring(0, 6);
 
-                        if (sub.equals("Starts")) {
+                        String status = jsonobject2.getString("state");
+                        System.out.println(status);
+                //        String sub = status.substring(0, 6);
+
+
+                        if (status.equals("inprogress")) {
                             JSONObject jsonobject3 = jsonobject.getJSONObject("venue");
                             String location = jsonobject3.getString("name") + ", " + jsonobject3.getString("location");
 
@@ -135,7 +140,7 @@ public class HomeFragment extends Fragment {
                             ar1.add(pj);
                         }
 
-                        else if (sub.equals("Inning"))
+                        else if (status.equals("Inning"))
                         {
                             String matchdescription = jsonobject2.getString("toss") + ", " + jsonobject2.getString("match_desc");
 
@@ -180,7 +185,7 @@ public class HomeFragment extends Fragment {
                               return;
                           }
                           else {
-                               JSONObject jsonobject7 = jsonArray2.getJSONObject(0);
+                              JSONObject jsonobject7 = jsonArray2.getJSONObject(0);
                              score2 = jsonobject7.getString("score") + "/" + jsonobject7.getString("wkts") + " in " + jsonobject7.getString("overs");
                           }
 
