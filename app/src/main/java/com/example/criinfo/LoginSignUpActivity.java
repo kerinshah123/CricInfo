@@ -110,7 +110,7 @@ public class LoginSignUpActivity extends AppCompatActivity implements AdapterVie
 
         // Spinner Drop down elements
         List<String> categories = new ArrayList<String>();
-        categories.add("<---Select User--->");
+        categories.add("Select User");
         categories.add("Guest");
         categories.add("Team Manager");
         categories.add("League Manager");
@@ -271,7 +271,7 @@ public class LoginSignUpActivity extends AppCompatActivity implements AdapterVie
                     passwordsignlayout.requestFocus();
                 } else if (!(txtsignnumber.length() == 10)) {
                     numberlayout.setError("Enter valid number");
-                }else if(usertype != "<---Select User--->")
+                }else if(usertype != "Select User")
                 {
                     Toast.makeText(LoginSignUpActivity.this, "Plzz Select Valid User type", Toast.LENGTH_SHORT).show();
                 }
@@ -399,7 +399,7 @@ public class LoginSignUpActivity extends AppCompatActivity implements AdapterVie
         usertype = parent.getItemAtPosition(position).toString();
 
         // Showing selected spinner item
-        Toast.makeText(parent.getContext(), "Selected: " + usertype, Toast.LENGTH_LONG).show();
+       // Toast.makeText(parent.getContext(), "Selected: " + usertype, Toast.LENGTH_LONG).show();
     }
 
     @Override

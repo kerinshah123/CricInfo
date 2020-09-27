@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Home.HomeActivity"></activity>
-        <activity android:name=".Home.MatchDetails"></activity>
+        <activity android:name=".Home.MatchDetails"
+            android:label="MatchDetails"
+            android:parentActivityName=".Home.HomeActivity"></activity>
 
         <activity
             android:name=".LoginSignUpActivity"
