@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -13,14 +16,35 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splashscreen);
 
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
+
+        final ImageView zoom = (ImageView) findViewById(R.id.img);
+        final Animation zoomAnimation = AnimationUtils.loadAnimation(getBaseContext(), R.anim.zoom);
+        zoom.startAnimation(zoomAnimation);
+        zoomAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
-            public void run() {
-                Intent intent=new Intent(getApplicationContext(),LoginSignUpActivity.class);
-                startActivity(intent);
-                finish();
+            public void onAnimationStart(Animation animation) {
+
             }
-        },3000);
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                Handler mHandler = new Handler(getMainLooper());
+                Runnable mRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        finish();
+                        Intent i = new Intent(SplashScreen.this, LoginSignUpActivity.class);
+                        startActivity(i);
+
+                    }
+                };
+                mHandler.postDelayed(mRunnable, 2000);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
     }
 }

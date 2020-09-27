@@ -19,7 +19,7 @@
             android:background="@color/white"
             android:padding="10dp"
             android:text="Top Stories"
-            android:textColor="@android:color/holo_red_dark"
+            android:textColor="@color/backgrnd"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -109,7 +109,7 @@
                 android:background="@color/white"
                 android:gravity="center|right"
                 android:text="Read Full News"
-                android:textColor="@android:color/holo_red_dark"
+                android:textColor="@color/backgrnd"
                 android:textSize="12sp">
 
             </Button>

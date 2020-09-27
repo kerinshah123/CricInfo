@@ -21,7 +21,7 @@ import org.json.JSONObject;
 
 public class MatchDetails extends AppCompatActivity {
     TextView versus,result,teamone,teamtwo,scoreone,scoretwo,momname,resultmatch,batsmanone,batsmantwo,batsmanonescore,batsmantwoscore,bowlername,bowlerovers,commentary;
-String matchid;
+String matchid,mom,batonename,batonescore,battwoname,battwoscore;
     String matchcode;
     String status,type,team1,team2,score1,score2,matchdescription,sub,bwlname,bwlovers,batsman1name,batsman2name,batsman1score,batsman2score ;
     private RequestQueue mQueue;
@@ -131,13 +131,13 @@ String matchid;
                                        JSONObject batsmanoneobject = batsmanarray.getJSONObject(ii);
 
 
-                                       batsmanone.setText(batsmanoneobject.getString("name"));
-                                       batsmanonescore.setText(batsmanoneobject.getString("r") + "(" + batsmanoneobject.getString("b") + "), 4's-" + batsmanoneobject.getString("4s") + ", 6's-" + batsmanoneobject.getString("6s"));
+                                   batonename=    batsmanoneobject.getString("name");
+                                      batonescore= batsmanoneobject.getString("r") + "(" + batsmanoneobject.getString("b") + "), 4's-" + batsmanoneobject.getString("4s") + ", 6's-" + batsmanoneobject.getString("6s");
                                    } else {
                                        JSONObject batsmantwoobject = batsmanarray.getJSONObject(ii);
 
-                                       batsmantwo.setText(batsmantwoobject.getString("name"));
-                                       batsmantwoscore.setText(batsmantwoobject.getString("r") + "(" + batsmantwoobject.getString("b") + "), 4's-" + batsmantwoobject.getString("4s") + ", 6's-" + batsmantwoobject.getString("6s"));
+                                       battwoname= batsmantwoobject.getString("name");
+                                       battwoscore= batsmantwoobject.getString("r") + "(" + batsmantwoobject.getString("b") + "), 4's-" + batsmantwoobject.getString("4s") + ", 6's-" + batsmantwoobject.getString("6s");
 
                                    }
 
@@ -155,10 +155,34 @@ String matchid;
                                bowlername.setVisibility(View.GONE);
                                bowlerovers.setVisibility(View.GONE);
 
+                               if (batsmanarray.length()==1)
+                               {
+                                   batsmanone.setText(batonename);
+                                   batsmanonescore.setText(batonescore);
+                               }
+                               else {
+                                   batsmanone.setText(batonename);
+                                   batsmanonescore.setText(batonescore);
+                                   batsmantwo.setText(battwoname);
+                                   batsmantwoscore.setText(battwoscore);
+                               }
+
                            }
                           else
                               {
                                  matchdescription = jsonobject2.getString("toss") + ", " + jsonobject2.getString("match_desc");
+
+                                 if (jsonobject2.has("momNames"))
+                                 {
+                                     JSONArray momarray= jsonobject2.getJSONArray("momNames");
+
+
+                                     mom= momarray.getString(0);
+                                 }
+                                 else
+                                 {
+                                     mom="To be Declared";
+                                 }
 
 
                                   JSONObject jsonobject4 = jsonobject.getJSONObject("bat_team");
@@ -204,7 +228,7 @@ String matchid;
                                   teamtwo.setText(team2);
                                   scoreone.setText(score1);
                                   scoretwo.setText(score2);
-                                  momname.setText("To be declared");
+                                  momname.setText(mom);
                                   resultmatch.setText(type+" - Format Match");
                                   bowlername.setText(bwlname);
                                   batsmanone.setText(batsman1name);

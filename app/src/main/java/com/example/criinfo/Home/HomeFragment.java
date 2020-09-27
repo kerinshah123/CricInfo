@@ -39,6 +39,8 @@ public class HomeFragment extends Fragment {
     private RequestQueue mQueue;
     private StringRequest request;
     HomeAdapter adp;
+    String score2;
+
     String url = "http://mapps.cricbuzz.com/cbzios/match/livematches";
     List<Matchpojo> ar1;
 
@@ -91,6 +93,8 @@ public class HomeFragment extends Fragment {
         ar1=new ArrayList<>();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+
         mQueue = Volley.newRequestQueue(getContext());
 
 
@@ -170,8 +174,16 @@ public class HomeFragment extends Fragment {
 
                             JSONObject jsonobject6 = jsonobject.getJSONObject("bow_team");
                             JSONArray jsonArray2 = jsonobject6.getJSONArray("innings");
-                         //   JSONObject jsonobject7 = jsonArray2.getJSONObject(0);
-                        //    String score2 = jsonobject7.getString("score") + "/" + jsonobject7.getString("wkts") + " in " + jsonobject7.getString("overs");
+
+                          if (jsonArray2.length()==0)
+                          {
+                              return;
+                          }
+                          else {
+                               JSONObject jsonobject7 = jsonArray2.getJSONObject(0);
+                             score2 = jsonobject7.getString("score") + "/" + jsonobject7.getString("wkts") + " in " + jsonobject7.getString("overs");
+                          }
+
 
                             JSONObject jsonobject8 = jsonobject.getJSONObject("team1");
                             String team1 = jsonobject8.getString("name");
@@ -179,7 +191,7 @@ public class HomeFragment extends Fragment {
                             String team2 = jsonobject9.getString("name");
 
 
-                            Matchpojo pj = new Matchpojo(seriesname, type, jsonobject2.getString("match_desc"), location, status, team1, team2, score1, "", matchid);
+                            Matchpojo pj = new Matchpojo(seriesname, type, jsonobject2.getString("match_desc"), location, status, team1, team2, score1, score2, matchid);
                             ar1.add(pj);
 
                         }
