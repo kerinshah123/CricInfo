@@ -170,8 +170,8 @@ public class HomeFragment extends Fragment {
 
                             JSONObject jsonobject6 = jsonobject.getJSONObject("bow_team");
                             JSONArray jsonArray2 = jsonobject6.getJSONArray("innings");
-                            JSONObject jsonobject7 = jsonArray2.getJSONObject(0);
-                            String score2 = jsonobject7.getString("score") + "/" + jsonobject7.getString("wkts") + " in " + jsonobject7.getString("overs");
+                         //   JSONObject jsonobject7 = jsonArray2.getJSONObject(0);
+                        //    String score2 = jsonobject7.getString("score") + "/" + jsonobject7.getString("wkts") + " in " + jsonobject7.getString("overs");
 
                             JSONObject jsonobject8 = jsonobject.getJSONObject("team1");
                             String team1 = jsonobject8.getString("name");
@@ -179,7 +179,7 @@ public class HomeFragment extends Fragment {
                             String team2 = jsonobject9.getString("name");
 
 
-                            Matchpojo pj = new Matchpojo(seriesname, type, jsonobject2.getString("match_desc"), location, status, team1, team2, score1, score2, matchid);
+                            Matchpojo pj = new Matchpojo(seriesname, type, jsonobject2.getString("match_desc"), location, status, team1, team2, score1, "", matchid);
                             ar1.add(pj);
 
                         }
@@ -201,6 +201,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
 
+                System.out.println(error.getMessage());
                 Toast.makeText(getContext(),"Error",Toast.LENGTH_SHORT).show();
             }
         }){
