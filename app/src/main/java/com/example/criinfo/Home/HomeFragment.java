@@ -2,6 +2,8 @@ package com.example.criinfo.Home;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -92,7 +94,6 @@ public class HomeFragment extends Fragment {
         View view= inflater.inflate(R.layout.fragment_home2, container, false);
         recyclerView=view.findViewById(R.id.recycler);
         ar1=new ArrayList<>();
-
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
@@ -109,6 +110,7 @@ public class HomeFragment extends Fragment {
                  //   Log.d("--", String.valueOf(jsonarray));
                     int a=jsonarray.length();
 
+
                     for (int i=0;i<a;i++) {
 
                         JSONObject jsonobject = jsonarray.getJSONObject(i);
@@ -120,12 +122,12 @@ public class HomeFragment extends Fragment {
                         String type = jsonobject2.getString("type");
 
 
-                        String status = jsonobject2.getString("state");
+                        String status = jsonobject2.getString("status");
                         System.out.println(status);
-                //        String sub = status.substring(0, 6);
+                        String sub = status.substring(0, 6);
 
 
-                        if (status.equals("inprogress")) {
+                        if (sub.equals("Starts")) {
                             JSONObject jsonobject3 = jsonobject.getJSONObject("venue");
                             String location = jsonobject3.getString("name") + ", " + jsonobject3.getString("location");
 
@@ -140,7 +142,7 @@ public class HomeFragment extends Fragment {
                             ar1.add(pj);
                         }
 
-                        else if (status.equals("Inning"))
+                        else if (sub.equals("Inning"))
                         {
                             String matchdescription = jsonobject2.getString("toss") + ", " + jsonobject2.getString("match_desc");
 
@@ -160,7 +162,7 @@ public class HomeFragment extends Fragment {
                             String team2 = jsonobject9.getString("name");
 
 
-                            Matchpojo pj = new Matchpojo(seriesname, type, jsonobject2.getString("match_desc"), location, status, team1, team2, score1, "00/0", matchid);
+                            Matchpojo pj = new Matchpojo(seriesname, type, jsonobject2.getString("match_desc"), location, "status", team1, team2, score1, "00/0", matchid);
                             ar1.add(pj);
 
                         }
@@ -203,6 +205,7 @@ public class HomeFragment extends Fragment {
 
 
 
+
                     }
                     adp=new HomeAdapter(getContext(),ar1);
                     recyclerView.setAdapter(adp);
@@ -229,9 +232,7 @@ public class HomeFragment extends Fragment {
 
 
 
-
-
-
         return view;
     }
+
 }
