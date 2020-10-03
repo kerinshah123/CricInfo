@@ -42,7 +42,7 @@ public class HomeFragment extends Fragment {
     private RequestQueue mQueue;
     private StringRequest request;
     HomeAdapter adp;
-    String score2;
+    String score1,score2;
 
     String url = "http://mapps.cricbuzz.com/cbzios/match/livematches";
     List<Matchpojo> ar1;
@@ -107,7 +107,7 @@ public class HomeFragment extends Fragment {
 
                     JSONObject jsona = new JSONObject(response);
                     JSONArray jsonarray =   jsona.getJSONArray("matches");
-                 //   Log.d("--", String.valueOf(jsonarray));
+
                     int a=jsonarray.length();
 
 
@@ -121,13 +121,10 @@ public class HomeFragment extends Fragment {
                         JSONObject jsonobject2 = jsonobject.getJSONObject("header");
                         String type = jsonobject2.getString("type");
 
+                        String status=jsonobject2.getString("status");
+                        String state = jsonobject2.getString("state");
 
-                        String status = jsonobject2.getString("status");
-                        System.out.println(status);
-                        String sub = status.substring(0, 6);
-
-
-                        if (sub.equals("Starts")) {
+                        if (state.equals("mom")) {
                             JSONObject jsonobject3 = jsonobject.getJSONObject("venue");
                             String location = jsonobject3.getString("name") + ", " + jsonobject3.getString("location");
 
@@ -137,65 +134,112 @@ public class HomeFragment extends Fragment {
                             JSONObject jsonobject9 = jsonobject.getJSONObject("team2");
                             String team2 = jsonobject9.getString("name");
 
-
-                            Matchpojo pj = new Matchpojo(seriesname, type, jsonobject2.getString("match_desc"), location, status, team1, team2, "", "", matchid);
-                            ar1.add(pj);
-                        }
-
-                        else if (sub.equals("Inning"))
-                        {
-                            String matchdescription = jsonobject2.getString("toss") + ", " + jsonobject2.getString("match_desc");
-
-                            JSONObject jsonobject3 = jsonobject.getJSONObject("venue");
-                            String location = jsonobject3.getString("name") + ", " + jsonobject3.getString("location");
-
                             JSONObject jsonobject4 = jsonobject.getJSONObject("bat_team");
                             JSONArray jsonArray1 = jsonobject4.getJSONArray("innings");
-                            JSONObject jsonobject5 = jsonArray1.getJSONObject(0);
-                            String score1 = jsonobject5.getString("score") + "/" + jsonobject5.getString("wkts") + " in " + jsonobject5.getString("overs");
 
 
+                            if (jsonArray1.length()==0)
+                            {
+                                return;
+                            }
+                            else {
+                                JSONObject jsonobject5 = jsonArray1.getJSONObject(0);
+                                score1 = jsonobject5.getString("score") + "/" + jsonobject5.getString("wkts") + " in " + jsonobject5.getString("overs");
 
-                            JSONObject jsonobject8 = jsonobject.getJSONObject("team1");
-                            String team1 = jsonobject8.getString("name");
-                            JSONObject jsonobject9 = jsonobject.getJSONObject("team2");
-                            String team2 = jsonobject9.getString("name");
-
-
-                            Matchpojo pj = new Matchpojo(seriesname, type, jsonobject2.getString("match_desc"), location, "status", team1, team2, score1, "00/0", matchid);
-                            ar1.add(pj);
-
-                        }
-
-
-                        else {
-                            String matchdescription = jsonobject2.getString("toss") + ", " + jsonobject2.getString("match_desc");
-
-                            JSONObject jsonobject3 = jsonobject.getJSONObject("venue");
-                            String location = jsonobject3.getString("name") + ", " + jsonobject3.getString("location");
-
-                            JSONObject jsonobject4 = jsonobject.getJSONObject("bat_team");
-                            JSONArray jsonArray1 = jsonobject4.getJSONArray("innings");
-                            JSONObject jsonobject5 = jsonArray1.getJSONObject(0);
-                            String score1 = jsonobject5.getString("score") + "/" + jsonobject5.getString("wkts") + " in " + jsonobject5.getString("overs");
+                            }
 
                             JSONObject jsonobject6 = jsonobject.getJSONObject("bow_team");
                             JSONArray jsonArray2 = jsonobject6.getJSONArray("innings");
 
-                          if (jsonArray2.length()==0)
-                          {
-                              return;
-                          }
-                          else {
-                              JSONObject jsonobject7 = jsonArray2.getJSONObject(0);
-                             score2 = jsonobject7.getString("score") + "/" + jsonobject7.getString("wkts") + " in " + jsonobject7.getString("overs");
-                          }
+                            if (jsonArray2.length()==0)
+                            {
+                                return;
+                            }
+                            else {
+                                JSONObject jsonobject7 = jsonArray2.getJSONObject(0);
+                                score2 = jsonobject7.getString("score") + "/" + jsonobject7.getString("wkts") + " in " + jsonobject7.getString("overs");
+                            }
+
+
+
+                            Matchpojo pj = new Matchpojo(seriesname, type, jsonobject2.getString("match_desc"), location, status, team1, team2, score1, score2, matchid);
+                            ar1.add(pj);
+                        }
+
+                        else if (state.equals("preview"))
+                        {
+                            String matchdescription = jsonobject2.getString("match_desc");
+
+                            JSONObject jsonobject3 = jsonobject.getJSONObject("venue");
+                            String location = jsonobject3.getString("name") + ", " + jsonobject3.getString("location");
 
 
                             JSONObject jsonobject8 = jsonobject.getJSONObject("team1");
                             String team1 = jsonobject8.getString("name");
                             JSONObject jsonobject9 = jsonobject.getJSONObject("team2");
                             String team2 = jsonobject9.getString("name");
+
+
+                            Matchpojo pj = new Matchpojo(seriesname, type, jsonobject2.getString("match_desc"), location, status, team1, team2, "00/0", "00/0", matchid);
+                            ar1.add(pj);
+
+                        }
+
+
+                        else if (state.equals("toss")){
+                            String matchdescription = jsonobject2.getString("toss") + ", " + jsonobject2.getString("match_desc");
+
+                            JSONObject jsonobject3 = jsonobject.getJSONObject("venue");
+                            String location = jsonobject3.getString("name") + ", " + jsonobject3.getString("location");
+
+
+                            JSONObject jsonobject8 = jsonobject.getJSONObject("team1");
+                            String team1 = jsonobject8.getString("name");
+                            JSONObject jsonobject9 = jsonobject.getJSONObject("team2");
+                            String team2 = jsonobject9.getString("name");
+
+
+                            Matchpojo pj = new Matchpojo(seriesname, type, matchdescription, location, status, team1, team2, "00/0", "00/0", matchid);
+                            ar1.add(pj);
+
+                        }
+
+                        else if (state.equals("inprogress"))
+                        {
+
+                            JSONObject jsonobject3 = jsonobject.getJSONObject("venue");
+                            String location = jsonobject3.getString("name") + ", " + jsonobject3.getString("location");
+
+
+                            JSONObject jsonobject8 = jsonobject.getJSONObject("team1");
+                            String team1 = jsonobject8.getString("name");
+                            JSONObject jsonobject9 = jsonobject.getJSONObject("team2");
+                            String team2 = jsonobject9.getString("name");
+
+                            JSONObject jsonobject4 = jsonobject.getJSONObject("bat_team");
+                            JSONArray jsonArray1 = jsonobject4.getJSONArray("innings");
+                            if (jsonArray1.length()==0)
+                            {
+                                return;
+                            }
+                            else {
+                                JSONObject jsonobject5 = jsonArray1.getJSONObject(0);
+                                score1 = jsonobject5.getString("score") + "/" + jsonobject5.getString("wkts") + " in " + jsonobject5.getString("overs");
+
+                            }
+
+                            JSONObject jsonobject6 = jsonobject.getJSONObject("bow_team");
+                            JSONArray jsonArray2 = jsonobject6.getJSONArray("innings");
+
+                            if (jsonArray2.length()==0)
+                            {
+                                return;
+                            }
+                            else {
+                                JSONObject jsonobject7 = jsonArray2.getJSONObject(0);
+                                score2 = jsonobject7.getString("score") + "/" + jsonobject7.getString("wkts") + " in " + jsonobject7.getString("overs");
+                            }
+
 
 
                             Matchpojo pj = new Matchpojo(seriesname, type, jsonobject2.getString("match_desc"), location, status, team1, team2, score1, score2, matchid);
@@ -203,6 +247,44 @@ public class HomeFragment extends Fragment {
 
                         }
 
+                        else if(state.equals("innings break"))
+                        {
+
+                            JSONObject jsonobject3 = jsonobject.getJSONObject("venue");
+                            String location = jsonobject3.getString("name") + ", " + jsonobject3.getString("location");
+
+
+                            JSONObject jsonobject8 = jsonobject.getJSONObject("team1");
+                            String team1 = jsonobject8.getString("name");
+                            JSONObject jsonobject9 = jsonobject.getJSONObject("team2");
+                            String team2 = jsonobject9.getString("name");
+
+                            JSONObject jsonobject4 = jsonobject.getJSONObject("bat_team");
+                            JSONArray jsonArray1 = jsonobject4.getJSONArray("innings");
+
+
+                            if (jsonArray1.length()==0)
+                            {
+                                return;
+                            }
+                            else {
+                                JSONObject jsonobject5 = jsonArray1.getJSONObject(0);
+                                score1 = jsonobject5.getString("score") + "/" + jsonobject5.getString("wkts") + " in " + jsonobject5.getString("overs");
+
+                            }
+
+
+
+
+
+                            Matchpojo pj = new Matchpojo(seriesname, type, jsonobject2.getString("match_desc"), location, status, team1, team2, score1, "Not Bat Yet", matchid);
+                            ar1.add(pj);
+
+                        }
+
+                        else {
+
+                        }
 
 
 

@@ -22,7 +22,7 @@ import org.json.JSONObject;
 public class MatchDetails extends AppCompatActivity {
     TextView versus,result,teamone,teamtwo,scoreone,scoretwo,momname,resultmatch,batsmanone,batsmantwo,batsmanonescore,batsmantwoscore,bowlername,bowlerovers,commentary;
 String matchid,mom,batonename,batonescore,battwoname,battwoscore;
-    String matchcode;
+    String matchcode,state;
     String status,type,team1,team2,score1,score2,matchdescription,sub,bwlname,bwlovers,batsman1name,batsman2name,batsman1score,batsman2score ;
     private RequestQueue mQueue;
     private StringRequest request,request1;
@@ -80,6 +80,7 @@ String matchid,mom,batonename,batonescore,battwoname,battwoscore;
 
 
                    JSONObject jsonobject2=   jsonobject.getJSONObject("header");
+                  state=jsonobject2.getString("state");
                  status=  jsonobject2.getString("status");
                  result.setText(status);
 
@@ -93,7 +94,7 @@ String matchid,mom,batonename,batonescore,battwoname,battwoscore;
 
 
 
-                           if (sub.equals("Starts"))
+                           if (state.equals("preview"))
                            {
 
                                versus.setText(team1 + " versus " + team2);
@@ -112,7 +113,7 @@ String matchid,mom,batonename,batonescore,battwoname,battwoscore;
                                bowlerovers.setVisibility(View.GONE);
                            }
 
-                          else if (sub.equals("Inning"))
+                          else if (sub.equals("innings break"))
                            {
                               matchdescription = jsonobject2.getString("toss") + ", " + jsonobject2.getString("match_desc");
 
@@ -168,33 +169,118 @@ String matchid,mom,batonename,batonescore,battwoname,battwoscore;
                                }
 
                            }
-                          else
+                          else if (state.equals("mom")) {
+                               matchdescription = jsonobject2.getString("toss") + ", " + jsonobject2.getString("match_desc");
+
+                               if (jsonobject2.has("momNames")) {
+                                   JSONArray momarray = jsonobject2.getJSONArray("momNames");
+
+
+                                   mom = momarray.getString(0);
+                               } else {
+                                   mom = "To be Declared";
+                               }
+
+
+                               JSONObject jsonobject4 = jsonobject.getJSONObject("bat_team");
+                               JSONArray jsonArray1 = jsonobject4.getJSONArray("innings");
+                               JSONObject jsonobject5 = jsonArray1.getJSONObject(0);
+                               score1 = jsonobject5.getString("score") + "/" + jsonobject5.getString("wkts") + " in " + jsonobject5.getString("overs");
+
+                               JSONObject jsonobject6 = jsonobject.getJSONObject("bow_team");
+                               JSONArray jsonArray2 = jsonobject6.getJSONArray("innings");
+                               JSONObject jsonobject7 = jsonArray2.getJSONObject(0);
+                               score2 = jsonobject7.getString("score") + "/" + jsonobject7.getString("wkts") + " in " + jsonobject7.getString("overs");
+
+                               JSONArray bowlerarray = jsonobject.getJSONArray("bowler");
+                               JSONObject bowlerobject = bowlerarray.getJSONObject(0);
+                               bwlname = bowlerobject.getString("name");
+                               bwlovers = bowlerobject.getString("o") + "-" + bowlerobject.getString("m") + "-" + bowlerobject.getString("r") + "-" + bowlerobject.getString("w");
+
+
+                               JSONArray batsmanarray = jsonobject.getJSONArray("batsman");
+
+                               for (int ii = 0; ii < batsmanarray.length(); ii++) {
+
+                                   if (ii == 0) {
+                                       JSONObject batsmanoneobject = batsmanarray.getJSONObject(ii);
+
+                                       batsman1name = batsmanoneobject.getString("name");
+                                       batsman1score = batsmanoneobject.getString("r") + "(" + batsmanoneobject.getString("b") + "), { 4's-" + batsmanoneobject.getString("4s") + ", 6's-" + batsmanoneobject.getString("6s") + " }";
+
+                                   } else {
+                                       JSONObject batsmantwoobject = batsmanarray.getJSONObject(ii);
+                                       batsman2name = batsmantwoobject.getString("name");
+                                       batsman2score = batsmantwoobject.getString("r") + "(" + batsmantwoobject.getString("b") + "), { 4's-" + batsmantwoobject.getString("4s") + ", 6's-" + batsmantwoobject.getString("6s") + " }";
+
+                                   }
+
+
+                               }
+
+                               versus.setText(team1 + " versus " + team2);
+                               result.setText(status);
+                               teamone.setText(team1);
+                               teamtwo.setText(team2);
+                               scoreone.setText(score1);
+                               scoretwo.setText(score2);
+                               momname.setText(mom);
+                               resultmatch.setText(type + " - Format Match");
+                               bowlername.setText(bwlname);
+                               batsmanone.setText(batsman1name);
+                               batsmantwo.setText(batsman2name);
+                               batsmanonescore.setText(batsman1score);
+                               batsmantwoscore.setText(batsman2score);
+                               bowlerovers.setText(bwlovers);
+
+                               updation();
+
+                           }
+                          else if (state.equals("toss"))
+                           {
+
+                               versus.setText(team1 + " versus " + team2);
+                               result.setText(jsonobject2.getString("toss") );
+                               teamone.setText(team1);
+                               teamtwo.setText(team2);
+                               scoreone.setText("Starts Soon");
+                               scoretwo.setText("Starts soon");
+                               momname.setText("To be Declared");
+                               resultmatch.setText(type + " - Format Match");
+                               bowlername.setVisibility(View.GONE);
+                               batsmanone.setVisibility(View.GONE);
+                               batsmantwo.setVisibility(View.GONE);
+                               batsmanonescore.setVisibility(View.GONE);
+                               batsmantwoscore.setVisibility(View.GONE);
+                               bowlerovers.setVisibility(View.GONE);
+
+                           }
+                          else if (state.equals("inprogress"))
                               {
-                                 matchdescription = jsonobject2.getString("toss") + ", " + jsonobject2.getString("match_desc");
 
-                                 if (jsonobject2.has("momNames"))
-                                 {
-                                     JSONArray momarray= jsonobject2.getJSONArray("momNames");
+                                  matchdescription = jsonobject2.getString("toss") + ", " + jsonobject2.getString("match_desc");
 
 
-                                     mom= momarray.getString(0);
-                                 }
-                                 else
-                                 {
-                                     mom="To be Declared";
-                                 }
 
 
                                   JSONObject jsonobject4 = jsonobject.getJSONObject("bat_team");
                                   JSONArray jsonArray1 = jsonobject4.getJSONArray("innings");
-                                  JSONObject jsonobject5 = jsonArray1.getJSONObject(0);
-                                  score1 = jsonobject5.getString("score") + "/" + jsonobject5.getString("wkts") + " in " + jsonobject5.getString("overs");
-
+                                  if (jsonArray1.length()==1) {
+                                      JSONObject jsonobject5 = jsonArray1.getJSONObject(0);
+                                      score1 = jsonobject5.getString("score") + "/" + jsonobject5.getString("wkts") + " in " + jsonobject5.getString("overs");
+                                  }
+                                  else {
+                                      score1="00/0";
+                                  }
                                   JSONObject jsonobject6 = jsonobject.getJSONObject("bow_team");
                                   JSONArray jsonArray2 = jsonobject6.getJSONArray("innings");
-                                  JSONObject jsonobject7 = jsonArray2.getJSONObject(0);
-                            score2 = jsonobject7.getString("score") + "/" + jsonobject7.getString("wkts") + " in " + jsonobject7.getString("overs");
-
+                                  if (jsonArray2.length()==1) {
+                                      JSONObject jsonobject7 = jsonArray2.getJSONObject(0);
+                                      score2 = jsonobject7.getString("score") + "/" + jsonobject7.getString("wkts") + " in " + jsonobject7.getString("overs");
+                                  }
+                                  else {
+                                      score2="00/0";
+                                  }
                                   JSONArray bowlerarray = jsonobject.getJSONArray("bowler");
                                   JSONObject bowlerobject = bowlerarray.getJSONObject(0);
                                   bwlname = bowlerobject.getString("name");
@@ -208,19 +294,19 @@ String matchid,mom,batonename,batonescore,battwoname,battwoscore;
                                       if (ii == 0) {
                                           JSONObject batsmanoneobject = batsmanarray.getJSONObject(ii);
 
-                                       batsman1name   =batsmanoneobject.getString("name");
-                                     batsman1score=  batsmanoneobject.getString("r") + "(" + batsmanoneobject.getString("b") + "), { 4's-" + batsmanoneobject.getString("4s") + ", 6's-" + batsmanoneobject.getString("6s")+" }";
+                                          batsman1name = batsmanoneobject.getString("name");
+                                          batsman1score = batsmanoneobject.getString("r") + "(" + batsmanoneobject.getString("b") + "), { 4's-" + batsmanoneobject.getString("4s") + ", 6's-" + batsmanoneobject.getString("6s") + " }";
 
-                                      } else
-                                          {
+                                      } else {
                                           JSONObject batsmantwoobject = batsmanarray.getJSONObject(ii);
-                                         batsman2name= batsmantwoobject.getString("name");
-                                          batsman2score= batsmantwoobject.getString("r") + "(" + batsmantwoobject.getString("b") + "), { 4's-" + batsmantwoobject.getString("4s") + ", 6's-" + batsmantwoobject.getString("6s")+" }";
+                                          batsman2name = batsmantwoobject.getString("name");
+                                          batsman2score = batsmantwoobject.getString("r") + "(" + batsmantwoobject.getString("b") + "), { 4's-" + batsmantwoobject.getString("4s") + ", 6's-" + batsmantwoobject.getString("6s") + " }";
 
                                       }
 
 
                                   }
+
 
                                   versus.setText(team1 + " versus " + team2);
                                   result.setText(status);
@@ -228,8 +314,8 @@ String matchid,mom,batonename,batonescore,battwoname,battwoscore;
                                   teamtwo.setText(team2);
                                   scoreone.setText(score1);
                                   scoretwo.setText(score2);
-                                  momname.setText(mom);
-                                  resultmatch.setText(type+" - Format Match");
+                                  momname.setText("To be Declared");
+                                  resultmatch.setText(type + " - Format Match");
                                   bowlername.setText(bwlname);
                                   batsmanone.setText(batsman1name);
                                   batsmantwo.setText(batsman2name);
@@ -240,9 +326,10 @@ String matchid,mom,batonename,batonescore,battwoname,battwoscore;
                                   updation();
 
 
-
                               }
-
+                          else {
+return;
+                           }
 
 
               }
