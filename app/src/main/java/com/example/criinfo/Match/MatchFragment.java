@@ -3,12 +3,16 @@ package com.example.criinfo.Match;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.criinfo.Match.Tabs.PastMatchesFragment;
+import com.example.criinfo.Match.Tabs.UpcomingMatchesFragment;
 import com.example.criinfo.R;
+import com.google.android.material.tabs.TabLayout;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +20,11 @@ import com.example.criinfo.R;
  * create an instance of this fragment.
  */
 public class MatchFragment extends Fragment {
+
+    TabLayout match_tab;
+
+    PastMatchesFragment pastMatchesFragment;
+    UpcomingMatchesFragment upcomingMatchesFragment;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +70,49 @@ public class MatchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_match, container, false);
+        View v =  inflater.inflate(R.layout.fragment_match, container, false);
+
+        pastMatchesFragment = new PastMatchesFragment();
+        upcomingMatchesFragment = new UpcomingMatchesFragment();
+
+        match_tab = v.findViewById(R.id.match_tab);
+
+        setfragment(pastMatchesFragment);
+
+        match_tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                int position = tab.getPosition();
+                switch (position) {
+                    case 0:
+                        setfragment(pastMatchesFragment);
+                        break;
+                    case 1:
+                        setfragment(upcomingMatchesFragment);
+                        break;
+                    default:
+                        setfragment(pastMatchesFragment);
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        return v;
+    }
+
+    private void setfragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fram_matches, fragment);
+        fragmentTransaction.commit();
+
     }
 }
