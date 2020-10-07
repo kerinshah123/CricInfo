@@ -1,5 +1,6 @@
 package com.example.criinfo.More;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.criinfo.R;
 
@@ -16,7 +18,7 @@ import com.example.criinfo.R;
  * create an instance of this fragment.
  */
 public class MoreFragment extends Fragment {
-
+Button teams;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -61,6 +63,18 @@ public class MoreFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_more, container, false);
+        View view= inflater.inflate(R.layout.fragment_more, container, false);
+
+        teams=view.findViewById(R.id.teams);
+
+        teams.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getContext(),teamManagerTeam.class);
+                startActivity(intent);
+
+            }
+        });
+        return view;
     }
 }

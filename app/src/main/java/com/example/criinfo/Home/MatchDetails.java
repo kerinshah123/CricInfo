@@ -113,7 +113,7 @@ String matchid,mom,batonename,batonescore,battwoname,battwoscore;
                                bowlerovers.setVisibility(View.GONE);
                            }
 
-                          else if (sub.equals("innings break"))
+                          else if (state.equals("innings break"))
                            {
                               matchdescription = jsonobject2.getString("toss") + ", " + jsonobject2.getString("match_desc");
 
@@ -167,7 +167,7 @@ String matchid,mom,batonename,batonescore,battwoname,battwoscore;
                                    batsmantwo.setText(battwoname);
                                    batsmantwoscore.setText(battwoscore);
                                }
-
+                               updation();
                            }
                           else if (state.equals("mom")) {
                                matchdescription = jsonobject2.getString("toss") + ", " + jsonobject2.getString("match_desc");

@@ -1,21 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.criinfo">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:usesCleartextTraffic="true"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".Home.HomeActivity"></activity>
-        <activity android:name=".Home.MatchDetails"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".More.teamPlayers"></activity>
+        <activity android:name=".More.addPlayer" />
+        <activity android:name=".More.createTeam" />
+        <activity android:name=".More.teamManagerTeam" />
+        <activity android:name=".Home.HomeActivity" />
+        <activity
+            android:name=".Home.MatchDetails"
             android:label="MatchDetails"
-            android:parentActivityName=".Home.HomeActivity"></activity>
-
+            android:parentActivityName=".Home.HomeActivity" />
         <activity
             android:name=".LoginSignUpActivity"
             android:theme="@style/AppTheme.NoActionBar" />

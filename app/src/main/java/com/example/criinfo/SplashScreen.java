@@ -15,8 +15,6 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splashscreen);
-
-
         final ImageView zoom = (ImageView) findViewById(R.id.img);
         final Animation zoomAnimation = AnimationUtils.loadAnimation(getBaseContext(), R.anim.zoom);
         zoom.startAnimation(zoomAnimation);

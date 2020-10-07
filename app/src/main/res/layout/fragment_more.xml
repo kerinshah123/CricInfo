@@ -11,4 +11,11 @@
         android:layout_height="match_parent"
         android:text="@string/hello_blank_fragment" />
 
+
+    <Button
+        android:layout_width="match_parent"
+        android:text="to Teams"
+        android:id="@+id/teams"
+        android:layout_height="wrap_content"></Button>
+
 </FrameLayout>

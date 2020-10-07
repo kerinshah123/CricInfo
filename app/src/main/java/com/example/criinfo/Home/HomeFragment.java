@@ -186,6 +186,8 @@ public class HomeFragment extends Fragment {
                         }
 
 
+
+
                         else if (state.equals("toss")){
                             String matchdescription = jsonobject2.getString("toss") + ", " + jsonobject2.getString("match_desc");
 
@@ -204,12 +206,12 @@ public class HomeFragment extends Fragment {
 
                         }
 
-                        else if (state.equals("inprogress"))
+                       else if (state.equals("inprogress"))
                         {
 
                             JSONObject jsonobject3 = jsonobject.getJSONObject("venue");
                             String location = jsonobject3.getString("name") + ", " + jsonobject3.getString("location");
-
+                            String matchdescription = jsonobject2.getString("toss") + ", " + jsonobject2.getString("match_desc");
 
                             JSONObject jsonobject8 = jsonobject.getJSONObject("team1");
                             String team1 = jsonobject8.getString("name");
@@ -218,9 +220,11 @@ public class HomeFragment extends Fragment {
 
                             JSONObject jsonobject4 = jsonobject.getJSONObject("bat_team");
                             JSONArray jsonArray1 = jsonobject4.getJSONArray("innings");
-                            if (jsonArray1.length()==0)
+
+
+                           if (jsonArray1.length()==0)
                             {
-                                return;
+                                score1="00/0";
                             }
                             else {
                                 JSONObject jsonobject5 = jsonArray1.getJSONObject(0);
@@ -228,12 +232,13 @@ public class HomeFragment extends Fragment {
 
                             }
 
+
                             JSONObject jsonobject6 = jsonobject.getJSONObject("bow_team");
                             JSONArray jsonArray2 = jsonobject6.getJSONArray("innings");
 
                             if (jsonArray2.length()==0)
                             {
-                                return;
+                                score2="00/0";
                             }
                             else {
                                 JSONObject jsonobject7 = jsonArray2.getJSONObject(0);
@@ -241,11 +246,12 @@ public class HomeFragment extends Fragment {
                             }
 
 
-
-                            Matchpojo pj = new Matchpojo(seriesname, type, jsonobject2.getString("match_desc"), location, status, team1, team2, score1, score2, matchid);
+                            Matchpojo pj = new Matchpojo(seriesname, type, matchdescription, location, status, team1, team2, score1, score2, matchid);
                             ar1.add(pj);
 
                         }
+
+
 
                         else if(state.equals("innings break"))
                         {
@@ -281,6 +287,8 @@ public class HomeFragment extends Fragment {
                             ar1.add(pj);
 
                         }
+
+
 
                         else {
 
