@@ -3,12 +3,30 @@ package com.example.criinfo.Match.Tabs;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.criinfo.Home.HomeAdapter;
+import com.example.criinfo.Home.Matchpojo;
 import com.example.criinfo.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +34,16 @@ import com.example.criinfo.R;
  * create an instance of this fragment.
  */
 public class UpcomingMatchesFragment extends Fragment {
+
+    RecyclerView recyclerView;
+
+    private RequestQueue mQueue;
+    private StringRequest request;
+    HomeAdapter adp;
+    String score1, score2;
+
+    String url = "http://mapps.cricbuzz.com/cbzios/match/livematches";
+    List<Matchpojo> ar1;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +89,92 @@ public class UpcomingMatchesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_upcoming_matches, container, false);
+        View view= inflater.inflate(R.layout.fragment_upcoming_matches, container, false);
+
+        recyclerView=view.findViewById(R.id.recycler);
+        ar1=new ArrayList<>();
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+
+        mQueue = Volley.newRequestQueue(getContext());
+
+
+        request = new StringRequest(Request.Method.GET,url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+
+                    JSONObject jsona = new JSONObject(response);
+                    JSONArray jsonarray =   jsona.getJSONArray("matches");
+
+                    int a=jsonarray.length();
+
+
+                    for (int i=0;i<a;i++) {
+
+                        JSONObject jsonobject = jsonarray.getJSONObject(i);
+
+                        String matchid = jsonobject.getString("match_id");
+                        String seriesname = jsonobject.getString("series_name");
+
+                        JSONObject jsonobject2 = jsonobject.getJSONObject("header");
+                        String type = jsonobject2.getString("type");
+
+                        String status=jsonobject2.getString("status");
+                        String state = jsonobject2.getString("state");
+
+     if (state.equals("preview"))
+                        {
+                            String matchdescription = jsonobject2.getString("match_desc");
+
+                            JSONObject jsonobject3 = jsonobject.getJSONObject("venue");
+                            String location = jsonobject3.getString("name") + ", " + jsonobject3.getString("location");
+
+
+                            JSONObject jsonobject8 = jsonobject.getJSONObject("team1");
+                            String team1 = jsonobject8.getString("name");
+                            JSONObject jsonobject9 = jsonobject.getJSONObject("team2");
+                            String team2 = jsonobject9.getString("name");
+
+
+                            Matchpojo pj = new Matchpojo(seriesname, type, jsonobject2.getString("match_desc"), location, status, team1, team2, "00/0", "00/0", matchid);
+                            ar1.add(pj);
+
+                        }
+
+                        else {
+
+                        }
+
+
+
+                    }
+                    adp=new HomeAdapter(getContext(),ar1);
+                    recyclerView.setAdapter(adp);
+                }
+                catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getContext(),"Catch",Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                System.out.println(error.getMessage());
+                Toast.makeText(getContext(),"Error",Toast.LENGTH_SHORT).show();
+            }
+        }){
+
+        };
+
+        mQueue.add(request);
+
+
+
+
+        return  view;
     }
 }
