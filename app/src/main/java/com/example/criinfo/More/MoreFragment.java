@@ -1,5 +1,7 @@
 package com.example.criinfo.More;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -9,7 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
+import com.example.criinfo.LoginSignUpActivity;
 import com.example.criinfo.R;
 
 /**
@@ -19,6 +23,7 @@ import com.example.criinfo.R;
  */
 public class MoreFragment extends Fragment {
     Button teams;
+    LinearLayout myteam,logoutlayout,aboutuslayout,contactuslayout;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -64,6 +69,19 @@ public class MoreFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_more, container, false);
+
+        myteam=view.findViewById(R.id.myteam);
+        logoutlayout=view.findViewById(R.id.logoutlayout);
+        aboutuslayout=view.findViewById(R.id.aboutuslayout);
+        contactuslayout=view.findViewById(R.id.contactuslayout);
+
+        myteam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(),teamManagerTeam.class);
+                startActivity(intent);
+            }
+        });
 //
 //        teams=view.findViewById(R.id.teams);
 //
@@ -75,6 +93,45 @@ public class MoreFragment extends Fragment {
 //
 //            }
 //        });
+
+        logoutlayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                    AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+                    alert.setMessage("Are you sure?")
+                            .setPositiveButton("Logout", new DialogInterface.OnClickListener()                 {
+
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                    Intent intent=new Intent(getContext(), LoginSignUpActivity.class);
+                                    startActivity(intent);
+                                }
+                            }).setNegativeButton("Cancel", null);
+
+                    AlertDialog alert1 = alert.create();
+                    alert1.show();
+
+
+            }
+        });
+
+        aboutuslayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(),aboutUs.class);
+                startActivity(intent);
+            }
+        });
+        contactuslayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(),contactUs.class);
+                startActivity(intent);
+            }
+        });
+
         return view;
     }
 }

@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".More.teamPlayers"></activity>
+        <activity android:name=".More.contactUs" />
+        <activity android:name=".More.aboutUs" />
+        <activity android:name=".More.teamPlayers" />
         <activity android:name=".More.addPlayer" />
         <activity android:name=".More.createTeam" />
         <activity android:name=".More.teamManagerTeam" />

@@ -105,6 +105,7 @@
                 app:cardElevation="10dp">
 
                 <LinearLayout
+                    android:id="@+id/myteam"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -183,6 +184,7 @@
                 app:cardElevation="10dp">
 
                 <LinearLayout
+                    android:id="@+id/aboutuslayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -209,6 +211,7 @@
                 app:cardElevation="30dp">
 
                 <LinearLayout
+                    android:id="@+id/contactuslayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -235,6 +238,7 @@
                 app:cardElevation="30dp">
 
                 <LinearLayout
+                    android:id="@+id/logoutlayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 

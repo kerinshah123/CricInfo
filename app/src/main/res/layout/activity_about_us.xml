@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="match_parent"
+    tools:context=".More.aboutUs">
+
+
+        <ScrollView
+            android:id="@+id/scrolling"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:paddingLeft="0dp"
+                android:paddingTop="5dp"
+                android:paddingRight="0dp"
+                android:paddingBottom="20dp"
+                android:weightSum="10">
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:background="@drawable/editfile"
+                    android:orientation="vertical"
+                    android:padding="0dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="About Us"
+                        android:textSize="20dp"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:background="@drawable/rounded_corners"
+                        android:textStyle="bold" />
+
+
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/editfile"
+                    android:orientation="vertical"
+                    android:padding="0dp">
+
+
+                    <TextView
+                        android:padding="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Set up in 2020, Cricinfo is the world's leading cricket website followed by millions around the world and provides cricket content for a variety of platforms globally - from TV to mobile phones. Cricinfo is a part of ESPN. The Worldwide Leader in Sports is the leading multinational, multimedia sports entertainment company featuring the broadest portfolio of multimedia sports assets with over 50 business entities."
+                        android:textStyle="bold" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@android:color/darker_gray" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/editfile"
+                    android:orientation="vertical"
+                    android:padding="0dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Screen Views"
+                        android:textSize="20dp"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:background="@drawable/rounded_corners"
+                        android:textStyle="bold" />
+
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    android:padding="0dp">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="253dp" />
+
+                </LinearLayout>
+
+
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/editfile"
+                    android:orientation="vertical"
+                    android:padding="0dp">
+
+
+                    <TextView
+                        android:padding="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Other features:
+
+Live scores and ball by ball text commentary that helps you visualize the action as and when it unfolds.
+
+Live Audio commentary in English and other regional languages - if listening is your thing.
+
+Match alerts via push notification service - so that you don't miss THE moment
+
+Latest cricket news and editorials - to keep you posted on the latest happenings.
+
+Upcoming matches - what's up for tomorrow, next week, next month?
+
+Results of recently completed matches - in case you missed a match.
+
+Photos - because a picture is worth a thousand words and all that.
+
+Player profiles - Cricket is all about the players - runs, wickets and everything else.
+
+Player and Team Rankings for ODI, Test, and T20I - know the current ranking of your favorite player, always.
+
+Points tables for all major tournaments - which team is at the top and who well get knocked out?"
+                        android:textStyle="bold" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@android:color/darker_gray" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </ScrollView>
+
+    </FrameLayout>
