@@ -25,7 +25,9 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -111,7 +113,6 @@ public class LoginSignUpActivity extends AppCompatActivity implements AdapterVie
         // Spinner Drop down elements
         List<String> categories = new ArrayList<String>();
         categories.add("Select User");
-        categories.add("Guest");
         categories.add("Team Manager");
         categories.add("League Manager");
 
@@ -271,7 +272,7 @@ public class LoginSignUpActivity extends AppCompatActivity implements AdapterVie
                     passwordsignlayout.requestFocus();
                 } else if (!(txtsignnumber.length() == 10)) {
                     numberlayout.setError("Enter valid number");
-                }else if(usertype != "Select User")
+                }else if(usertype == "Select User")
                 {
                     Toast.makeText(LoginSignUpActivity.this, "Plzz Select Valid User type", Toast.LENGTH_SHORT).show();
                 }
@@ -323,8 +324,9 @@ public class LoginSignUpActivity extends AppCompatActivity implements AdapterVie
                             Toast.makeText(LoginSignUpActivity.this, "Login Success", Toast.LENGTH_LONG).show();
                             SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
-
-
+                            editor.putString("userName",queryDocumentSnapshots.getDocuments().get(0).get("name").toString().trim());
+                            editor.putString("type",(queryDocumentSnapshots.getDocuments().get(0).get("usertype").toString().trim()));
+                            editor.putString("userId",queryDocumentSnapshots.getDocuments().get(0).getId().trim());
                             editor.putBoolean(loginyes_no, true);
                             editor.putString(Email_shared, loginemail.getText().toString());
 
@@ -362,9 +364,10 @@ public class LoginSignUpActivity extends AppCompatActivity implements AdapterVie
             public void onSuccess(DocumentReference documentReference) {
                 SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-
-
                 editor.putBoolean(loginyes_no, true);
+                editor.putString("userId",documentReference.getId().trim());
+                editor.putString("userName",txtsignname.trim());
+                editor.putString("type",usertype.trim());
                 editor.putString(Email_shared, emailsign.getText().toString());
 
                 editor.commit();
@@ -389,7 +392,6 @@ public class LoginSignUpActivity extends AppCompatActivity implements AdapterVie
             startActivity(i);
             LoginSignUpActivity.this.finish();
         }
-
 
 
     }

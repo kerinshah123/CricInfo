@@ -109,8 +109,6 @@ public class HomeFragment extends Fragment {
                     JSONArray jsonarray =   jsona.getJSONArray("matches");
 
                     int a=jsonarray.length();
-
-
                     for (int i=0;i<a;i++) {
 
                         JSONObject jsonobject = jsonarray.getJSONObject(i);
@@ -279,10 +277,6 @@ public class HomeFragment extends Fragment {
 
                             }
 
-
-
-
-
                             Matchpojo pj = new Matchpojo(seriesname, type, jsonobject2.getString("match_desc"), location, status, team1, team2, score1, "Not Bat Yet", matchid);
                             ar1.add(pj);
 
@@ -297,6 +291,7 @@ public class HomeFragment extends Fragment {
 
 
                     }
+                    System.out.println(ar1.size());
                     adp=new HomeAdapter(getContext(),ar1);
                     recyclerView.setAdapter(adp);
                 }

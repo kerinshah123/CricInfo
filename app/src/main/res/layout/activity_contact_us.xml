@@ -10,7 +10,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="0dp"
-            android:background="@drawable/editfile"
             android:orientation="vertical"
             android:padding="20dp">
 
@@ -27,6 +26,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
+                android:textColor="@color/black"
+
                 android:layout_marginTop="20dp"
                 android:text="Subject" />
 
@@ -34,7 +35,9 @@
                 android:id="@+id/sub"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/lightbackgrnd"
                 android:textSize="20dp"
+                android:padding="5dp"
                 android:textStyle="bold" />
 
 
@@ -42,6 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
+                android:textColor="@color/black"
                 android:layout_marginTop="10dp"
                 android:text="Enter Email where You Want Response for Query: " />
 
@@ -49,7 +53,9 @@
                 android:id="@+id/backmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/lightbackgrnd"
                 android:textSize="20dp"
+                android:padding="5dp"
                 android:textStyle="bold" />
 
             <TextView
@@ -57,31 +63,32 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:textStyle="bold"
+                android:textColor="@color/black"
                 android:text="Enter Details :" />
 
             <EditText
                 android:id="@+id/fullquery"
-                android:background="@drawable/editwithboder"
+                android:background="@color/lightbackgrnd"
                 android:layout_marginTop="10dp"
                 android:padding="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
                 android:lines="12"
                 android:minLines="12"
                 android:gravity="top|left"
-                android:maxLines="12"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
-
-
             <Button
                 android:id="@+id/reply"
-                android:layout_width="match_parent"
+                android:layout_width="200dp"
+                android:layout_gravity="center"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="10dp"
                 android:layout_alignParentBottom="true"
-                android:background="@drawable/rounded_corners"
+                android:background="@drawable/button_round"
+                android:paddingBottom="10dp"
+                android:textColor="@color/white"
                 android:text="Submit"
                 android:textSize="18sp"
                 android:textStyle="bold" />

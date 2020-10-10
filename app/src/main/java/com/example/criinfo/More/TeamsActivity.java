@@ -9,12 +9,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -22,82 +20,46 @@ import com.example.criinfo.R;
 import com.example.criinfo.Utils.Utils;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
-public class teamManagerTeam extends AppCompatActivity {
-    LinearLayout teamlayout,addLayout,noteam;
+public class TeamsActivity extends AppCompatActivity {
+    RecyclerView recyclerView;
     SharedPreferences sharedPreferences ;
     FirestoreRecyclerAdapter adapter;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    RecyclerView recyclerView;
-    ProgressBar progressBar;
-    @Override
-    protected void onCreate(final Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_team_manager_team);
-        teamlayout=findViewById(R.id.teamlayout);
-        addLayout = findViewById(R.id.addLayout);
-        noteam = findViewById(R.id.noteamLayout);
-        recyclerView = findViewById(R.id.recycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        progressBar = findViewById(R.id.progress);
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_teams);
+        recyclerView = findViewById(R.id.teamRecycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         sharedPreferences = getApplicationContext().getSharedPreferences(Utils.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         final Query query = FirebaseFirestore.getInstance()
-                .collection("teams").whereEqualTo("managerId",sharedPreferences.getString("userId",""));
-
-
-
-        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.getResult().isEmpty()){
-                    progressBar.setVisibility(View.GONE);
-                    teamlayout.setVisibility(View.GONE);
-                    addLayout.setVisibility(View.VISIBLE);
-                    noteam.setVisibility(View.VISIBLE);
-                }
-                else {
-
-                    progressBar.setVisibility(View.GONE);
-                    teamlayout.setVisibility(View.VISIBLE);
-                    addLayout.setVisibility(View.GONE);
-                    noteam.setVisibility(View.GONE);
-                }
-            }
-        });
-
+                .collection("teams");
         FirestoreRecyclerOptions<Team> options = new FirestoreRecyclerOptions.Builder<Team>()
                 .setQuery(query, Team.class)
                 .build();
 
-
-
-
-       adapter  = new FirestoreRecyclerAdapter<Team, TeamHolder>(options) {
+        adapter  = new FirestoreRecyclerAdapter<Team, TeamHolder>(options) {
             @Override
             public void onBindViewHolder(TeamHolder holder, final int position, final Team model) {
                 Glide.with(getApplicationContext()).load(model.getImage())
-                .placeholder(R.drawable.logo)
-                .into(holder.image);
+                        .placeholder(R.drawable.logo)
+                        .into(holder.image);
                 holder.name.setText(model.getName());
                 holder.team.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                       SharedPreferences.Editor editor = sharedPreferences.edit();
-                       editor.putString("teamId",getSnapshots().getSnapshot(position).getId());
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("teamId",getSnapshots().getSnapshot(position).getId());
                         editor.commit();
                         startActivity(new Intent(getApplicationContext(),MyTeamInfo.class));
                     }
                 });
-
 
             }
 
@@ -110,15 +72,9 @@ public class teamManagerTeam extends AppCompatActivity {
             }
         };
 
-       recyclerView.setAdapter(adapter);
-
-
+        recyclerView.setAdapter(adapter);
     }
 
-    public void createteam(View view) {
-        Intent intent=new Intent(getApplicationContext(),createTeam.class);
-        startActivity(intent);
-    }
     @Override
     protected void onStart() {
         super.onStart();
@@ -128,6 +84,7 @@ public class teamManagerTeam extends AppCompatActivity {
         super.onStop();
         adapter.stopListening();
     }
+
 
     private class TeamHolder extends RecyclerView.ViewHolder {
         TextView name;

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/layout"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:weightSum="1"
+    android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/team1"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:text="Team1"
+            android:layout_weight="0.47"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:layout_marginVertical="10dp">
+        </TextView>
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="VS"
+          android:gravity="center"
+        android:layout_marginVertical="10dp"
+        android:textSize="20dp"
+          android:layout_weight="0.06"
+          android:layout_marginHorizontal="15dp"
+        android:textStyle="italic"
+        android:id="@+id/vs"
+        android:layout_toRightOf="@id/team1">
+
+       </TextView>
+
+        <TextView
+            android:id="@+id/team2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:text="Team2"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:layout_weight="0.47"
+            android:layout_toRightOf="@id/vs"
+            android:textSize="20dp"
+            android:textStyle="bold">
+
+        </TextView>
+
+<!--    <View-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="1dp"-->
+<!--        android:background="#000000"-->
+<!--        android:layout_below="@id/vs">-->
+
+<!--    </View>-->
+
+<!--<TextView-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:text="Toss"-->
+<!--    android:textAlignment="center"-->
+<!--    android:textSize="18dp"-->
+<!--    android:textStyle="italic"-->
+<!--    ></TextView>-->
+
+</LinearLayout>

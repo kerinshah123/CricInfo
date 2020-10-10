@@ -1,20 +1,32 @@
 package com.example.criinfo.More;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.criinfo.LoginSignUpActivity;
 import com.example.criinfo.R;
+import com.example.criinfo.Utils.Utils;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,6 +44,11 @@ public class MoreFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    SharedPreferences sharedPreferences ;
+    SharedPreferences.Editor editor;
+    String type ;
+    CardView teamsCard;
 
     public MoreFragment() {
         // Required empty public constructor
@@ -55,6 +72,8 @@ public class MoreFragment extends Fragment {
         return fragment;
     }
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,25 +93,44 @@ public class MoreFragment extends Fragment {
         logoutlayout=view.findViewById(R.id.logoutlayout);
         aboutuslayout=view.findViewById(R.id.aboutuslayout);
         contactuslayout=view.findViewById(R.id.contactuslayout);
+        teamsCard = view.findViewById(R.id.teamsCard);
+
+        sharedPreferences = getContext().getSharedPreferences(Utils.SHARED_PREF_NAME,Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
+        type=sharedPreferences.getString("type","");
 
         myteam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getActivity(),teamManagerTeam.class);
-                startActivity(intent);
+                if(type.equals("Team Manager")){
+
+                    Intent intent=new Intent(getActivity(),teamManagerTeam.class);
+                    startActivity(intent);
+                }
+
+                else {
+                    AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+                    alert.setTitle("Please Login")
+                    .setMessage("To access this,you must have team manager account")
+                            .setPositiveButton("Login", new DialogInterface.OnClickListener()                 {
+
+                                public void onClick(DialogInterface dialog, int which) {
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.clear();
+                                    editor.commit();
+                                    Intent intent=new Intent(getContext(), LoginSignUpActivity.class);
+                                    startActivity(intent);
+                                }
+                            }).setNegativeButton("Cancel", null);
+
+                    AlertDialog alert1 = alert.create();
+                    alert1.show();
+                }
+
             }
         });
-//
-//        teams=view.findViewById(R.id.teams);
-//
-//        teams.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent=new Intent(getContext(),teamManagerTeam.class);
-//                startActivity(intent);
-//
-//            }
-//        });
+
 
         logoutlayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,6 +143,10 @@ public class MoreFragment extends Fragment {
 
                                 public void onClick(DialogInterface dialog, int which) {
 
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.clear();
+                                    editor.commit();
+
                                     Intent intent=new Intent(getContext(), LoginSignUpActivity.class);
                                     startActivity(intent);
                                 }
@@ -114,6 +156,13 @@ public class MoreFragment extends Fragment {
                     alert1.show();
 
 
+            }
+        });
+
+        teamsCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(),TeamsActivity.class));
             }
         });
 
@@ -134,4 +183,6 @@ public class MoreFragment extends Fragment {
 
         return view;
     }
-}
+
+
+    }

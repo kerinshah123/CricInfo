@@ -22,7 +22,6 @@ import com.google.android.material.tabs.TabLayout;
 public class MatchFragment extends Fragment {
 
     TabLayout match_tab;
-
     PastMatchesFragment pastMatchesFragment;
     UpcomingMatchesFragment upcomingMatchesFragment;
 

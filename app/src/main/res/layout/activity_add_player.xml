@@ -6,55 +6,56 @@
     android:focusableInTouchMode="true"
     android:layout_height="match_parent"
     tools:context=".More.addPlayer">
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="180dp"
+        android:layout_marginTop="250dp"
+        android:id="@+id/progrssPlayer"
+        android:visibility="gone"></ProgressBar>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="10dp"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
-            android:background="@drawable/editfile"
+            android:gravity="center"
             android:orientation="vertical"
             android:padding="15dp">
-
-
-            <ImageView
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:id="@+id/playerimg"
-                android:layout_width="361dp"
-                android:layout_height="125dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="10dp"
-                android:layout_gravity="center"
-                android:paddingBottom="0dp"
-                android:src="@drawable/selectimage"
-                >
-
-            </ImageView>
+                android:src="@drawable/logo"
+                android:scaleType="fitCenter"
+                app:civ_border_color="@color/colorPrimary"
+                app:civ_border_width="3dp">
+            </com.mikhaellopez.circularimageview.CircularImageView>
 
             <Button
-                android:id="@+id/selectImage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:id="@+id/selectImagePlayer"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="120dp"
+                android:backgroundTint="@color/black"
                 android:textAlignment="center"
+                android:background="@drawable/image"
                 android:onClick="selection"
-                android:background="@drawable/editfile"
-                android:text="select Image"
                 />
-        </LinearLayout>
+        </RelativeLayout>
 
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
-            android:background="@drawable/editfile"
             android:orientation="vertical"
-            android:padding="15dp">
+            android:paddingHorizontal="15dp"
+            >
 
             <TextView
                 android:layout_width="match_parent"
@@ -78,9 +79,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
-            android:background="@drawable/editfile"
             android:orientation="vertical"
-            android:padding="15dp">
+            android:paddingHorizontal="15dp">
 
             <TextView
                 android:layout_width="match_parent"
@@ -94,6 +94,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="ex: 23"
+                android:inputType="number"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -103,9 +104,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
-            android:background="@drawable/editfile"
             android:orientation="vertical"
-            android:padding="15dp">
+            android:paddingHorizontal="15dp">
 
             <TextView
                 android:layout_width="match_parent"
@@ -124,14 +124,64 @@
 
 
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:orientation="vertical"
+            android:paddingHorizontal="15dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:layout_height="wrap_content"
+                android:text="City" />
+
+            <EditText
+                android:id="@+id/playerCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="ex: Montreal"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:orientation="vertical"
+            android:paddingHorizontal="15dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:layout_height="wrap_content"
+                android:text="Country" />
+
+            <EditText
+                android:id="@+id/playerCountry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="ex: Canada"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/addplayer"
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
+            android:layout_gravity="center"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:onClick="addtosquad"
-            android:background="@drawable/rounded_corners"
+            android:paddingBottom="10dp"
+            android:background="@drawable/button_round"
             android:text="ADD TO SQUAD"
             android:textColor="@android:color/background_light"
             android:textSize="20dp"

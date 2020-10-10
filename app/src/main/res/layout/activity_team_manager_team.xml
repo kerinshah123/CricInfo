@@ -6,85 +6,84 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".More.teamManagerTeam">
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="200dp"
+        android:id="@+id/progress">
+
+    </ProgressBar>
 
 
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
+    android:orientation="vertical"
+    android:weightSum="3">
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:layout_marginLeft="10dp"
         android:id="@+id/teamlayout"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
         android:padding="10dp"
-        android:background="@color/white"
-        android:weightSum="10"
+        android:visibility="gone"
+        android:layout_weight="1"
         >
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/recycler">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/noteamLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:visibility="gone">
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginRight="10dp"
-            >
-            <ImageView
-                android:id="@+id/teampic"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_weight="2"
-                app:srcCompat="@drawable/cegelogo" />
-        </LinearLayout>
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="You Have no Teams, Please Create One"
+            android:textStyle="bold">
 
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="8"
-            >
+        </TextView>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableRight="@drawable/arrowforward"
-                android:text="Cegep Cricket Team"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/addLayout"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="end">
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="bottom"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:onClick="createteam"
+            android:background="@drawable/rounded_corners"
+            android:text="+"
+            android:paddingBottom="5dp"
+            android:gravity="center"
+            android:textColor="#FFF"
+            android:textSize="40dp" />
 
     </LinearLayout>
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:gravity="center"
-        android:text="You Have no Teams, Please Create One"
-        android:textStyle="bold">
 
-    </TextView>
 
-    <Button
-        android:layout_width="73dp"
-        android:layout_height="73dp"
-        android:layout_gravity="bottom|right"
-        android:layout_marginTop="200dp"
-        android:layout_marginRight="30dp"
-        android:onClick="createteam"
-        android:background="@drawable/rounded_corners"
-        android:text="+"
-        android:textColor="#FFF"
-        android:textSize="50dp" />
+
 
 
 </LinearLayout>

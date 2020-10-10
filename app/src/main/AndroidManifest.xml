@@ -12,12 +12,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".More.TeamsActivity"></activity>
+        <activity android:name=".More.MyTeamInfo" />
         <activity android:name=".More.contactUs" />
         <activity android:name=".More.aboutUs" />
-        <activity android:name=".More.teamPlayers" />
+        <activity
+            android:name=".More.teamPlayers"
+            android:parentActivityName=".More.teamManagerTeam" />
         <activity android:name=".More.addPlayer" />
-        <activity android:name=".More.createTeam" />
-        <activity android:name=".More.teamManagerTeam" />
+        <activity
+            android:name=".More.createTeam"
+            android:label="Create Team"
+            android:parentActivityName=".More.teamManagerTeam" />
+        <activity
+            android:name=".More.teamManagerTeam"
+            android:label="My Team" />
         <activity android:name=".Home.HomeActivity" />
         <activity
             android:name=".Home.MatchDetails"

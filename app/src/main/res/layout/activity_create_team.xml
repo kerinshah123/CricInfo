@@ -6,6 +6,15 @@
     android:focusableInTouchMode="true"
     android:layout_height="match_parent"
     tools:context=".More.createTeam">
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="180dp"
+        android:layout_marginTop="300dp"
+        android:visibility="gone"
+        android:id="@+id/progressBar">
+
+    </ProgressBar>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -13,55 +22,50 @@
             android:padding="10dp"
             android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:background="@drawable/editfile"
+                android:gravity="center"
                 android:orientation="vertical"
                 android:padding="15dp">
-
-
-                <ImageView
+                <com.mikhaellopez.circularimageview.CircularImageView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
                     android:id="@+id/teamimg"
-                    android:layout_width="361dp"
-                    android:layout_height="125dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_gravity="center"
-                    android:paddingBottom="0dp"
-                    android:src="@drawable/selectimage"
-                    >
-
-                </ImageView>
+                    android:src="@drawable/logo"
+                    android:scaleType="fitCenter"
+                    app:civ_border_color="@color/colorPrimary"
+                    app:civ_border_width="3dp">
+                </com.mikhaellopez.circularimageview.CircularImageView>
 
                 <Button
                     android:id="@+id/selectImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="100dp"
+                    android:layout_marginTop="120dp"
+                    android:backgroundTint="@color/black"
                     android:textAlignment="center"
+                    android:background="@drawable/image"
                     android:onClick="selection"
-                    android:background="@drawable/editfile"
-                    android:text="select Logo for Team"
                     />
-            </LinearLayout>
+            </RelativeLayout>
 
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:background="@drawable/editfile"
                 android:orientation="vertical"
-                android:padding="15dp">
+                android:paddingVertical="5dp"
+                android:paddingHorizontal="10dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorPrimary"
                     android:textStyle="bold"
-                    android:text="Enter Team Name" />
+                    android:text="Team Name" />
 
                 <EditText
                     android:id="@+id/teamname"
@@ -69,7 +73,7 @@
                     android:layout_height="wrap_content"
                     android:hint="ex: Cegep"
                     android:textSize="20dp"
-                    android:textStyle="bold" />
+                     />
 
 
             </LinearLayout>
@@ -77,17 +81,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:background="@drawable/editfile"
                 android:orientation="vertical"
-                android:padding="15dp">
+                android:paddingVertical="5dp"
+                android:paddingHorizontal="10dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorPrimary"
                     android:textStyle="bold"
-                    android:text="Enter Team Abbrevation" />
+                    android:text="Team Abbrevation" />
 
                 <EditText
                     android:id="@+id/teamshortname"
@@ -95,43 +98,68 @@
                     android:layout_height="wrap_content"
                     android:hint="ex: CGP"
                     android:textSize="20dp"
-                    android:textStyle="bold" />
+                     />
 
 
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:background="@drawable/editfile"
                 android:orientation="vertical"
-                android:padding="15dp">
+                android:paddingVertical="5dp"
+                android:paddingHorizontal="10dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:textColor="@color/colorPrimary"
                     android:textStyle="bold"
                     android:layout_height="wrap_content"
-                    android:text="Enter City" />
+                    android:text="City" />
 
                 <EditText
                     android:id="@+id/city"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="ex: Cegep"
+                    android:hint="ex: Montreal"
                     android:textSize="20dp"
-                    android:textStyle="bold" />
+                     />
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingVertical="5dp"
+                android:paddingHorizontal="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold"
+                    android:layout_height="wrap_content"
+                    android:text="Country" />
+
+                <EditText
+                    android:id="@+id/country"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="ex: Canada"
+                    android:textSize="20dp"
+                     />
 
 
             </LinearLayout>
 
             <Button
                 android:id="@+id/addplayers"
-                android:layout_width="match_parent"
+                android:layout_width="350dp"
+                android:layout_marginTop="20dp"
+                android:paddingBottom="10dp"
+                android:layout_gravity="center"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
                 android:onClick="toaddplayers"
-                android:background="@drawable/rounded_corners"
+                android:background="@drawable/button_round"
                 android:text="CREATE TEAM"
                 android:textColor="@android:color/background_light"
                 android:textSize="20dp"
