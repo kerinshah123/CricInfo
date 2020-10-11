@@ -35,7 +35,7 @@ import com.google.firebase.firestore.QuerySnapshot;
  */
 public class MoreFragment extends Fragment {
     Button teams;
-    LinearLayout myteam,logoutlayout,aboutuslayout,contactuslayout;
+    LinearLayout mytournament,tournamnet,myprofile,myteam,logoutlayout,aboutuslayout,contactuslayout;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -94,6 +94,9 @@ public class MoreFragment extends Fragment {
         aboutuslayout=view.findViewById(R.id.aboutuslayout);
         contactuslayout=view.findViewById(R.id.contactuslayout);
         teamsCard = view.findViewById(R.id.teamsCard);
+        mytournament= view.findViewById(R.id.mytournamentlayout);
+        tournamnet=view.findViewById(R.id.tournamentlayout);
+        myprofile=view.findViewById(R.id.myprofilelayout);
 
         sharedPreferences = getContext().getSharedPreferences(Utils.SHARED_PREF_NAME,Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -113,6 +116,37 @@ public class MoreFragment extends Fragment {
                     AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
                     alert.setTitle("Please Login")
                     .setMessage("To access this,you must have team manager account")
+                            .setPositiveButton("Login", new DialogInterface.OnClickListener()                 {
+
+                                public void onClick(DialogInterface dialog, int which) {
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.clear();
+                                    editor.commit();
+                                    Intent intent=new Intent(getContext(), LoginSignUpActivity.class);
+                                    startActivity(intent);
+                                }
+                            }).setNegativeButton("Cancel", null);
+
+                    AlertDialog alert1 = alert.create();
+                    alert1.show();
+                }
+
+            }
+        });
+
+        mytournament.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(type.equals("League Manager")){
+
+                    Intent intent=new Intent(getActivity(),CreateTournament.class);
+                    startActivity(intent);
+                }
+
+                else {
+                    AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+                    alert.setTitle("Please Login")
+                            .setMessage("To access this,you must have League Manager account")
                             .setPositiveButton("Login", new DialogInterface.OnClickListener()                 {
 
                                 public void onClick(DialogInterface dialog, int which) {

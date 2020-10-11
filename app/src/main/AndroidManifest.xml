@@ -12,7 +12,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".More.TeamsActivity"></activity>
+        <activity android:name=".More.CreateTournament"
+            android:label="My Tournaments"/>
+        <activity android:name=".More.Tournament_Registration"
+            android:label="Create Tournament"
+            android:parentActivityName=".More.CreateTournament">
+            <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+        <activity android:name=".More.TeamsActivity" />
         <activity android:name=".More.MyTeamInfo" />
         <activity android:name=".More.contactUs" />
         <activity android:name=".More.aboutUs" />
@@ -38,11 +49,7 @@
         <activity
             android:name=".SplashScreen"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

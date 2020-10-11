@@ -22,6 +22,7 @@
                 app:cardElevation="10dp">
 
                 <LinearLayout
+                    android:id="@+id/tournamentlayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -53,6 +54,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/mytournamentlayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -83,6 +85,7 @@
                 android:id="@+id/teamsCard">
 
                 <LinearLayout
+                    android:id="@+id/allteamslayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     >
@@ -137,30 +140,6 @@
                 android:layout_height="1dp"
                 android:background="@color/cardview_light_background"></View>
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardElevation="10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:src="@drawable/ic_baseline_trending_up_24" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:text="Point Table"
-                        android:textColor="@color/black"
-                        android:textSize="20dp" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -169,6 +148,7 @@
                 app:cardElevation="10dp">
 
                 <LinearLayout
+                    android:id="@+id/myprofilelayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -182,7 +162,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:text="My Proflie"
+                        android:text="My Profile"
                         android:textColor="@color/black"
                         android:textSize="20dp" />
                 </LinearLayout>
