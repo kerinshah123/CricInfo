@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -19,14 +20,23 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.criinfo.Home.HomeAdapter;
 import com.example.criinfo.Home.Matchpojo;
+import com.example.criinfo.Match.MatchAdapter;
 import com.example.criinfo.R;
+import com.example.criinfo.Utils.Utils;
+import com.example.criinfo.network.ApiClient;
+import com.example.criinfo.network.ApiInterface;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,11 +49,12 @@ public class UpcomingMatchesFragment extends Fragment {
 
     private RequestQueue mQueue;
     private StringRequest request;
-    HomeAdapter adp;
+    MatchAdapter adp;
     String score1, score2;
+    ProgressBar progressBar;
 
     String url = "http://mapps.cricbuzz.com/cbzios/match/livematches";
-    List<Matchpojo> ar1;
+    ArrayList<Matchpojo> ar1;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -92,14 +103,35 @@ public class UpcomingMatchesFragment extends Fragment {
         View view= inflater.inflate(R.layout.fragment_upcoming_matches, container, false);
 
         recyclerView=view.findViewById(R.id.recycler);
+        progressBar = view.findViewById(R.id.progrssbarUpcoming);
         ar1=new ArrayList<>();
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
-        mQueue = Volley.newRequestQueue(getContext());
+       // mQueue = Volley.newRequestQueue(getContext());
+
+        progressBar.setVisibility(View.VISIBLE);
+
+       ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+       Call<ResponseBody> call = apiInterface.getMatches(Utils.apikey);
+       call.enqueue(new Callback<ResponseBody>() {
+           @Override
+           public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
+               try {
+                   parseData(response.body().string());
+               } catch (IOException e) {
+                   e.printStackTrace();
+               }
+           }
+
+           @Override
+           public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+           }
+       });
 
 
-        request = new StringRequest(Request.Method.GET,url, new Response.Listener<String>() {
+   /*     request = new StringRequest(Request.Method.GET,url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -123,7 +155,7 @@ public class UpcomingMatchesFragment extends Fragment {
                         String status=jsonobject2.getString("status");
                         String state = jsonobject2.getString("state");
 
-     if (state.equals("preview"))
+                        if (state.equals("preview"))
                         {
                             String matchdescription = jsonobject2.getString("match_desc");
 
@@ -170,11 +202,44 @@ public class UpcomingMatchesFragment extends Fragment {
 
         };
 
-        mQueue.add(request);
+        mQueue.add(request);*/
 
 
 
 
         return  view;
+    }
+
+    private void parseData(String string) {
+        try {
+            JSONObject jsonObject = new JSONObject(string);
+            System.out.println(jsonObject);
+            JSONArray jsonArray = jsonObject.getJSONArray("matches");
+
+            for(int i=0;i<jsonArray.length();i++){
+                JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                Matchpojo matchpojo = new Matchpojo();
+                matchpojo.setMatchid(String.valueOf(jsonObject1.get("unique_id")));
+                String date = String.valueOf(jsonObject1.get("date"));
+                matchpojo.setMatchdescription(date.substring(0,10));
+                matchpojo.setTeam1(String.valueOf(jsonObject1.get("team-1")));
+                matchpojo.setTeam2(String.valueOf(jsonObject1.get("team-2")));
+                matchpojo.setTypeofmatch(String.valueOf(jsonObject1.get("type")));
+
+                if(!jsonObject1.getBoolean("matchStarted")){
+                    ar1.add(matchpojo);
+                }
+
+
+            }
+
+            adp=new MatchAdapter(getContext(),ar1);
+            recyclerView.setAdapter(adp);
+            progressBar.setVisibility(View.GONE);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

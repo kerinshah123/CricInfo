@@ -19,17 +19,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.criinfo.Home.Matchpojo;
 import com.example.criinfo.Info.Player;
 import com.example.criinfo.R;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.util.ArrayList;
 
+import javax.annotation.MatchesPattern;
+
 public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder> {
     private Context context;
-    private ArrayList<Matches> playerArrayList;
+    private ArrayList<Matchpojo> playerArrayList;
 
-    public MatchAdapter(Context context, ArrayList<Matches> playerArrayList) {
+    public MatchAdapter(Context context, ArrayList<Matchpojo> playerArrayList) {
         this.context = context;
         this.playerArrayList = playerArrayList;
     }
@@ -43,9 +46,11 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull MatchAdapter.ViewHolder holder, int position) {
-        Matches matches = playerArrayList.get(position);
+        Matchpojo matches = playerArrayList.get(position);
         holder.team1.setText(matches.getTeam1());
         holder.team2.setText(matches.getTeam2());
+        holder.matchdescription.setText(matches.getMatchdescription());
+        holder.typeofmatch.setText(matches.getTypeofmatch());
        // holder.toss.setText(matches.getToss());
 
     }
@@ -56,15 +61,15 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder> 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        LinearLayout layout;
-        TextView team1,team2,toss;
+        TextView  typeofmatch, matchdescription, team1, team2;
+
 
         public ViewHolder(View view) {
             super(view);
             team1 = view.findViewById(R.id.team1);
             team2 = view.findViewById(R.id.team2);
-          //  toss = view.findViewById(R.id.toss);
-            layout = view.findViewById(R.id.layout);
+            typeofmatch = view.findViewById(R.id.typeofmatch);
+            matchdescription = view.findViewById(R.id.matchdescription);
 
         }
     }

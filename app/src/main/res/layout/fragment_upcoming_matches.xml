@@ -4,14 +4,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Match.Tabs.UpcomingMatchesFragment">
+    tools:context=".Match.Tabs.UpcomingMatchesFragment"
+    android:background="@color/lightbackgrnd">
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:id="@+id/progrssbarUpcoming"
+        android:visibility="gone"></ProgressBar>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="0dp" />
+            tools:layout_editor_absoluteX="0dp"
+            android:layout_marginTop="10dp"/>
 
 
     </FrameLayout>

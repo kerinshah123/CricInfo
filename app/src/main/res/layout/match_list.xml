@@ -1,70 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:id="@+id/layout"
-    android:gravity="center"
-    android:orientation="horizontal"
-    android:weightSum="1"
-    android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/team1"
-            android:textAlignment="center"
-            android:gravity="center"
-            android:text="Team1"
-            android:layout_weight="0.47"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:layout_marginVertical="10dp">
-        </TextView>
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginBottom="5dp"
+    >
 
-      <TextView
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="VS"
-          android:gravity="center"
-        android:layout_marginVertical="10dp"
-        android:textSize="20dp"
-          android:layout_weight="0.06"
-          android:layout_marginHorizontal="15dp"
-        android:textStyle="italic"
-        android:id="@+id/vs"
-        android:layout_toRightOf="@id/team1">
+        android:layout_marginBottom="5dp"
+        android:id="@+id/itemlayout"
+        android:orientation="vertical"
+        >
 
-       </TextView>
 
-        <TextView
-            android:id="@+id/team2"
-            android:layout_width="wrap_content"
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
-            android:text="Team2"
-            android:textAlignment="center"
-            android:gravity="center"
-            android:layout_weight="0.47"
-            android:layout_toRightOf="@id/vs"
-            android:textSize="20dp"
-            android:textStyle="bold">
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:paddingLeft="15dp"
+            android:background="@android:color/white"
+            android:orientation="vertical">
 
-        </TextView>
+            <TextView
+                android:id="@+id/typeofmatch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/backgrnd"
+                android:padding="10dp"
+                android:text="ODI"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-<!--    <View-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="1dp"-->
-<!--        android:background="#000000"-->
-<!--        android:layout_below="@id/vs">-->
+            <TextView
+                android:id="@+id/matchdescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="England v Australia 2020 - 3rd ODI"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-<!--    </View>-->
 
-<!--<TextView-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="wrap_content"-->
-<!--    android:text="Toss"-->
-<!--    android:textAlignment="center"-->
-<!--    android:textSize="18dp"-->
-<!--    android:textStyle="italic"-->
-<!--    ></TextView>-->
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="59dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/england">
+
+                </ImageView>
+
+                <TextView
+                    android:id="@+id/team1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="ENGLAND"
+                    android:layout_weight="1"
+                    android:textColor="@color/backgrnd"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="59dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/australia">
+
+                </ImageView>
+
+                <TextView
+                    android:id="@+id/team2"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="AUSTRALIA"
+                    android:textColor="@color/backgrnd"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
 </LinearLayout>

@@ -26,6 +26,10 @@ public class Matchpojo {
         this.matchid=matchid;
     }
 
+    public Matchpojo() {
+
+    }
+
     public String getMatchid() {
         return matchid;
     }
