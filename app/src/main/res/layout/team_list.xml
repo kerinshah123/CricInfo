@@ -15,7 +15,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:id="@+id/team_img"
-            android:src="@drawable/logo">
+            android:src="@drawable/logo1">
 
         </com.mikhaellopez.circularimageview.CircularImageView>
         <TextView

@@ -145,7 +145,6 @@ public class UpcomingMatchesFragment extends Fragment {
                     for (int i=0;i<a;i++) {
 
                         JSONObject jsonobject = jsonarray.getJSONObject(i);
-
                         String matchid = jsonobject.getString("match_id");
                         String seriesname = jsonobject.getString("series_name");
 

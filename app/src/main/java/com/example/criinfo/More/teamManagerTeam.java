@@ -85,7 +85,7 @@ public class teamManagerTeam extends AppCompatActivity {
             @Override
             public void onBindViewHolder(TeamHolder holder, final int position, final Team model) {
                 Glide.with(getApplicationContext()).load(model.getImage())
-                .placeholder(R.drawable.logo)
+                .placeholder(R.drawable.logo1)
                 .into(holder.image);
                 holder.name.setText(model.getName());
                 holder.team.setOnClickListener(new View.OnClickListener() {

@@ -95,7 +95,6 @@ public class Tournament_Registration extends AppCompatActivity {
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
                 startdate.setText(sdf.format(myCalendar.getTime()));
-                enddate.setText(sdf.format(myCalendar.getTime()));
             }
 
         };
@@ -109,16 +108,15 @@ public class Tournament_Registration extends AppCompatActivity {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateLabel();
+                updateLabel2();
 
 
             }
 
-            private void updateLabel() {
+            private void updateLabel2() {
                 String myFormat = "MM/dd/yy"; //In which you need put here
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
-                startdate.setText(sdf.format(myCalendar.getTime()));
                 enddate.setText(sdf.format(myCalendar.getTime()));
             }
 

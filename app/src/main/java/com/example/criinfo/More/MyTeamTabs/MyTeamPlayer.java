@@ -137,7 +137,7 @@ public class MyTeamPlayer extends Fragment {
             public void onBindViewHolder(PlayerHolder holder, final int position, final Players model) {
                 System.out.println(model.getName());
                 Glide.with(getActivity()).load(model.getImage())
-                        .placeholder(R.drawable.logo)
+                        .placeholder(R.drawable.logo1)
                         .into(holder.image);
                 holder.name.setText(model.getName());
 

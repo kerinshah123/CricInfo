@@ -30,7 +30,7 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:id="@+id/playerimg"
-                android:src="@drawable/logo"
+                android:src="@drawable/logo1"
                 android:scaleType="fitCenter"
                 app:civ_border_color="@color/colorPrimary"
                 app:civ_border_width="3dp">

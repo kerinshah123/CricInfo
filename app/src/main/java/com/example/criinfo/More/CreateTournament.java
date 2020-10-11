@@ -79,7 +79,7 @@ public class CreateTournament extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull TeamHolder holder, final int position, @NonNull Tournament model) {
                 Glide.with(getApplicationContext()).load(model.getImage())
-                        .placeholder(R.drawable.logo)
+                        .placeholder(R.drawable.logo1)
                         .into(holder.image);
                 holder.name.setText(model.getTournament());
                 holder.tournament.setOnClickListener(new View.OnClickListener() {

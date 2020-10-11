@@ -68,7 +68,7 @@ public class MyTeamInfo extends AppCompatActivity {
                                    if(document.getId().equals(sharedPreferences.getString("teamId","")))
                                    Glide.with(getApplicationContext())
                                            .load(document.getString("image"))
-                                           .placeholder(R.drawable.logo)
+                                           .placeholder(R.drawable.logo1)
                                            .into(image);
                                    name.setText(document.getString("name"));
 
