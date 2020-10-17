@@ -122,7 +122,7 @@ public class HomeFragment extends Fragment {
                         String status=jsonobject2.getString("status");
                         String state = jsonobject2.getString("state");
 
-                        if (state.equals("mom")) {
+                        if (state.equals("complete")) {
                             JSONObject jsonobject3 = jsonobject.getJSONObject("venue");
                             String location = jsonobject3.getString("name") + ", " + jsonobject3.getString("location");
 
