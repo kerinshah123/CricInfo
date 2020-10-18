@@ -32,7 +32,7 @@
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:id="@+id/teamimg"
-                    android:src="@drawable/logo1"
+                    android:src="@drawable/team"
                     android:scaleType="fitCenter"
                     app:civ_border_color="@color/colorPrimary"
                     app:civ_border_width="3dp">

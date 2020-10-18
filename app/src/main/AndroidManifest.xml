@@ -17,23 +17,23 @@
             android:name=".More.CreateTournament"
             android:label="My Tournaments" />
         <activity
-            android:name=".More.Tournament_Registration"
+            android:name=".More.TournamentRegistration"
             android:label="Create Tournament"
             android:parentActivityName=".More.CreateTournament"></activity>
         <activity android:name=".More.TeamsActivity" />
         <activity android:name=".More.MyTeamInfo" />
-        <activity android:name=".More.contactUs" />
-        <activity android:name=".More.aboutUs" />
+        <activity android:name=".More.ContectUs" />
+        <activity android:name=".More.AboutUs" />
         <activity
-            android:name=".More.teamPlayers"
-            android:parentActivityName=".More.teamManagerTeam" />
-        <activity android:name=".More.addPlayer" />
+            android:name=".More.TeamPlayers"
+            android:parentActivityName=".More.TeamManagerTeam" />
+        <activity android:name=".More.AddPlayer" />
         <activity
-            android:name=".More.createTeam"
+            android:name=".More.CreateTeam"
             android:label="Create Team"
-            android:parentActivityName=".More.teamManagerTeam" />
+            android:parentActivityName=".More.TeamManagerTeam" />
         <activity
-            android:name=".More.teamManagerTeam"
+            android:name=".More.TeamManagerTeam"
             android:label="My Team" />
         <activity android:name=".Home.HomeActivity" />
         <activity

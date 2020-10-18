@@ -30,7 +30,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
-public class teamManagerTeam extends AppCompatActivity {
+public class TeamManagerTeam extends AppCompatActivity {
     LinearLayout teamlayout,addLayout,noteam;
     SharedPreferences sharedPreferences ;
     FirestoreRecyclerAdapter adapter;
@@ -42,7 +42,7 @@ public class teamManagerTeam extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_team_manager_team);
         teamlayout=findViewById(R.id.teamlayout);
-        addLayout = findViewById(R.id.addLayout);
+        addLayout = findViewById(R.id.addLayoutTeam);
         noteam = findViewById(R.id.noteamLayout);
         recyclerView = findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -116,7 +116,7 @@ public class teamManagerTeam extends AppCompatActivity {
     }
 
     public void createteam(View view) {
-        Intent intent=new Intent(getApplicationContext(),createTeam.class);
+        Intent intent=new Intent(getApplicationContext(),CreateTeam.class);
         startActivity(intent);
     }
     @Override

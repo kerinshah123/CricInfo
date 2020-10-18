@@ -68,7 +68,7 @@ public class MyTeamInfo extends AppCompatActivity {
                                    if(document.getId().equals(sharedPreferences.getString("teamId","")))
                                    Glide.with(getApplicationContext())
                                            .load(document.getString("image"))
-                                           .placeholder(R.drawable.logo1)
+                                           .placeholder(R.drawable.team)
                                            .into(image);
                                    name.setText(document.getString("name"));
 
@@ -119,6 +119,6 @@ public class MyTeamInfo extends AppCompatActivity {
     }
 
     public void addPlayer(View view) {
-        startActivity(new Intent(getApplicationContext(),addPlayer.class));
+        startActivity(new Intent(getApplicationContext(),AddPlayer.class));
     }
 }

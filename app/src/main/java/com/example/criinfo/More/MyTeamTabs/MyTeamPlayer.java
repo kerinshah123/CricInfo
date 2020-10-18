@@ -23,7 +23,6 @@ import com.example.criinfo.Info.Player;
 import com.example.criinfo.More.MyTeamInfo;
 import com.example.criinfo.More.Team;
 import com.example.criinfo.More.TeamsActivity;
-import com.example.criinfo.More.addPlayer;
 import com.example.criinfo.R;
 import com.example.criinfo.Utils.Utils;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
