@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.criinfo.More.MyTeamTabs.MyTeamAbout;
@@ -68,7 +67,7 @@ public class MyTeamInfo extends AppCompatActivity {
                                    if(document.getId().equals(sharedPreferences.getString("teamId","")))
                                    Glide.with(getApplicationContext())
                                            .load(document.getString("image"))
-                                           .placeholder(R.drawable.logo)
+                                           .placeholder(R.drawable.team)
                                            .into(image);
                                    name.setText(document.getString("name"));
 
@@ -119,6 +118,6 @@ public class MyTeamInfo extends AppCompatActivity {
     }
 
     public void addPlayer(View view) {
-        startActivity(new Intent(getApplicationContext(),addPlayer.class));
+        startActivity(new Intent(getApplicationContext(), TeamPlayers.class));
     }
 }

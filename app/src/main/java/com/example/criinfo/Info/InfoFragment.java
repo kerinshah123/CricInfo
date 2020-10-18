@@ -6,9 +6,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
@@ -36,7 +39,7 @@ import retrofit2.Response;
  * create an instance of this fragment.
  */
 public class InfoFragment extends Fragment {
-    ArrayList<Player> playerArrayList  = new ArrayList<>();
+    ArrayList<Player> playerArrayList = new ArrayList<>();
     RecyclerView recyclerView;
     ProgressBar progressBar;
     EditText editText;
@@ -86,14 +89,41 @@ public class InfoFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_info, container, false);
-       // progressBar = view.findViewById(R.id.progrssbar);
+        progressBar = view.findViewById(R.id.progrssbarFinder);
         recyclerView = view.findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         editText = view.findViewById(R.id.search);
-    //    progressBar.setVisibility(View.VISIBLE);
 
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (count > 0) {
+                    callApi(s);
+                } else {
+                    progressBar.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        // Inflate the layout for this fragment
+        return view;
+    }
+
+    private void callApi(CharSequence s) {
+        progressBar.setVisibility(View.VISIBLE);
+        playerArrayList.clear();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<ResponseBody> call = apiInterface.matches(Utils.apikey,"");
+        Call<ResponseBody> call = apiInterface.matches(Utils.apikey, String.valueOf(s));
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -110,69 +140,33 @@ public class InfoFragment extends Fragment {
 
             }
         });
-
-        // Inflate the layout for this fragment
-        return view;
     }
 
     private void parseData(String string) {
         try {
             JSONObject jsonObject = new JSONObject(string);
             JSONArray jsonArray = jsonObject.getJSONArray("data");
-            for(int i=0;i<jsonArray.length();i++){
-                Player player = new Player();
+
+            for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject object = jsonArray.getJSONObject(i);
-                String pid = String.valueOf(object.get("pid"));
-                if(!pid.equals("null")){
-                    callInfoApi(pid);
+
+                if (object.has("pid")) {
+                    Player player = new Player();
+                    player.setId(object.getInt("pid"));
+                    player.setName(object.getString("name"));
+
+                    playerArrayList.add(player);
                 }
+
             }
-
-
-            recyclerView.setAdapter(new PlayerAdapter(getContext(),playerArrayList));
-         //   progressBar.setVisibility(View.GONE);
+            recyclerView.setAdapter(new PlayerAdapter(getContext(), playerArrayList));
+            progressBar.setVisibility(View.GONE);
 
         } catch (JSONException e) {
-            e.printStackTrace();
+
+            System.out.println(e.getMessage());
         }
     }
 
-    private void callInfoApi(String pid) {
-        int id = Integer.parseInt(pid);
 
-        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<ResponseBody> call = apiInterface.getPlayerInfo(Utils.apikey,id);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    parsePlayerData(response.body().string());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-            }
-        });
-
-    }
-
-    private void parsePlayerData(String string) {
-        try {
-            JSONObject jsonObject = new JSONObject(string);
-            Player player = new Player();
-            player.setId(jsonObject.getInt("pid"));
-            player.setName(jsonObject.getString("name"));
-            player.setCountry(jsonObject.getString("country"));
-            player.setProfile(jsonObject.getString("imageURL"));
-            player.setRole(jsonObject.getString("playingRole"));
-            playerArrayList.add(player);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
 }

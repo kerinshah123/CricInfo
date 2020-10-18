@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".More.teamManagerTeam">
+    tools:context=".More.TeamManagerTeam">
     <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="200dp"
-        android:id="@+id/progress">
+        android:id="@+id/progress"
+        android:visibility="visible">
 
     </ProgressBar>
 
@@ -19,8 +20,7 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="3">
+    android:orientation="vertical">
 
 
     <LinearLayout
@@ -58,7 +58,7 @@
 
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/addLayout"
+        android:id="@+id/addLayoutTeam"
         android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

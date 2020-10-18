@@ -1,7 +1,19 @@
 package com.example.criinfo.More.MyTeamTabs;
 
+import java.util.ArrayList;
+
 public class Players {
-    String name,role,age,city,country,image,teamId;
+    String name,role,age,city,country,image;
+
+    public ArrayList<String> getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(ArrayList<String> teamId) {
+        this.teamId = teamId;
+    }
+
+    ArrayList<String> teamId;
 
     public String getName() {
         return name;
@@ -51,11 +63,5 @@ public class Players {
         this.image = image;
     }
 
-    public String getTeamId() {
-        return teamId;
-    }
 
-    public void setTeamId(String teamId) {
-        this.teamId = teamId;
-    }
 }

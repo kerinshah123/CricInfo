@@ -14,11 +14,9 @@ import android.os.Handler;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.criinfo.More.MyTeamTabs.MyTeamPlayer;
 import com.example.criinfo.R;
 import com.example.criinfo.Utils.Utils;
 import com.google.android.gms.tasks.Continuation;
@@ -37,7 +35,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class addPlayer extends AppCompatActivity {
+public class AddPlayer extends AppCompatActivity {
     public Uri imguri;
     CircularImageView playerimg;
     private Uri filePath;
@@ -47,6 +45,8 @@ public class addPlayer extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     FirebaseFirestore db;
     ProgressBar progressBar;
+    ArrayList<String> teamid = new ArrayList<>();
+    String downloadUri;
 
 
     @Override
@@ -97,71 +97,86 @@ public class addPlayer extends AppCompatActivity {
                 city.getText().toString().isEmpty() || country.getText().toString().isEmpty()
         || role.getText().toString().isEmpty()){
             Toast.makeText(this, "All Field Required", Toast.LENGTH_SHORT).show();
+
         }
         else {
             progressBar.setVisibility(View.VISIBLE);
-            final StorageReference storageReference = sRef.child(System.currentTimeMillis() + "." +imguri);
-            storageReference.putFile(imguri).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                @Override
-                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                    if (!task.isSuccessful()) {
-                        throw task.getException();
+
+            if(imguri == null || imguri.equals(Uri.EMPTY)){
+               downloadUri = "";
+               callAdd();
+            }
+            else {
+                final StorageReference storageReference = sRef.child(System.currentTimeMillis() + "." +imguri);
+                storageReference.putFile(imguri).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                    @Override
+                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                        if (!task.isSuccessful()) {
+                            throw task.getException();
+                        }
+                        return storageReference.getDownloadUrl();
                     }
-                    return storageReference.getDownloadUrl();
-                }
-            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                @Override
-                public void onComplete(@NonNull Task<Uri> task) {
-                    if (task.isSuccessful())
-                    {
-                        Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
+                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        if (task.isSuccessful())
+                        {
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
 
-                            }
-                        }, 500);
+                                }
+                            }, 500);
+                        }
+
+                        downloadUri = task.getResult().toString();
+                        callAdd();
+
+
+
                     }
-                    ArrayList<String> playersId = new ArrayList<>();
-                    String downloadUri = task.getResult().toString();
-                    Map<String, Object> team = new HashMap<>();
-                    team.put("name",name.getText().toString());
-                    team.put("role", role.getText().toString());
-                    team.put("age",age.getText().toString());
-                    team.put("city",city.getText().toString());
-                    team.put("country",country.getText().toString());
-                    team.put("image",downloadUri);
-                    team.put("teamId",sharedPreferences.getString("teamId",""));
-
-
-                    // Add a new document with a generated ID
-                    db.collection("players")
-                            .add(team)
-                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    progressBar.setVisibility(View.GONE);
-                                    finish();
-                                    Toast.makeText(addPlayer.this, "Player Addes Successfully", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(getApplicationContext(), MyTeamInfo.class));
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    System.out.println(e.getMessage());
-                                }
-                            });
-
-
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
 
         }
+    }
+
+    private void callAdd() {
+
+        teamid.add(sharedPreferences.getString("teamId",""));
+        Map<String, Object> team = new HashMap<>();
+        team.put("name",name.getText().toString());
+        team.put("role", role.getText().toString());
+        team.put("age",age.getText().toString());
+        team.put("city",city.getText().toString());
+        team.put("country",country.getText().toString());
+        team.put("image",downloadUri);
+        team.put("teamId",teamid);
+
+
+        // Add a new document with a generated ID
+        db.collection("players")
+                .add(team)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        progressBar.setVisibility(View.GONE);
+                        finish();
+                        Toast.makeText(AddPlayer.this, "Player Addes Successfully", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(), MyTeamInfo.class));
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                });
     }
 }

@@ -7,26 +7,19 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.example.criinfo.LoginSignUpActivity;
 import com.example.criinfo.R;
 import com.example.criinfo.Utils.Utils;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -106,9 +99,9 @@ public class MoreFragment extends Fragment {
         myteam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(type.equals("Team Manager")){
+                if(type.equals("Team Manager") || type.equals("League Manager")){
 
-                    Intent intent=new Intent(getActivity(),teamManagerTeam.class);
+                    Intent intent=new Intent(getActivity(), TeamManagerTeam.class);
                     startActivity(intent);
                 }
 
@@ -203,14 +196,14 @@ public class MoreFragment extends Fragment {
         aboutuslayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getActivity(),aboutUs.class);
+                Intent intent=new Intent(getActivity(), AboutUs.class);
                 startActivity(intent);
             }
         });
         contactuslayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getActivity(),contactUs.class);
+                Intent intent=new Intent(getActivity(), ContectUs.class);
                 startActivity(intent);
             }
         });

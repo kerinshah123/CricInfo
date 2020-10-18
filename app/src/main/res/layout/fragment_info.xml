@@ -4,6 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Info.InfoFragment">
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="180dp"
+        android:layout_marginTop="250dp"
+        android:id="@+id/progrssbarFinder"
+        android:visibility="gone">
+
+    </ProgressBar>
 
     <!-- TODO: Update blank fragment layout -->
    <androidx.cardview.widget.CardView

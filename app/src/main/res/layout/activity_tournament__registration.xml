@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:focusableInTouchMode="true"
         android:layout_height="match_parent"
-        tools:context=".More.Tournament_Registration">
+        tools:context=".More.TournamentRegistration">
 
         <ProgressBar
             android:layout_width="wrap_content"
@@ -39,7 +39,7 @@
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:id="@+id/tournamentimg"
-                    android:src="@drawable/logo"
+                    android:src="@drawable/logo1"
                     android:scaleType="fitCenter"
                     app:civ_border_color="@color/colorPrimary"
                     app:civ_border_width="3dp">
@@ -194,30 +194,30 @@
 
 
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingVertical="5dp"
-                android:paddingHorizontal="10dp">
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                android:paddingVertical="5dp"-->
+<!--                android:paddingHorizontal="10dp">-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"
-                    android:layout_height="wrap_content"
-                    android:text="Contact Number" />
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:textColor="@color/colorPrimary"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Contact Number" />-->
 
-                <EditText
-                    android:id="@+id/contactnumber"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="ex: 4389262605"
-                    android:textSize="20dp"
-                    />
+<!--                <EditText-->
+<!--                    android:id="@+id/contactnumber"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:hint="ex: 4389262605"-->
+<!--                    android:textSize="20dp"-->
+<!--                    />-->
 
 
-            </LinearLayout>
+<!--            </LinearLayout>-->
 
             <Button
                 android:id="@+id/addtournamnet"

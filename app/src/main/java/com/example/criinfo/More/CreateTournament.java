@@ -79,7 +79,7 @@ public class CreateTournament extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull TeamHolder holder, final int position, @NonNull Tournament model) {
                 Glide.with(getApplicationContext()).load(model.getImage())
-                        .placeholder(R.drawable.logo)
+                        .placeholder(R.drawable.team)
                         .into(holder.image);
                 holder.name.setText(model.getTournament());
                 holder.tournament.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +111,7 @@ public class CreateTournament extends AppCompatActivity {
     }
 
     public void createtournament(View view) {
-        Intent intent=new Intent(getApplicationContext(),Tournament_Registration.class);
+        Intent intent=new Intent(getApplicationContext(), TournamentRegistration.class);
         startActivity(intent);
     }
     @Override

@@ -14,7 +14,7 @@ import com.example.criinfo.pojoplayer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class aboutUs extends AppCompatActivity {
+public class AboutUs extends AppCompatActivity {
 
     RecyclerView recyclerView;
     List<pojoaboutus> ar1;

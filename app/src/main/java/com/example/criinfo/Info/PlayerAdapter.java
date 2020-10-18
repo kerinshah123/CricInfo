@@ -28,19 +28,21 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.player_list,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.player_list, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Player player = playerArrayList.get(position);
-        System.out.println(player.getImage());
         holder.name.setText(player.getName());
-        holder.country.setText(player.getCountry());
-        Glide.with(context).load(player.getImage())
-                .placeholder(R.drawable.australia)
-                .into(holder.imageView);
+
+        holder.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
     }
 
@@ -52,7 +54,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder {
         RelativeLayout layout;
         CircularImageView imageView;
-        TextView name,country;
+        TextView name, country;
 
         public ViewHolder(View view) {
             super(view);
