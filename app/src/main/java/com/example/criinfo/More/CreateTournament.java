@@ -32,7 +32,7 @@ import com.mikhaellopez.circularimageview.CircularImageView;
 public class CreateTournament extends AppCompatActivity {
 
     TextView noteam;
-    SharedPreferences sharedPreferences ;
+    SharedPreferences sharedPreferences;
     FirestoreRecyclerAdapter adapter;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     RecyclerView recyclerView;
@@ -50,18 +50,16 @@ public class CreateTournament extends AppCompatActivity {
 
         sharedPreferences = getApplicationContext().getSharedPreferences(Utils.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         final Query query = FirebaseFirestore.getInstance()
-                .collection("tournaments").whereEqualTo("leaguemanager",sharedPreferences.getString("userId",""));
-
+                .collection("tournaments").whereEqualTo("leaguemanager", sharedPreferences.getString("userId", ""));
 
 
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.getResult().isEmpty()){
+                if (task.getResult().isEmpty()) {
                     progressBar.setVisibility(View.GONE);
                     noteam.setVisibility(View.VISIBLE);
-                }
-                else {
+                } else {
 
                     progressBar.setVisibility(View.GONE);
                     noteam.setVisibility(View.GONE);
@@ -74,9 +72,7 @@ public class CreateTournament extends AppCompatActivity {
                 .build();
 
 
-
-
-        adapter  = new FirestoreRecyclerAdapter<Tournament, CreateTournament.TeamHolder>(options) {
+        adapter = new FirestoreRecyclerAdapter<Tournament, CreateTournament.TeamHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull TeamHolder holder, final int position, @NonNull Tournament model) {
                 Glide.with(getApplicationContext()).load(model.getImage())
@@ -87,14 +83,13 @@ public class CreateTournament extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("tournamentId",getSnapshots().getSnapshot(position).getId());
+                        editor.putString("tournamentId", getSnapshots().getSnapshot(position).getId());
                         editor.commit();
                         startActivity(new Intent(getApplicationContext(), MyTournamentInfo.class));
                     }
                 });
 
             }
-
 
 
             @Override
@@ -112,14 +107,17 @@ public class CreateTournament extends AppCompatActivity {
     }
 
     public void createtournament(View view) {
-        Intent intent=new Intent(getApplicationContext(),TournamentRegistration.class);
+        Intent intent = new Intent(getApplicationContext(), TournamentRegistration.class);
         startActivity(intent);
     }
+
     @Override
     protected void onStart() {
         super.onStart();
         adapter.startListening();
-    }@Override
+    }
+
+    @Override
     protected void onStop() {
         super.onStop();
         adapter.stopListening();
@@ -129,6 +127,7 @@ public class CreateTournament extends AppCompatActivity {
         TextView name;
         CircularImageView image;
         LinearLayout tournament;
+
         public TeamHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.tournament_name);

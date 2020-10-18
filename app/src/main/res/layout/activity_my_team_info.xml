@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".More.MyTeamInfo"
+    tools:context=".More.MyTeamTabs.MyTeamInfo"
     android:orientation="vertical">
 
     <com.mikhaellopez.circularimageview.CircularImageView

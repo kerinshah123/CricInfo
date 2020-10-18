@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -47,35 +48,37 @@ public class TournamentRegistration extends AppCompatActivity {
     CircularImageView tournamentimage;
     StorageReference sRef;
     FirebaseFirestore Host_firebaseStorage;
-    EditText tournamentname,contactnumber,country,location;
+    EditText tournamentname, contactnumber, country, location;
     TextInputEditText startdate, enddate;
-    TextInputLayout sdate,edate;
+    TextInputLayout sdate, edate;
     FirebaseFirestore db;
     SharedPreferences sharedPreferences;
     ProgressBar progressBar;
     String downloadUri;
+    SimpleDateFormat start;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tournament__registration);
 
-        tournamentimage=findViewById(R.id.tournamentimg);
+        tournamentimage = findViewById(R.id.tournamentimg);
         tournamentname = findViewById(R.id.tournamnetname);
         location = findViewById(R.id.location);
-       // contactnumber = findViewById(R.id.contactnumber);
+        // contactnumber = findViewById(R.id.contactnumber);
         country = findViewById(R.id.country);
         progressBar = findViewById(R.id.progressBar);
-        startdate=findViewById(R.id.startdate);
-        enddate=findViewById(R.id.enddate);
-        sdate=findViewById(R.id.startdateInputLayout);
-        edate=findViewById(R.id.enddateInputLayout);
+        startdate = findViewById(R.id.startdate);
+        enddate = findViewById(R.id.enddate);
+        sdate = findViewById(R.id.startdateInputLayout);
+        edate = findViewById(R.id.enddateInputLayout);
 
 
         Host_firebaseStorage = FirebaseFirestore.getInstance();
         db = FirebaseFirestore.getInstance();
         sRef = FirebaseStorage.getInstance().getReference("TournamentImage");
         sharedPreferences = getApplicationContext().getSharedPreferences(Utils.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        System.out.println(sharedPreferences.getString("userId",""));
+        System.out.println(sharedPreferences.getString("userId", ""));
         final Calendar myCalendar = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
@@ -93,9 +96,10 @@ public class TournamentRegistration extends AppCompatActivity {
 
             private void updateLabel() {
                 String myFormat = "MM/dd/yy"; //In which you need put here
-                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+                 start = new SimpleDateFormat(myFormat, Locale.US);
 
-                startdate.setText(sdf.format(myCalendar.getTime()));
+                startdate.setText(start.format(myCalendar.getTime()));
+
             }
 
         };
@@ -110,6 +114,7 @@ public class TournamentRegistration extends AppCompatActivity {
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 updateLabel2();
+
 
 
             }
@@ -129,7 +134,9 @@ public class TournamentRegistration extends AppCompatActivity {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(TournamentRegistration.this, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                    datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                }
                 datePickerDialog.show();
 
             }
@@ -141,7 +148,9 @@ public class TournamentRegistration extends AppCompatActivity {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(TournamentRegistration.this, date1, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                    datePickerDialog.getDatePicker().setMinDate(myCalendar.getTimeInMillis()-1000);
+                }
                 datePickerDialog.show();
 
             }
@@ -154,7 +163,7 @@ public class TournamentRegistration extends AppCompatActivity {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent,1);
+        startActivityForResult(intent, 1);
 
     }
 
@@ -168,8 +177,7 @@ public class TournamentRegistration extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode ==1 && resultCode == RESULT_OK && data !=null && data.getData()!= null)
-        {
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
             imguri = data.getData();
             tournamentimage.setImageURI(imguri);
 
@@ -177,73 +185,73 @@ public class TournamentRegistration extends AppCompatActivity {
     }
 
     public void toaddtournaments(View view) {
-        if(tournamentname.getText().toString().isEmpty() || contactnumber.getText().toString().isEmpty() ||
-                location.getText().toString().isEmpty() || country.getText().toString().isEmpty() || startdate.getText().toString().isEmpty() || enddate.getText().toString().isEmpty() ){
-            Toast.makeText(this, "All Field Required", Toast.LENGTH_SHORT).show();
-        }
-        else {
+
+            if (tournamentname.getText().toString().isEmpty() || contactnumber.getText().toString().isEmpty() ||
+                    location.getText().toString().isEmpty() || country.getText().toString().isEmpty() || startdate.getText().toString().isEmpty() || enddate.getText().toString().isEmpty()) {
+                Toast.makeText(this, "All Field Required", Toast.LENGTH_SHORT).show();
+            } else {
 
 
-            progressBar.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
 
-            if (imguri == null || imguri.equals(Uri.EMPTY)) {
-                downloadUri = "";
-                callAdd();
-            }
-
-            final StorageReference storageReference = sRef.child(System.currentTimeMillis() + "." +imguri);
-            storageReference.putFile(imguri).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                @Override
-                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                    if (!task.isSuccessful()) {
-                        throw task.getException();
-                    }
-                    return storageReference.getDownloadUrl();
-                }
-            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                @Override
-                public void onComplete(@NonNull Task<Uri> task) {
-                    if (task.isSuccessful())
-                    {
-                        Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-
-                            }
-                        }, 500);
-                    }
-
-                     downloadUri = task.getResult().toString();
+                if (imguri == null || imguri.equals(Uri.EMPTY)) {
+                    downloadUri = "";
                     callAdd();
-
-
-
                 }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
 
+                final StorageReference storageReference = sRef.child(System.currentTimeMillis() + "." + imguri);
+                storageReference.putFile(imguri).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                    @Override
+                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                        if (!task.isSuccessful()) {
+                            throw task.getException();
+                        }
+                        return storageReference.getDownloadUrl();
+                    }
+                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        if (task.isSuccessful()) {
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                }
+                            }, 500);
+                        }
+
+                        downloadUri = task.getResult().toString();
+                        callAdd();
+
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
         }
 
 
-    }
+
 
     private void callAdd() {
 
-        Map<String, Object> tour = new HashMap<>();
-        tour.put("tournament",tournamentname.getText().toString());
-        tour.put("startdate",startdate.getText().toString());
-        tour.put("enddate",enddate.getText().toString());
-        tour.put("location",location.getText().toString());
-        tour.put("country",country.getText().toString());
-        //  tour.put("contactnumber", contactnumber.getText().toString());
-        tour.put("image",downloadUri);
-        tour.put("leaguemanager",sharedPreferences.getString("userId",""));
 
+        ArrayList<String> teamsId = new ArrayList<>();
+        Map<String, Object> tour = new HashMap<>();
+        tour.put("tournament", tournamentname.getText().toString());
+        tour.put("startdate", startdate.getText().toString());
+        tour.put("enddate", enddate.getText().toString());
+        tour.put("location", location.getText().toString());
+        tour.put("country", country.getText().toString());
+        //  tour.put("contactnumber", contactnumber.getText().toString());
+        tour.put("image", downloadUri);
+        tour.put("leaguemanager", sharedPreferences.getString("userId", ""));
 
 
         // Add a new document with a generated ID

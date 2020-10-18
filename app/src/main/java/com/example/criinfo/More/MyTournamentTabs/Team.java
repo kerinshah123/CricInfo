@@ -1,4 +1,4 @@
-package com.example.criinfo.More;
+package com.example.criinfo.More.MyTournamentTabs;
 
 import java.util.ArrayList;
 
@@ -52,13 +52,30 @@ public class Team {
     }
 
     public ArrayList<String> getPlayers() {
-        return players;
+        return matchDate;
     }
 
     public void setPlayers(ArrayList<String> players) {
-        this.players = players;
+        this.matchDate = matchDate;
     }
 
     String city,country,image,managerId,name,sortname;
-    ArrayList<String> players;
+    ArrayList<String> matchDate;
+    ArrayList<String> leagueId;
+
+    public ArrayList<String> getMatchDate() {
+        return matchDate;
+    }
+
+    public void setMatchDate(ArrayList<String> matchDate) {
+        this.matchDate = matchDate;
+    }
+
+    public ArrayList<String> getLeagueId() {
+        return leagueId;
+    }
+
+    public void setLeagueId(ArrayList<String> leagueId) {
+        this.leagueId = leagueId;
+    }
 }
