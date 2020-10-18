@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,10 +26,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
-public class TeamManagerTeam extends AppCompatActivity {
+public class teamManagerTeam extends AppCompatActivity {
     LinearLayout teamlayout,addLayout,noteam;
     SharedPreferences sharedPreferences ;
     FirestoreRecyclerAdapter adapter;
@@ -40,7 +42,7 @@ public class TeamManagerTeam extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_team_manager_team);
         teamlayout=findViewById(R.id.teamlayout);
-        addLayout = findViewById(R.id.addLayoutTeam);
+        addLayout = findViewById(R.id.addLayout);
         noteam = findViewById(R.id.noteamLayout);
         recyclerView = findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -83,7 +85,7 @@ public class TeamManagerTeam extends AppCompatActivity {
             @Override
             public void onBindViewHolder(TeamHolder holder, final int position, final Team model) {
                 Glide.with(getApplicationContext()).load(model.getImage())
-                .placeholder(R.drawable.team)
+                .placeholder(R.drawable.logo1)
                 .into(holder.image);
                 holder.name.setText(model.getName());
                 holder.team.setOnClickListener(new View.OnClickListener() {
@@ -114,7 +116,7 @@ public class TeamManagerTeam extends AppCompatActivity {
     }
 
     public void createteam(View view) {
-        Intent intent=new Intent(getApplicationContext(), CreateTeam.class);
+        Intent intent=new Intent(getApplicationContext(),createTeam.class);
         startActivity(intent);
     }
     @Override

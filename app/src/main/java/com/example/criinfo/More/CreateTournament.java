@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.criinfo.More.MyTournamentTabs.MyTournamentInfo;
 import com.example.criinfo.R;
 import com.example.criinfo.Utils.Utils;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -79,7 +80,7 @@ public class CreateTournament extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull TeamHolder holder, final int position, @NonNull Tournament model) {
                 Glide.with(getApplicationContext()).load(model.getImage())
-                        .placeholder(R.drawable.team)
+                        .placeholder(R.drawable.logo1)
                         .into(holder.image);
                 holder.name.setText(model.getTournament());
                 holder.tournament.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +89,7 @@ public class CreateTournament extends AppCompatActivity {
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("tournamentId",getSnapshots().getSnapshot(position).getId());
                         editor.commit();
-                        startActivity(new Intent(getApplicationContext(),MyTeamInfo.class));
+                        startActivity(new Intent(getApplicationContext(), MyTournamentInfo.class));
                     }
                 });
 
@@ -111,7 +112,7 @@ public class CreateTournament extends AppCompatActivity {
     }
 
     public void createtournament(View view) {
-        Intent intent=new Intent(getApplicationContext(), TournamentRegistration.class);
+        Intent intent=new Intent(getApplicationContext(),Tournament_Registration.class);
         startActivity(intent);
     }
     @Override

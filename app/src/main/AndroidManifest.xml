@@ -12,30 +12,28 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".More.CreateTournament"
-            android:label="My Tournaments"/>
-        <activity android:name=".More.TournamentRegistration"
+        <activity android:name=".More.MyTournamentTabs.MyTournamentInfo"></activity>
+        <activity
+            android:name=".More.CreateTournament"
+            android:label="My Tournaments" />
+        <activity
+            android:name=".More.Tournament_Registration"
             android:label="Create Tournament"
-            android:parentActivityName=".More.CreateTournament">
-
-        </activity>
-        <activity android:name=".More.TeamsActivity"
-            android:label="All Teams"/>
-        <activity android:name=".More.MyTeamInfo"
-            android:label="MyTeamInfo"/>
-        <activity android:name=".More.ContectUs" />
-        <activity android:name=".More.AboutUs" />
+            android:parentActivityName=".More.CreateTournament"></activity>
+        <activity android:name=".More.TeamsActivity" />
+        <activity android:name=".More.MyTeamInfo" />
+        <activity android:name=".More.contactUs" />
+        <activity android:name=".More.aboutUs" />
         <activity
-            android:name=".More.TeamPlayers"
-            android:label="Select Player"
-            android:parentActivityName=".More.TeamManagerTeam" />
-        <activity android:name=".More.AddPlayer" />
+            android:name=".More.teamPlayers"
+            android:parentActivityName=".More.teamManagerTeam" />
+        <activity android:name=".More.addPlayer" />
         <activity
-            android:name=".More.CreateTeam"
+            android:name=".More.createTeam"
             android:label="Create Team"
-            android:parentActivityName=".More.TeamManagerTeam" />
+            android:parentActivityName=".More.teamManagerTeam" />
         <activity
-            android:name=".More.TeamManagerTeam"
+            android:name=".More.teamManagerTeam"
             android:label="My Team" />
         <activity android:name=".Home.HomeActivity" />
         <activity

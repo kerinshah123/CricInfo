@@ -1,6 +1,7 @@
 package com.example.criinfo.More.MyTeamTabs;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -9,13 +10,20 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.criinfo.Info.Player;
+import com.example.criinfo.More.MyTeamInfo;
+import com.example.criinfo.More.Team;
+import com.example.criinfo.More.TeamsActivity;
+import com.example.criinfo.More.addPlayer;
 import com.example.criinfo.R;
 import com.example.criinfo.Utils.Utils;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -47,8 +55,8 @@ public class MyTeamPlayer extends Fragment {
     RecyclerView playerRecycler;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    SharedPreferences sharedPreferences;
-    String teamId, usetId;
+    SharedPreferences sharedPreferences ;
+    String teamId,usetId;
     FirestoreRecyclerAdapter adapter;
 
     public MyTeamPlayer() {
@@ -90,23 +98,23 @@ public class MyTeamPlayer extends Fragment {
         View view = inflater.inflate(R.layout.fragment_my_team_player, container, false);
         playerRecycler = view.findViewById(R.id.playersRecycler);
         addPlayers = view.findViewById(R.id.addPlayerLayout);
-
         sharedPreferences = getContext().getSharedPreferences(Utils.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        usetId = sharedPreferences.getString("userId", "");
-        teamId = sharedPreferences.getString("teamId", "");
+
+        usetId = sharedPreferences.getString("userId","");
 
 
         db.collection("teams")
-                .whereEqualTo("managerId", usetId)
+                .whereEqualTo("managerId",usetId)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                if (!task.getResult().isEmpty()) {
+                                if(!task.getResult().isEmpty()){
                                     addPlayers.setVisibility(View.VISIBLE);
-                                } else {
+                                }
+                                else {
                                     addPlayers.setVisibility(View.GONE);
                                 }
                             }
@@ -118,21 +126,20 @@ public class MyTeamPlayer extends Fragment {
                 });
 
         final Query query = FirebaseFirestore.getInstance()
-                .collection("players").whereArrayContains("teamId", teamId);
+                .collection("players").whereEqualTo("teamId",sharedPreferences.getString("teamId",""));
 
         FirestoreRecyclerOptions<Players> options = new FirestoreRecyclerOptions.Builder<Players>()
                 .setQuery(query, Players.class)
                 .build();
 
-        adapter = new FirestoreRecyclerAdapter<Players, PlayerHolder>(options) {
+        adapter  = new FirestoreRecyclerAdapter<Players, PlayerHolder>(options) {
             @Override
             public void onBindViewHolder(PlayerHolder holder, final int position, final Players model) {
-
+                System.out.println(model.getName());
                 Glide.with(getActivity()).load(model.getImage())
-                        .placeholder(R.drawable.profile)
+                        .placeholder(R.drawable.logo1)
                         .into(holder.image);
                 holder.name.setText(model.getName());
-
 
             }
 
@@ -147,7 +154,7 @@ public class MyTeamPlayer extends Fragment {
 
         playerRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
         playerRecycler.setAdapter(adapter);
-        return view;
+        return  view;
     }
 
     @Override
@@ -155,7 +162,6 @@ public class MyTeamPlayer extends Fragment {
         super.onStart();
         adapter.startListening();
     }
-
     @Override
     public void onStop() {
         super.onStop();
@@ -166,7 +172,6 @@ public class MyTeamPlayer extends Fragment {
         TextView name;
         CircularImageView image;
         LinearLayout team;
-
         public PlayerHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.team_name);
