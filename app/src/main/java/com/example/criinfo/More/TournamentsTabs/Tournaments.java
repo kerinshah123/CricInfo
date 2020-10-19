@@ -17,7 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.criinfo.More.MyTeamInfo;
 import com.example.criinfo.R;
 import com.example.criinfo.Utils.Utils;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -65,13 +64,14 @@ public class Tournaments extends AppCompatActivity {
                 holder.tournament.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                     /*
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("teamId",getSnapshots().getSnapshot(position).getId());
                         editor.commit();
                         startActivity(new Intent(getApplicationContext(), MyTeamInfo.class));
 
 
+                      */
                         Toast.makeText(getApplicationContext(),"DOne",Toast.LENGTH_LONG).show();
                     }
                 });
