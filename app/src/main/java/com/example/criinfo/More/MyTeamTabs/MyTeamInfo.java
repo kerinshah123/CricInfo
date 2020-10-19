@@ -1,4 +1,4 @@
-package com.example.criinfo.More;
+package com.example.criinfo.More.MyTeamTabs;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,9 +15,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.criinfo.More.AddPlayer;
 import com.example.criinfo.More.MyTeamTabs.MyTeamAbout;
 import com.example.criinfo.More.MyTeamTabs.MyTeamMatch;
 import com.example.criinfo.More.MyTeamTabs.MyTeamPlayer;
+import com.example.criinfo.More.TeamPlayers;
 import com.example.criinfo.R;
 import com.example.criinfo.Utils.Utils;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -119,6 +121,6 @@ public class MyTeamInfo extends AppCompatActivity {
     }
 
     public void addPlayer(View view) {
-        startActivity(new Intent(getApplicationContext(),AddPlayer.class));
+        startActivity(new Intent(getApplicationContext(), TeamPlayers.class));
     }
 }

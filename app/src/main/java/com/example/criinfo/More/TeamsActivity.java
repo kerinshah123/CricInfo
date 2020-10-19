@@ -16,6 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.criinfo.More.MyTeamTabs.MyTeamInfo;
+import com.example.criinfo.More.MyTournamentTabs.Team;
 import com.example.criinfo.R;
 import com.example.criinfo.Utils.Utils;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -57,7 +59,7 @@ public class TeamsActivity extends AppCompatActivity {
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("teamId",getSnapshots().getSnapshot(position).getId());
                         editor.commit();
-                        startActivity(new Intent(getApplicationContext(),MyTeamInfo.class));
+                        startActivity(new Intent(getApplicationContext(), MyTeamInfo.class));
                     }
                 });
 

@@ -147,6 +147,7 @@ public class CreateTeam extends AppCompatActivity {
     private void callAdd() {
 
         ArrayList<String> matchDate = new ArrayList<>();
+        ArrayList<String> leagueId = new ArrayList<>();
 
         Map<String, Object> team = new HashMap<>();
         team.put("name", name.getText().toString());
@@ -156,6 +157,7 @@ public class CreateTeam extends AppCompatActivity {
         team.put("image", downloadUri);
         team.put("managerId", sharedPreferences.getString("userId", ""));
         team.put("matchDate", matchDate);
+        team.put("leagueId",leagueId);
 
         // Add a new document with a generated ID
         db.collection("teams")
