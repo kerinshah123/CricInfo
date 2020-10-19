@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.example.criinfo.LoginSignUpActivity;
+import com.example.criinfo.More.TournamentsTabs.Tournaments;
 import com.example.criinfo.R;
 import com.example.criinfo.Utils.Utils;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -41,7 +42,7 @@ public class MoreFragment extends Fragment {
     SharedPreferences sharedPreferences ;
     SharedPreferences.Editor editor;
     String type ;
-    CardView teamsCard;
+    CardView teamsCard,tournaments;
 
     public MoreFragment() {
         // Required empty public constructor
@@ -90,6 +91,7 @@ public class MoreFragment extends Fragment {
         mytournament= view.findViewById(R.id.mytournamentlayout);
         tournamnet=view.findViewById(R.id.tournamentlayout);
         myprofile=view.findViewById(R.id.myprofilelayout);
+        tournaments=view.findViewById(R.id.tournaments);
 
         sharedPreferences = getContext().getSharedPreferences(Utils.SHARED_PREF_NAME,Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -186,6 +188,12 @@ public class MoreFragment extends Fragment {
             }
         });
 
+        tournaments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), Tournaments.class));
+            }
+        });
         teamsCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

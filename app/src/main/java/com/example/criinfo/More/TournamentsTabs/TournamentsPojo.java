@@ -1,6 +1,8 @@
-package com.example.criinfo.More;
+package com.example.criinfo.More.TournamentsTabs;
 
-public class Tournament {
+public class TournamentsPojo {
+
+    public String contactnumber,country,enddate,image,leaguemanager,location,startdate,tournament;
 
     public String getContactnumber() {
         return contactnumber;
@@ -24,6 +26,14 @@ public class Tournament {
 
     public void setEnddate(String enddate) {
         this.enddate = enddate;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getLeaguemanager() {
@@ -57,24 +67,4 @@ public class Tournament {
     public void setTournament(String tournament) {
         this.tournament = tournament;
     }
-
-    String contactnumber;
-    String country;
-    String enddate;
-    String leaguemanager;
-    String location;
-    String startdate;
-    String tournament;
-    String image;
-
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-
 }

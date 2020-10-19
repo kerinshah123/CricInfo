@@ -12,14 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".More.MyTournamentTabs.MyTournamentInfo"></activity>
+        <activity android:name=".More.TournamentsTabs.Tournaments"></activity>
+        <activity android:name=".More.MyTournamentTabs.MyTournamentInfo" />
         <activity
             android:name=".More.CreateTournament"
             android:label="My Tournaments" />
         <activity
             android:name=".More.TournamentRegistration"
             android:label="Create Tournament"
-            android:parentActivityName=".More.CreateTournament"></activity>
+            android:parentActivityName=".More.CreateTournament" />
         <activity android:name=".More.TeamsActivity" />
         <activity android:name=".More.MyTeamInfo" />
         <activity android:name=".More.ContectUs" />
