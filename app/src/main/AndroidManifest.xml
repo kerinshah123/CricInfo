@@ -12,6 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".More.TournamentTeams"></activity>
+        <activity android:name=".More.TournamentsTabs.Tournaments"></activity>
         <activity android:name=".More.AddTournamentMatchSchedule"></activity>
         <activity android:name=".More.TournamentTeams" />
         <activity android:name=".More.MyTournamentTabs.MyTournamentInfo" />
