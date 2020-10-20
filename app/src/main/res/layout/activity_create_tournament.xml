@@ -1,66 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="match_parent"
-        tools:context=".More.CreateTournament">
-
-    <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/recycler"/>
-
-
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="200dp"
-        android:id="@+id/progress">
-
-    </ProgressBar>
-
-
-
-    <TextView
-        android:id="@+id/noteamLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:text="You Have no Tournaments, Please Create One"
-        android:textStyle="bold"
-        android:visibility="gone">
-
-    </TextView>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center|bottom">
-        <Button
-            android:id="@+id/addtournamnet"
+        android:orientation="vertical"
+        tools:context=".More.CreateTournament">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <ProgressBar
+            android:id="@+id/progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_round"
-            android:onClick="createtournament"
-            android:text="Create Tournament"
-            android:paddingBottom="10dp"
-            android:layout_gravity="bottom"
-            android:textColor="@android:color/background_light"
-            android:textSize="15dp"
-            android:textStyle="bold" />
-    </LinearLayout>
+            android:layout_gravity="center"
+            android:layout_marginTop="200dp">
+
+        </ProgressBar>
 
 
+        <TextView
+            android:id="@+id/noteamLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="You Have no Tournaments, Please Create One"
+            android:textStyle="bold"
+            android:visibility="gone">
 
+        </TextView>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/addtournamnet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/button_round"
+                android:onClick="createtournament"
+                android:text="Create Tournament"
+                android:layout_alignParentBottom="true"
+                android:textColor="@android:color/background_light"
+                android:textSize="15dp"
+                android:paddingBottom="10dp"
+                android:textStyle="bold" />
+        </RelativeLayout>
     </LinearLayout>
 
 </ScrollView>

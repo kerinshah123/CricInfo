@@ -1,5 +1,6 @@
 package com.example.criinfo.More.MyTournamentTabs;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,7 +8,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import com.example.criinfo.More.AddTournamentMatchSchedule;
 import com.example.criinfo.R;
 
 /**
@@ -16,6 +19,8 @@ import com.example.criinfo.R;
  * create an instance of this fragment.
  */
 public class TournamentSchecduleFragment extends Fragment {
+
+    Button addMatchtoschedule;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +66,18 @@ public class TournamentSchecduleFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tournament_schecdule, container, false);
+        View view = inflater.inflate(R.layout.fragment_tournament_schecdule, container, false);
+
+        addMatchtoschedule = view.findViewById(R.id.addMatchtoschedule);
+
+        addMatchtoschedule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), AddTournamentMatchSchedule.class);
+                startActivity(i);
+            }
+        });
+
+        return view;
     }
 }

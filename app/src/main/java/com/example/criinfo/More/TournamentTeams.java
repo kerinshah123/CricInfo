@@ -106,8 +106,7 @@ public class TournamentTeams extends AppCompatActivity {
             @Override
             public TeamHolder onCreateViewHolder(ViewGroup group, int i) {
                 // Using a custom layout called R.layout.message for each item, we create a new instance of the viewholder
-                View view = LayoutInflater.from(group.getContext())
-                        .inflate(R.layout.team_list, group, false);
+                View view = LayoutInflater.from(group.getContext()).inflate(R.layout.team_list, group, false);
                 return new TeamHolder(view);
             }
         };
