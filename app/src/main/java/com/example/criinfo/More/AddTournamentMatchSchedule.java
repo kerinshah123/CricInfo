@@ -28,13 +28,18 @@ import com.example.criinfo.R;
 import com.example.criinfo.Utils.Utils;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.text.SimpleDateFormat;
@@ -55,7 +60,8 @@ public class AddTournamentMatchSchedule extends AppCompatActivity {
     RadioButton ball,match;
     Button showteams;
     ArrayList<String> Teams = new ArrayList<String>();
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    ArrayList<String> date = new ArrayList<String>();
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
     int Count;
     SimpleDateFormat start;
 
@@ -85,36 +91,69 @@ public class AddTournamentMatchSchedule extends AppCompatActivity {
 
                 if(Count == 2)
                 {
-                    addToTeam(Teams.get(0));
-                    addToTeam(Teams.get(1));
 
-                    Map<String, Object> Schedule = new HashMap<>();
-                    Schedule.put("team1",Teams.get(0));
-                    Schedule.put("team2",Teams.get(1));
-                    Schedule.put("LeagueId",tournamentId);
-                    Schedule.put("Match Date" , matchdate);
-                    Schedule.put("Match Ball" , ball.getText().toString());
-                    Schedule.put("Match Type" , match.getText().toString());
+                    DocumentReference documentReference = db.collection("teams").document(Teams.get(0));
+                    documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            Team team = documentSnapshot.toObject(Team.class);
+                            if(team.getMatchDate().contains(matchdate))
+                            {
+                                Toast.makeText(AddTournamentMatchSchedule.this, "Select Any Other Date Team is Already Playing on that day", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                    DocumentReference documentReference2 = db.collection("teams").document(Teams.get(0));
+                    documentReference2.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            Team team = documentSnapshot.toObject(Team.class);
+                            if(team.getMatchDate().contains(matchdate))
+                            {
+                                Toast.makeText(AddTournamentMatchSchedule.this, "Select Any Other Date Team is Already Playing on that day", Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                if(Count == 2)
+                                {
+                                    addToTeam(Teams.get(0));
+                                    addToTeam(Teams.get(1));
 
-                    db.collection("schedule")
-                            .add(Schedule)
-                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    finish();
+                                    Map<String, Object> Schedule = new HashMap<>();
+                                    Schedule.put("team1",Teams.get(0));
+                                    Schedule.put("team2",Teams.get(1));
+                                    Schedule.put("LeagueId",tournamentId);
+                                    Schedule.put("Match Date" , matchdate);
+                                    Schedule.put("Match Ball" , ball.getText().toString());
+                                    Schedule.put("Match Type" , match.getText().toString());
 
-                                    Toast.makeText(AddTournamentMatchSchedule.this, "Schedule Created Successfully", Toast.LENGTH_SHORT).show();
-                                    //startActivity(new Intent(getApplicationContext(),teamManagerTeam.class));
+                                    db.collection("schedule")
+                                            .add(Schedule)
+                                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                @Override
+                                                public void onSuccess(DocumentReference documentReference) {
+                                                    finish();
+
+                                                    Toast.makeText(AddTournamentMatchSchedule.this, "Schedule Created Successfully", Toast.LENGTH_SHORT).show();
+                                                    //startActivity(new Intent(getApplicationContext(),teamManagerTeam.class));
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    System.out.println(e.getMessage());
+                                                }
+                                            });
+
                                 }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    System.out.println(e.getMessage());
-                                }
-                            });
-
+                            }
+                        }
+                    });
                 }
+                else
+                {
+                    Toast.makeText(AddTournamentMatchSchedule.this, "Plz Select 2 Team to proceed", Toast.LENGTH_SHORT).show();
+                }
+
 
 
 

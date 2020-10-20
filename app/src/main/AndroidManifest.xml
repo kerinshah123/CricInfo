@@ -12,34 +12,66 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".More.TournamentTeams"></activity>
-        <activity android:name=".More.TournamentsTabs.Tournaments"></activity>
-        <activity android:name=".More.AddTournamentMatchSchedule"></activity>
-        <activity android:name=".More.TournamentTeams" />
-        <activity android:name=".More.MyTournamentTabs.MyTournamentInfo" />
+        <activity android:name=".More.TournamentTeams"
+            android:label="TournamentTeams"
+            android:parentActivityName=".More.MyTournamentTabs.MyTournamentInfo"
+            />
+        <activity android:name=".More.TournamentsTabs.Tournaments"
+            android:label="Tournaments"
+            android:parentActivityName=".Home.HomeActivity"
+            />
+        <activity android:name=".More.AddTournamentMatchSchedule"
+            android:label="Schedule"
+            android:parentActivityName=".More.MyTournamentTabs.MyTournamentInfo"/>
+
+        <activity android:name=".More.MyTournamentTabs.MyTournamentInfo"
+            android:label="My Tournament"
+            android:parentActivityName=".More.CreateTournament"
+            />
         <activity
             android:name=".More.CreateTournament"
-            android:label="My Tournaments" />
+            android:label="My Tournaments"
+            android:parentActivityName=".Home.HomeActivity"
+            />
         <activity
             android:name=".More.TournamentRegistration"
             android:label="Create Tournament"
             android:parentActivityName=".More.CreateTournament" />
-        <activity android:name=".More.TeamsActivity" />
-        <activity android:name=".More.MyTeamTabs.MyTeamInfo" />
-        <activity android:name=".More.ContectUs" />
-        <activity android:name=".More.AboutUs" />
+
+        <activity android:name=".More.TeamsActivity"
+            android:label="Teams"
+            android:parentActivityName=".More.MyTeamTabs.MyTeamInfo"/>
+
+        <activity android:name=".More.MyTeamTabs.MyTeamInfo"
+            android:parentActivityName="More.TeamManagerTeam"
+            android:label="My Teams"
+            />
+        <activity android:name=".More.ContectUs"
+            android:label="Contact Us"
+            android:parentActivityName=".Home.HomeActivity"/>
+        <activity android:name=".More.AboutUs"
+            android:label="About Us"
+            android:parentActivityName=".Home.HomeActivity"
+            />
         <activity
             android:name=".More.TeamPlayers"
             android:parentActivityName=".More.TeamManagerTeam" />
-        <activity android:name=".More.AddPlayer" />
+        <activity android:name=".More.AddPlayer"
+            android:parentActivityName=".More.MyTeamTabs.MyTeamInfo"
+            android:label="Add Player"
+            />
         <activity
             android:name=".More.CreateTeam"
             android:label="Create Team"
             android:parentActivityName=".More.TeamManagerTeam" />
         <activity
             android:name=".More.TeamManagerTeam"
-            android:label="My Team" />
-        <activity android:name=".Home.HomeActivity" />
+            android:label="My Team"
+            android:parentActivityName=".Home.HomeActivity"
+            />
+        <activity android:name=".Home.HomeActivity"
+            android:label="Cric Info"
+            />
         <activity
             android:name=".Home.MatchDetails"
             android:label="MatchDetails"

@@ -120,7 +120,8 @@ public class MyTeamPlayer extends Fragment {
                 });
 
         final Query query = FirebaseFirestore.getInstance()
-                .collection("players").whereArrayContains("teamId",teamId);
+                .collection("players")
+                .whereArrayContains("teamId",teamId);
 
         FirestoreRecyclerOptions<Players> options = new FirestoreRecyclerOptions.Builder<Players>()
                 .setQuery(query, Players.class)
