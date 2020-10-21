@@ -1,4 +1,4 @@
-package com.example.criinfo.More.MyTournamentTabs;
+package com.example.criinfo.More.TournamentsTabs;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,15 +6,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.criinfo.More.TournamentTeams;
+import com.example.criinfo.More.TournamentsTabs.*;
 import com.example.criinfo.R;
 import com.example.criinfo.Utils.Utils;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,34 +22,33 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
-public class MyTournamentInfo extends AppCompatActivity {
-
-    TabLayout tournamentTab;
-    TournamentSchecduleFragment tournamentSchecduleFragment;
-    TournamentTeamsFragment tournamentTeamsFragment;
-    TournamentPointtableFragment tournamentPointtableFragment;
-    TournamentAboutFragment tournamentAboutFragment;
+public class TournamentsInfo extends AppCompatActivity {
+    TabLayout tourTab;
+    TournamentsAboutFragment tournamentsAboutFragment;
+    TournamentsTeamsFragment tournamentsTeamsFragment;
+    TournamentsPointTableFragment tournamentsPointTableFragment;
+    TournamentsScheduleFragment tournamentsSchecduleFragment;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    SharedPreferences sharedPreferences ;
+    SharedPreferences sharedPreferences;
     CircularImageView image;
     TextView name;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_tournament_info);
+        setContentView(R.layout.activity_tournaments_info);
+        image = findViewById(R.id.tourImage);
+        name = findViewById(R.id.tourName);
 
-        image = findViewById(R.id.tournamentImage);
-        name = findViewById(R.id.tournamentName);
-
-        tournamentSchecduleFragment = new TournamentSchecduleFragment();
-        tournamentTeamsFragment = new TournamentTeamsFragment();
-        tournamentPointtableFragment= new TournamentPointtableFragment();
-        tournamentAboutFragment = new TournamentAboutFragment();
+        tournamentsSchecduleFragment = new TournamentsScheduleFragment();
+        tournamentsTeamsFragment = new TournamentsTeamsFragment();
+        tournamentsPointTableFragment = new TournamentsPointTableFragment();
+        tournamentsAboutFragment = new TournamentsAboutFragment();
 
 
-        tournamentTab = findViewById(R.id.tournamentTab);
-        setfragment(tournamentSchecduleFragment);
+        tourTab = findViewById(R.id.tourTab);
+        setfragment(tournamentsSchecduleFragment);
 
         sharedPreferences = getApplicationContext().getSharedPreferences(Utils.SHARED_PREF_NAME, Context.MODE_PRIVATE);
 
@@ -64,8 +60,8 @@ public class MyTournamentInfo extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                if(!task.getResult().isEmpty()){
-                                    if(document.getId().equals(sharedPreferences.getString("tournamentId",""))) {
+                                if (!task.getResult().isEmpty()) {
+                                    if (document.getId().equals(sharedPreferences.getString("tourId", ""))) {
                                         Glide.with(getApplicationContext())
                                                 .load(document.getString("image"))
                                                 .placeholder(R.drawable.team)
@@ -81,25 +77,25 @@ public class MyTournamentInfo extends AppCompatActivity {
                     }
                 });
 
-        tournamentTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        tourTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 int position = tab.getPosition();
                 switch (position) {
                     case 0:
-                        setfragment(tournamentSchecduleFragment);
+                        setfragment(tournamentsSchecduleFragment);
                         break;
                     case 1:
-                        setfragment(tournamentTeamsFragment);
+                        setfragment(tournamentsTeamsFragment);
                         break;
                     case 2:
-                        setfragment(tournamentPointtableFragment);
+                        setfragment(tournamentsPointTableFragment);
                         break;
                     case 3:
-                        setfragment(tournamentAboutFragment);
+                        setfragment(tournamentsAboutFragment);
                         break;
                     default:
-                        setfragment(tournamentSchecduleFragment);
+                        setfragment(tournamentsSchecduleFragment);
                 }
             }
 
@@ -117,6 +113,7 @@ public class MyTournamentInfo extends AppCompatActivity {
     }
 
     private void setfragment(Fragment fragment) {
+
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.frame_Tournament, fragment);
         fragmentTransaction.commit();
@@ -124,8 +121,4 @@ public class MyTournamentInfo extends AppCompatActivity {
     }
 
 
-    public void addTeam(View view) {
-        startActivity(new Intent(getApplicationContext(), TournamentTeams.class));
-
-    }
 }

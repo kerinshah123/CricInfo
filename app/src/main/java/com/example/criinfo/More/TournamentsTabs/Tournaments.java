@@ -64,15 +64,12 @@ public class Tournaments extends AppCompatActivity {
                 holder.tournament.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                     /*
+
                         SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("teamId",getSnapshots().getSnapshot(position).getId());
+                        editor.putString("tourId",getSnapshots().getSnapshot(position).getId());
                         editor.commit();
-                        startActivity(new Intent(getApplicationContext(), MyTeamInfo.class));
+                        startActivity(new Intent(getApplicationContext(), TournamentsInfo.class));
 
-
-                      */
-                        Toast.makeText(getApplicationContext(),"DOne",Toast.LENGTH_LONG).show();
                     }
                 });
 
