@@ -118,7 +118,7 @@ public class PastMatchesFragment extends Fragment {
 
                         String past_match = jsonobject2.getString("state");
 
-                        if (past_match.equals("complete")) {
+                        if (past_match.equals("complete")|| past_match.equals("mom")) {
 
                             String matchid = jsonobject.getString("match_id");
                             String seriesname = jsonobject.getString("series_name");

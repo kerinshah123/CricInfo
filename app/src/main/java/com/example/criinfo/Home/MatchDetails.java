@@ -169,7 +169,7 @@ String matchid,mom,batonename,batonescore,battwoname,battwoscore;
                                }
                                updation();
                            }
-                          else if (state.equals("complete")) {
+                          else if (state.equals("complete") ||state.equals("mom")) {
                                matchdescription = jsonobject2.getString("toss") + ", " + jsonobject2.getString("match_desc");
 
                                if (jsonobject2.has("momNames")) {
