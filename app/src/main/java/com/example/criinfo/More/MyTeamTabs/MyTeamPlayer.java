@@ -22,6 +22,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -48,7 +49,7 @@ public class MyTeamPlayer extends Fragment {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     SharedPreferences sharedPreferences ;
-    String teamId,usetId;
+    String teamId,userId;
     FirestoreRecyclerAdapter adapter;
 
     public MyTeamPlayer() {
@@ -93,31 +94,26 @@ public class MyTeamPlayer extends Fragment {
 
         sharedPreferences = getContext().getSharedPreferences(Utils.SHARED_PREF_NAME, Context.MODE_PRIVATE);
 
-        usetId = sharedPreferences.getString("userId","");
+        userId = sharedPreferences.getString("userId","");
         teamId = sharedPreferences.getString("teamId","");
 
 
         db.collection("teams")
-                .whereEqualTo("managerId",usetId)
+                .document(teamId)
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                if(!task.getResult().isEmpty()){
-                                    addPlayers.setVisibility(View.VISIBLE);
-                                }
-                                else {
-                                    addPlayers.setVisibility(View.GONE);
-                                }
-                            }
-                        } else {
-
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.getResult().getString("managerId").equals(userId)){
+                            addPlayers.setVisibility(View.VISIBLE);
+                        }
+                        else {
                             addPlayers.setVisibility(View.GONE);
                         }
+
                     }
                 });
+
 
         final Query query = FirebaseFirestore.getInstance()
                 .collection("players")

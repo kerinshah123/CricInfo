@@ -42,9 +42,11 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -57,13 +59,14 @@ public class AddTournamentMatchSchedule extends AppCompatActivity {
     String tournamentId, matchdate;
     TextInputEditText Matchdate;
     RadioGroup selectball, selectMatchtype;
-    RadioButton ball,match;
+    RadioButton ball, match;
     Button showteams;
     ArrayList<String> Teams = new ArrayList<String>();
     ArrayList<String> date = new ArrayList<String>();
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     int Count;
     SimpleDateFormat start;
+    String startDate, endDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +82,17 @@ public class AddTournamentMatchSchedule extends AppCompatActivity {
         sharedPreferences = getApplicationContext().getSharedPreferences(Utils.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         tournamentId = sharedPreferences.getString("tournamentId", "");
 
+        db.collection("tournaments").document(tournamentId)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        startDate = task.getResult().getString("startdate");
+                        endDate = task.getResult().getString("enddate");
+                    }
+                });
+
+
         showteams.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,19 +100,16 @@ public class AddTournamentMatchSchedule extends AppCompatActivity {
                 ball = (RadioButton) findViewById(selectedId);
                 int selectedIdMatch = selectMatchtype.getCheckedRadioButtonId();
                 match = findViewById(selectedIdMatch);
-
                 matchdate = Matchdate.getText().toString();
 
-                if(Count == 2)
-                {
+                if (Count == 2) {
 
                     DocumentReference documentReference = db.collection("teams").document(Teams.get(0));
                     documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
                             Team team = documentSnapshot.toObject(Team.class);
-                            if(team.getMatchDate().contains(matchdate))
-                            {
+                            if (team.getMatchDate().contains(matchdate)) {
                                 Toast.makeText(AddTournamentMatchSchedule.this, "Select Any Other Date Team is Already Playing on that day", Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -108,23 +119,20 @@ public class AddTournamentMatchSchedule extends AppCompatActivity {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
                             Team team = documentSnapshot.toObject(Team.class);
-                            if(team.getMatchDate().contains(matchdate))
-                            {
+                            if (team.getMatchDate().contains(matchdate)) {
                                 Toast.makeText(AddTournamentMatchSchedule.this, "Please select any Other Date these Teams are already playing on thiss day", Toast.LENGTH_SHORT).show();
-                            }
-                            else{
-                                if(Count == 2)
-                                {
+                            } else {
+                                if (Count == 2) {
                                     addToTeam(Teams.get(0));
                                     addToTeam(Teams.get(1));
 
                                     Map<String, Object> Schedule = new HashMap<>();
-                                    Schedule.put("team1",Teams.get(0));
-                                    Schedule.put("team2",Teams.get(1));
-                                    Schedule.put("LeagueId",tournamentId);
-                                    Schedule.put("Match Date" , matchdate);
-                                    Schedule.put("Match Ball" , ball.getText().toString());
-                                    Schedule.put("Match Type" , match.getText().toString());
+                                    Schedule.put("team1", Teams.get(0));
+                                    Schedule.put("team2", Teams.get(1));
+                                    Schedule.put("LeagueId", tournamentId);
+                                    Schedule.put("Match Date", matchdate);
+                                    Schedule.put("Match Ball", ball.getText().toString());
+                                    Schedule.put("Match Type", match.getText().toString());
 
                                     db.collection("schedule")
                                             .add(Schedule)
@@ -143,21 +151,15 @@ public class AddTournamentMatchSchedule extends AppCompatActivity {
                                                     System.out.println(e.getMessage());
                                                 }
                                             });
-
                                 }
                             }
                         }
                     });
-                }
-                else
-                {
+                } else {
                     Toast.makeText(AddTournamentMatchSchedule.this, "Plz Select 2 Teams to proceed", Toast.LENGTH_SHORT).show();
                 }
 
-
-
-
-//                Toast.makeText(AddTournamentMatchSchecdule.this, ball.getText().toString() + "", Toast.LENGTH_SHORT).show();
+//               Toast.makeText(AddTournamentMatchSchecdule.this, ball.getText().toString() + "", Toast.LENGTH_SHORT).show();
 //                Toast.makeText(AddTournamentMatchSchecdule.this, Teams + "", Toast.LENGTH_SHORT).show();
             }
         });
@@ -197,7 +199,19 @@ public class AddTournamentMatchSchedule extends AppCompatActivity {
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH));
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                    String myFormat = "MM/dd/yy"; //In which you need put here
+                    start = new SimpleDateFormat(myFormat, Locale.US);
+                    Matchdate.setText(start.format(myCalendar.getTime()));
+
+                    try {
+                        Date date1=new SimpleDateFormat("MM/dd/yy").parse(startDate);
+                        Date date2=new SimpleDateFormat("MM/dd/yy").parse(endDate);
+                        datePickerDialog.getDatePicker().setMaxDate(date2.getTime());
+                        datePickerDialog.getDatePicker().setMinDate(date1.getTime());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
                 }
                 datePickerDialog.show();
             }
@@ -214,6 +228,8 @@ public class AddTournamentMatchSchedule extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull final TeamHolder holder, final int position, @NonNull final Team model) {
                 if (model.getLeagueId().contains(tournamentId)) {
+
+
                     Glide.with(getApplicationContext()).load(model.getImage())
                             .placeholder(R.drawable.profile)
                             .into(holder.image);
@@ -265,6 +281,7 @@ public class AddTournamentMatchSchedule extends AppCompatActivity {
             selected_Team = itemView.findViewById(R.id.selectedTeam);
         }
     }
+
     private void addToTeam(String toString) {
         db.collection("teams").document(toString)
                 .update("matchDate", FieldValue.arrayUnion(matchdate))

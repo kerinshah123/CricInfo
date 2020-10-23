@@ -186,7 +186,7 @@ public class TournamentRegistration extends AppCompatActivity {
 
     public void toaddtournaments(View view) {
 
-            if (tournamentname.getText().toString().isEmpty() || contactnumber.getText().toString().isEmpty() ||
+            if (tournamentname.getText().toString().isEmpty()  ||
                     location.getText().toString().isEmpty() || country.getText().toString().isEmpty() || startdate.getText().toString().isEmpty() || enddate.getText().toString().isEmpty()) {
                 Toast.makeText(this, "All Field Required", Toast.LENGTH_SHORT).show();
             } else {

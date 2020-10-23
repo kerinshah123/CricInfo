@@ -1,6 +1,7 @@
 package com.example.criinfo.Info;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,13 +34,16 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Player player = playerArrayList.get(position);
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+        final Player player = playerArrayList.get(position);
         holder.name.setText(player.getName());
 
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(context,PlayerInfo.class);
+                intent.putExtra("id",player.getId());
+                context.startActivity(intent);
 
             }
         });

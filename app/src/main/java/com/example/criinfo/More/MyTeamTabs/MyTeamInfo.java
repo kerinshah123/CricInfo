@@ -67,13 +67,14 @@ public class MyTeamInfo extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                if(!task.getResult().isEmpty()){
-                                   if(document.getId().equals(sharedPreferences.getString("teamId","")))
-                                   Glide.with(getApplicationContext())
-                                           .load(document.getString("image"))
-                                           .placeholder(R.drawable.team)
-                                           .into(image);
-                                   name.setText(document.getString("name"));
-
+                                   if(document.getId().equals(sharedPreferences.getString("teamId",""))) {
+                                       Glide.with(getApplicationContext())
+                                               .load(document.getString("image"))
+                                               .placeholder(R.drawable.team)
+                                               .into(image);
+                                       name.setText(document.getString("name"));
+                                       System.out.println(document.getString("name"));
+                                   }
                                }
                             }
                         } else {

@@ -1,0 +1,979 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Info.PlayerInfo"
+    android:fillViewport="true"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="20dp"
+        >
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/playerImage"
+            android:layout_width="100dp"
+            android:layout_gravity="center"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"></com.mikhaellopez.circularimageview.CircularImageView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/playerName"
+            android:text="Name"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textSize="20dp"></TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/playerCountry"
+            android:text="Name"
+            android:textAlignment="center"
+            android:textSize="18dp"></TextView>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/black"
+            android:alpha="0.5"></View>
+        <androidx.cardview.widget.CardView
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/profile">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/profileLabel"
+                    android:text="Profile"
+                    android:textSize="20dp"
+                    android:paddingVertical="10dp"
+                    android:textColor="@color/black"
+                    android:paddingHorizontal="20dp"
+                    android:drawableEnd="@drawable/down"
+                    ></TextView>
+                <TextView
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Details"
+                    android:id="@+id/profileDetails"
+                    android:paddingHorizontal="20dp"
+                    android:textSize="18dp"
+                    android:textColor="@color/black"
+                    ></TextView>
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/personal">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/personalLabel"
+                    android:text="Personal Information"
+                    android:textSize="20dp"
+                    android:paddingVertical="10dp"
+                    android:textColor="@color/black"
+                    android:paddingHorizontal="20dp"
+                    android:drawableEnd="@drawable/down"
+                    ></TextView>
+               <LinearLayout
+                   android:visibility="gone"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:id="@+id/personalDetails"
+                   android:orientation="vertical"
+                   android:paddingVertical="5dp">
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="horizontal">
+                       <TextView
+                           android:layout_weight="2"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="Full Name"
+                           android:paddingStart="20dp"
+                           android:textSize="18dp"
+                           android:textColor="@color/black">
+                       </TextView>
+                       <TextView
+                           android:id="@+id/full_name"
+                           android:layout_weight="1"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="Full Name"
+                           android:paddingStart="20dp"
+                           android:textSize="18dp"
+                           android:textColor="@color/black">
+                       </TextView>
+                   </LinearLayout>
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="horizontal">
+                       <TextView
+                           android:layout_weight="2"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="Born"
+                           android:paddingStart="20dp"
+                           android:textSize="18dp"
+                           android:textColor="@color/black">
+                       </TextView>
+                       <TextView
+                           android:id="@+id/born"
+                           android:layout_weight="1"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="Full Name"
+                           android:paddingStart="20dp"
+                           android:textSize="18dp"
+                           android:textColor="@color/black">
+                       </TextView>
+                   </LinearLayout>
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="horizontal">
+                       <TextView
+                           android:layout_weight="2"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="Age"
+                           android:paddingStart="20dp"
+                           android:textSize="18dp"
+                           android:textColor="@color/black">
+                       </TextView>
+                       <TextView
+                           android:id="@+id/age"
+                           android:layout_weight="1"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="Full Name"
+                           android:paddingStart="20dp"
+                           android:textSize="18dp"
+                           android:textColor="@color/black">
+                       </TextView>
+                   </LinearLayout>
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="horizontal">
+                       <TextView
+                           android:layout_weight="2"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="Role"
+                           android:paddingStart="20dp"
+                           android:textSize="18dp"
+                           android:textColor="@color/black">
+                       </TextView>
+                       <TextView
+                           android:id="@+id/role"
+                           android:layout_weight="1"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="Full Name"
+                           android:paddingStart="20dp"
+                           android:textSize="18dp"
+                           android:textColor="@color/black">
+                       </TextView>
+                   </LinearLayout>
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="horizontal">
+                       <TextView
+                           android:layout_weight="2"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="Batting Style"
+                           android:paddingStart="20dp"
+                           android:textSize="18dp"
+                           android:textColor="@color/black">
+                       </TextView>
+                       <TextView
+                           android:id="@+id/batting"
+                           android:layout_weight="1"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="Full Name"
+                           android:paddingStart="20dp"
+                           android:textSize="18dp"
+                           android:textColor="@color/black">
+                       </TextView>
+                   </LinearLayout>
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="horizontal">
+                       <TextView
+                           android:layout_weight="2"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="Bowling Style"
+                           android:paddingStart="20dp"
+                           android:textSize="18dp"
+                           android:textColor="@color/black">
+                       </TextView>
+                       <TextView
+                           android:id="@+id/bowling"
+                           android:layout_weight="1"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="Full Name"
+                           android:paddingStart="20dp"
+                           android:textSize="18dp"
+                           android:textColor="@color/black">
+                       </TextView>
+                   </LinearLayout>
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="horizontal">
+                       <TextView
+                           android:layout_weight="2"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="Teams"
+                           android:paddingStart="20dp"
+                           android:textSize="18dp"
+                           android:textColor="@color/black">
+                       </TextView>
+                       <TextView
+                           android:id="@+id/teams"
+                           android:layout_weight="1"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="Full Name"
+                           android:paddingStart="20dp"
+                           android:textSize="18dp"
+                           android:textColor="@color/black">
+                       </TextView>
+                   </LinearLayout>
+
+               </LinearLayout>
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/battinStatsCard">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Statastics"
+                    android:textSize="20dp"
+                    android:paddingVertical="10dp"
+                    android:textColor="@color/black"
+                    android:paddingHorizontal="20dp"
+                    android:drawableEnd="@drawable/down"
+                    ></TextView>
+                <LinearLayout
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:id="@+id/battinStats">
+                    <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </TextView>
+                        <TextView
+                            android:layout_weight="1"
+                            android:text="T20"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </TextView>
+                        <TextView
+                            android:text="ODI"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </TextView>
+                        <TextView
+                            android:text="TEST"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </TextView>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_weight="1"
+                            android:text="Matches"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </TextView>
+                        <TextView
+                            android:id="@+id/matchT20"
+                            android:layout_weight="1"
+                            android:text="T20"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </TextView>
+                        <TextView
+                            android:id="@+id/matchODI"
+                            android:text="ODI"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </TextView>
+                        <TextView
+                            android:id="@+id/matchTest"
+                            android:text="TEST"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </TextView>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_weight="1"
+                            android:text="Innings"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </TextView>
+                        <TextView
+                            android:id="@+id/inningT20"
+                            android:layout_weight="1"
+                            android:text="T20"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </TextView>
+                        <TextView
+                            android:id="@+id/inningODI"
+                            android:text="ODI"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </TextView>
+                        <TextView
+                            android:id="@+id/inningTest"
+                            android:text="TEST"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </TextView>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_weight="1"
+                            android:text="Runs"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </TextView>
+                        <TextView
+                            android:id="@+id/runsT20"
+                            android:layout_weight="1"
+                            android:text="T20"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </TextView>
+                        <TextView
+                            android:id="@+id/runsODI"
+                            android:text="ODI"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </TextView>
+                        <TextView
+                            android:id="@+id/runsTest"
+                            android:text="TEST"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </TextView>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_weight="1"
+                            android:text="HS"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </TextView>
+                        <TextView
+                            android:id="@+id/hsT20"
+                            android:layout_weight="1"
+                            android:text="T20"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </TextView>
+                        <TextView
+                            android:id="@+id/hsODI"
+                            android:text="ODI"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </TextView>
+                        <TextView
+                            android:id="@+id/hsTest"
+                            android:text="TEST"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </TextView>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_weight="1"
+                            android:text="Average"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </TextView>
+                        <TextView
+                            android:id="@+id/avgT20"
+                            android:layout_weight="1"
+                            android:text="T20"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </TextView>
+                        <TextView
+                            android:id="@+id/avgODI"
+                            android:text="ODI"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </TextView>
+                        <TextView
+                            android:id="@+id/avgTest"
+                            android:text="TEST"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </TextView>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_weight="1"
+                            android:text="50's"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </TextView>
+                        <TextView
+                            android:id="@+id/ftT20"
+                            android:layout_weight="1"
+                            android:text="T20"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </TextView>
+                        <TextView
+                            android:id="@+id/ftODI"
+                            android:text="ODI"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </TextView>
+                        <TextView
+                            android:id="@+id/ftTest"
+                            android:text="TEST"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </TextView>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_weight="1"
+                            android:text="100's"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </TextView>
+                        <TextView
+                            android:id="@+id/hdT20"
+                            android:layout_weight="1"
+                            android:text="T20"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </TextView>
+                        <TextView
+                            android:id="@+id/hdODI"
+                            android:text="ODI"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </TextView>
+                        <TextView
+                            android:id="@+id/hdTest"
+                            android:text="TEST"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </TextView>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/black"
+                        android:alpha="0.5">
+
+                    </View>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_weight="1"
+                                android:text="Wickets"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textSize="18dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                            </TextView>
+                            <TextView
+                                android:id="@+id/wkT20"
+                                android:layout_weight="1"
+                                android:text="T20"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textSize="18dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                            </TextView>
+                            <TextView
+                                android:id="@+id/wkODI"
+                                android:text="ODI"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textSize="18dp"
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                            </TextView>
+                            <TextView
+                                android:id="@+id/wkTest"
+                                android:text="TEST"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textSize="18dp"
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                            </TextView>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_weight="1"
+                                android:text="Econ"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textSize="18dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                            </TextView>
+                            <TextView
+                                android:id="@+id/ecT20"
+                                android:layout_weight="1"
+                                android:text="T20"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textSize="18dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                            </TextView>
+                            <TextView
+                                android:id="@+id/ecODI"
+                                android:text="ODI"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textSize="18dp"
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                            </TextView>
+                            <TextView
+                                android:id="@+id/ecTest"
+                                android:text="TEST"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textSize="18dp"
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                            </TextView>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_weight="1"
+                                android:text="Best"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textSize="18dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                            </TextView>
+                            <TextView
+                                android:id="@+id/bstT20"
+                                android:layout_weight="1"
+                                android:text="T20"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textSize="18dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                            </TextView>
+                            <TextView
+                                android:id="@+id/bstODI"
+                                android:text="ODI"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textSize="18dp"
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                            </TextView>
+                            <TextView
+                                android:id="@+id/bstTest"
+                                android:text="TEST"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textSize="18dp"
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                            </TextView>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_weight="1"
+                                android:text="5W"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textSize="18dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                            </TextView>
+                            <TextView
+                                android:id="@+id/fwT20"
+                                android:layout_weight="1"
+                                android:text="T20"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textSize="18dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                            </TextView>
+                            <TextView
+                                android:id="@+id/fwODI"
+                                android:text="ODI"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textSize="18dp"
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                            </TextView>
+                            <TextView
+                                android:id="@+id/fwTest"
+                                android:text="TEST"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textSize="18dp"
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                            </TextView>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+            </LinearLayout>
+
+                </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+
+
+</ScrollView>

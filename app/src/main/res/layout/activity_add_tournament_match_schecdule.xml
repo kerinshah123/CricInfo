@@ -33,7 +33,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/MatchdateInput"
-                android:layout_width="362dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -102,7 +102,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/colorPrimary"
-                    android:text="Test Match"
+                    android:text="5 Overs"
                     android:textColor="@color/colorPrimary"
                     android:textStyle="bold" />
 
@@ -110,7 +110,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/colorPrimary"
-                    android:text="Odi Match"
+                    android:text="10 Overs"
                     android:textColor="@color/colorPrimary"
                     android:textStyle="bold" />
 
@@ -118,7 +118,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/colorPrimary"
-                    android:text="T-20 Match"
+                    android:text="20 Overs"
                     android:textColor="@color/colorPrimary"
                     android:textStyle="bold" />
             </RadioGroup>

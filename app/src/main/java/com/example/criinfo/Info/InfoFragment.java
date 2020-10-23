@@ -154,7 +154,6 @@ public class InfoFragment extends Fragment {
                     Player player = new Player();
                     player.setId(object.getInt("pid"));
                     player.setName(object.getString("name"));
-
                     playerArrayList.add(player);
                 }
 
