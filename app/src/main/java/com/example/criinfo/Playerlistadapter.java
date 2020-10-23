@@ -12,12 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class playerlistadapter extends RecyclerView.Adapter<playerlistadapter.ViewHolder> {
+public class Playerlistadapter extends RecyclerView.Adapter<Playerlistadapter.ViewHolder> {
 
     Context context;
-    List<pojoplayer> ar1;
+    List<PojoPlayer> ar1;
 
-    public playerlistadapter(Context context, List<pojoplayer> ar1) {
+    public Playerlistadapter(Context context, List<PojoPlayer> ar1) {
         this.context=context;
         this.ar1=ar1;
 
@@ -34,7 +34,7 @@ public class playerlistadapter extends RecyclerView.Adapter<playerlistadapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        pojoplayer myListData = ar1.get(position);
+        PojoPlayer myListData = ar1.get(position);
 
         holder.playername.setText(myListData.getPlayername());
         holder.playerage.setText(myListData.getPlayerage());

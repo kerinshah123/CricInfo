@@ -1,10 +1,10 @@
 package com.example.criinfo;
 
-public class pojoaboutus {
+public class PojoAboutus {
 
     public int images;
 
-    public pojoaboutus(int images) {
+    public PojoAboutus(int images) {
         this.images = images;
     }
 

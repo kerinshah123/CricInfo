@@ -12,11 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class aboutusAdapter extends RecyclerView.Adapter<aboutusAdapter.ViewHolder>{
+public class AboutusAdapter extends RecyclerView.Adapter<AboutusAdapter.ViewHolder>{
 Context context;
-    List<pojoaboutus> ar1;
+    List<PojoAboutus> ar1;
 
-    public aboutusAdapter(Context context, List<pojoaboutus> ar1) {
+    public AboutusAdapter(Context context, List<PojoAboutus> ar1) {
     this.context=context;
     this.ar1=ar1;
     }
@@ -32,7 +32,7 @@ Context context;
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        pojoaboutus myListData = ar1.get(position);
+        PojoAboutus myListData = ar1.get(position);
 
         holder.aboutiimgs.setImageResource(myListData.getImages());
 

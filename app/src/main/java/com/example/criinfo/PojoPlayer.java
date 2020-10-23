@@ -1,6 +1,6 @@
 package com.example.criinfo;
 
-public class pojoplayer {
+public class PojoPlayer {
 
     public String playername;
 
@@ -9,10 +9,10 @@ public class pojoplayer {
     public String playertype;
     public int playerimage;
 
-    public pojoplayer() {
+    public PojoPlayer() {
     }
 
-    public pojoplayer(String playername, String playerage, String playertype, int playerimage) {
+    public PojoPlayer(String playername, String playerage, String playertype, int playerimage) {
         this.playername = playername;
         this.playerage = playerage;
         this.playertype = playertype;

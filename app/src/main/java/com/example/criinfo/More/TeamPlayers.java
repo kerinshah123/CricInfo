@@ -10,7 +10,7 @@ import com.example.criinfo.Info.Player;
 import com.example.criinfo.More.MyTeamTabs.MyTeamPlayer;
 import com.example.criinfo.More.MyTeamTabs.Players;
 import com.example.criinfo.Utils.Utils;
-import com.example.criinfo.pojoplayer;
+import com.example.criinfo.PojoPlayer;
 
 import android.content.Context;
 import android.content.Intent;
@@ -24,7 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.criinfo.playerlistadapter;
+import com.example.criinfo.Playerlistadapter;
 import com.example.criinfo.R;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;

@@ -4,12 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.criinfo.aboutusAdapter;
-import com.example.criinfo.pojoaboutus;
+import com.example.criinfo.AboutusAdapter;
+import com.example.criinfo.PojoAboutus;
 import android.os.Bundle;
 import com.example.criinfo.R;
-import com.example.criinfo.playerlistadapter;
-import com.example.criinfo.pojoplayer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +15,9 @@ import java.util.List;
 public class AboutUs extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    List<pojoaboutus> ar1;
-    aboutusAdapter adapter;
-    pojoaboutus pj;
+    List<PojoAboutus> ar1;
+    AboutusAdapter adapter;
+    PojoAboutus pj;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,30 +32,30 @@ public class AboutUs extends AppCompatActivity {
         {
           if (i==1)
           {
-             pj=new pojoaboutus(R.drawable.firstabout);
+             pj=new PojoAboutus(R.drawable.firstabout);
           }
           else if (i==2)
           {
-              pj=new pojoaboutus(R.drawable.secondabout);
+              pj=new PojoAboutus(R.drawable.secondabout);
           }
           else if (i==3)
           {
-              pj=new pojoaboutus(R.drawable.thirdabout);
+              pj=new PojoAboutus(R.drawable.thirdabout);
           }
           else if (i==4)
           {
-              pj=new pojoaboutus(R.drawable.fourthabout);
+              pj=new PojoAboutus(R.drawable.fourthabout);
           }
           else
           {
-              pj=new pojoaboutus(R.drawable.fifthabout);
+              pj=new PojoAboutus(R.drawable.fifthabout);
           }
 
             ar1.add(pj);
         }
 
 
-        adapter=new aboutusAdapter(getApplicationContext(),ar1);
+        adapter=new AboutusAdapter(getApplicationContext(),ar1);
         recyclerView.setAdapter(adapter);
 
 
