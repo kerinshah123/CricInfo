@@ -110,7 +110,7 @@ public class AddTournamentMatchSchedule extends AppCompatActivity {
                             Team team = documentSnapshot.toObject(Team.class);
                             if(team.getMatchDate().contains(matchdate))
                             {
-                                Toast.makeText(AddTournamentMatchSchedule.this, "Select Any Other Date Team is Already Playing on that day", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AddTournamentMatchSchedule.this, "Please select any Other Date these Teams are already playing on thiss day", Toast.LENGTH_SHORT).show();
                             }
                             else{
                                 if(Count == 2)
@@ -151,7 +151,7 @@ public class AddTournamentMatchSchedule extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(AddTournamentMatchSchedule.this, "Plz Select 2 Team to proceed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddTournamentMatchSchedule.this, "Plz Select 2 Teams to proceed", Toast.LENGTH_SHORT).show();
                 }
 
 

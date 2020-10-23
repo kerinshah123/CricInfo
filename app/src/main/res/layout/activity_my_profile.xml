@@ -1,9 +1,252 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".More.MyProfile">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/username123"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="30dp"
+                    android:text="User_Name"
+                    android:textSize="25sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/name_edit"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_toRightOf="@+id/username123"
+                    android:src="@drawable/ic_edit_black_24dp"
+                    app:tint="@color/black" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rrname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/textplan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:fontFamily="sans-serif"
+                    android:text="Change Your Name" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/change_name"
+                    android:layout_width="230dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textplan"
+                    android:layout_marginLeft="30dp">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Name"
+                        android:id="@+id/etchangename"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/changename"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="13dp"
+                    android:layout_toRightOf="@+id/change_name"
+                    android:text="change" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/useremail123"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="30dp"
+                    android:text="User_Email"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/email_edit"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_toRightOf="@+id/useremail123"
+                    android:src="@drawable/ic_edit_black_24dp"
+                    app:tint="@color/black" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rremail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/textplanEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:fontFamily="sans-serif"
+                    android:text="Change Your E-Mail" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/change_email"
+                    android:layout_width="230dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textplanEmail"
+                    android:layout_marginLeft="30dp">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="E-mail"
+                        android:id="@+id/etchangeemail"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <Button
+                    android:id="@+id/changeemail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="13dp"
+                    android:layout_toRightOf="@+id/change_email"
+                    android:text="change" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/user_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="30dp"
+                    android:textColor="@color/black"
+                    android:text="User_number"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/number_edit"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_toRightOf="@+id/user_number"
+                    android:src="@drawable/ic_edit_black_24dp"
+                    app:tint="@color/black" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rrnumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/textplannumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:fontFamily="sans-serif"
+                    android:text="Change Your Number" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/change_number"
+                    android:layout_width="230dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textplannumber"
+                    android:layout_marginLeft="30dp">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Number"
+                        android:id="@+id/etchangenumber"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <Button
+                    android:id="@+id/changenumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="13dp"
+                    android:layout_toRightOf="@+id/change_number"
+                    android:text="change" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/saveProfile"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/button_round"
+            android:paddingBottom="10dp"
+            android:text="Save"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

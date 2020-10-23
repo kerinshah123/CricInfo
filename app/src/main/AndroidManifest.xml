@@ -12,8 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".More.MyProfile"></activity>
+        <activity
+            android:name=".More.MyProfile"
+            android:label="My Profile" />
         <activity android:name=".More.TournamentTeams" />
+        <activity android:name=".More.AddTournamentMatchSchedule" />
         <activity android:name=".More.TournamentsTabs.Tournaments" />
         <activity android:name=".More.TournamentsTabs.TournamentsInfo" />
         <activity android:name=".More.MyTournamentTabs.MyTournamentInfo" />
@@ -26,8 +29,10 @@
             android:parentActivityName=".More.CreateTournament" />
         <activity android:name=".More.TeamsActivity" />
         <activity android:name=".More.MyTeamTabs.MyTeamInfo" />
-        <activity android:name=".More.ContactUs" />
-        <activity android:name=".More.AboutUs" />
+        <activity android:name=".More.ContactUs"
+            android:label="Contact Us"/>
+        <activity android:name=".More.AboutUs"
+            android:label="About Us"/>
         <activity
             android:name=".More.TeamPlayers"
             android:parentActivityName=".More.TeamManagerTeam" />
