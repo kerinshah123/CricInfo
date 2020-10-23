@@ -169,7 +169,7 @@ public class AddPlayer extends AppCompatActivity {
                     public void onSuccess(DocumentReference documentReference) {
                         progressBar.setVisibility(View.GONE);
                         finish();
-                        Toast.makeText(AddPlayer.this, "Player Addes Successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddPlayer.this, "Player Added Successfully", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getApplicationContext(), MyTeamInfo.class));
                     }
                 })
