@@ -211,10 +211,43 @@ public class MoreFragment extends Fragment {
         contactuslayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getActivity(), ContectUs.class);
+                Intent intent=new Intent(getActivity(), ContactUs.class);
                 startActivity(intent);
             }
         });
+
+        myprofile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(type.equals("Team Manager") || type.equals("League Manager")){
+
+                    Intent intent=new Intent(getActivity(), MyProfile.class);
+                    startActivity(intent);
+                }
+
+                else {
+                    AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+                    alert.setTitle("Please Login")
+                            .setMessage("To access this,you must be login")
+                            .setPositiveButton("Login", new DialogInterface.OnClickListener()                 {
+
+                                public void onClick(DialogInterface dialog, int which) {
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.clear();
+                                    editor.commit();
+                                    Intent intent=new Intent(getContext(), LoginSignUpActivity.class);
+                                    startActivity(intent);
+                                }
+                            }).setNegativeButton("Cancel", null);
+
+                    AlertDialog alert1 = alert.create();
+                    alert1.show();
+                }
+
+            }
+        });
+
+
 
         return view;
     }

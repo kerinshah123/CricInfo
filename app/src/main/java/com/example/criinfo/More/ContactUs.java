@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.example.criinfo.R;
 
-public class ContectUs extends AppCompatActivity {
+public class ContactUs extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
