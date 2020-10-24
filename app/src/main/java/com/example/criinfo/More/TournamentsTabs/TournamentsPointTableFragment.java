@@ -1,5 +1,7 @@
 package com.example.criinfo.More.TournamentsTabs;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.criinfo.R;
+import com.example.criinfo.Utils.Utils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +28,10 @@ public class TournamentsPointTableFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    SharedPreferences sharedPreferences ;
+    String teamId,usetId,tournamentId;
+
 
     public TournamentsPointTableFragment() {
         // Required empty public constructor
@@ -61,6 +68,7 @@ public class TournamentsPointTableFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tournaments_point_table, container, false);
+        View view= inflater.inflate(R.layout.fragment_tournaments_point_table, container, false);
+        return view;
     }
 }

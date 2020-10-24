@@ -75,45 +75,45 @@
 
             <TextView
                 android:id="@+id/teamone"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="MIndian"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MI"
                 android:textColor="@color/backgrnd"
                 android:textStyle="bold"
                 android:layout_weight="1">
             </TextView>
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="0"
                 android:textColor="@color/black"></TextView>
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="0"
                 android:textColor="@color/black"
                 android:layout_weight="1">
             </TextView>
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="0"
                 android:textColor="@color/black"
                 android:layout_weight="1">
             </TextView>
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="0"
                 android:textColor="@color/black"
                 android:layout_weight="1">
             </TextView>
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="0"
                 android:textColor="@color/black"
                 android:layout_weight="1">
@@ -129,8 +129,8 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="MI"
                 android:id="@+id/teamtwo"
                 android:textColor="@color/backgrnd"
@@ -139,376 +139,378 @@
             </TextView>
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="0"
                 android:textColor="@color/black"
                 android:layout_weight="1">
             </TextView>
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="0"
                 android:textColor="@color/black"
                 android:layout_weight="1">
             </TextView>
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="0"
                 android:textColor="@color/black"
                 android:layout_weight="1">
             </TextView>
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="0"
                 android:textColor="@color/black"
                 android:layout_weight="1">
             </TextView>
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="0"
                 android:textColor="@color/black"
                 android:layout_weight="1">
             </TextView>
         </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:layout_marginLeft="10dp"
+        android:background="@color/white"
+        android:layout_height="wrap_content">
 
-        <LinearLayout
+        <TextView
             android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_marginLeft="10dp"
-            android:padding="5dp"
-            android:background="@color/white"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:text="MI"
+            android:id="@+id/teamthree"
+            android:textColor="@color/backgrnd"
+            android:textStyle="bold"
+            android:layout_weight="1">
+        </TextView>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="MI"
-                android:id="@+id/teamtthree"
-                android:textColor="@color/backgrnd"
-                android:textStyle="bold"
-                android:layout_weight="1">
-            </TextView>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="0"
-                android:textColor="@color/black"
-                android:layout_weight="1">
-            </TextView>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="0"
-                android:textColor="@color/black"
-                android:layout_weight="1">
-            </TextView>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="0"
-                android:textColor="@color/black"
-                android:layout_weight="1">
-            </TextView>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="0"
-                android:textColor="@color/black"
-                android:layout_weight="1">
-            </TextView>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="0"
-                android:textColor="@color/black"
-                android:layout_weight="1">
-            </TextView>
-        </LinearLayout>
-
-        <LinearLayout
+        <TextView
             android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_marginLeft="10dp"
-            android:padding="5dp"
-            android:background="@color/white"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/teamfour"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="MI"
-                android:textColor="@color/backgrnd"
-                android:textStyle="bold"
-                android:layout_weight="1">
-            </TextView>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="0"
-                android:textColor="@color/black"
-                android:layout_weight="1">
-            </TextView>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="0"
-                android:textColor="@color/black"
-                android:layout_weight="1">
-            </TextView>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="0"
-                android:textColor="@color/black"
-                android:layout_weight="1">
-            </TextView>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="0"
-                android:textColor="@color/black"
-                android:layout_weight="1">
-            </TextView>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="0"
-                android:textColor="@color/black"
-                android:layout_weight="1">
-            </TextView>
-        </LinearLayout>
-
-        <LinearLayout
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black"
+            android:layout_weight="1">
+        </TextView>
+        <TextView
             android:layout_width="match_parent"
-            android:layout_marginLeft="10dp"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            android:background="@color/white"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/teamfive"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="MI"
-                android:textColor="@color/backgrnd"
-                android:textStyle="bold"
-                android:layout_weight="1">
-            </TextView>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="0"
-                android:textColor="@color/black"
-                android:layout_weight="1">
-            </TextView>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="0"
-                android:textColor="@color/black"
-                android:layout_weight="1">
-            </TextView>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="0"
-                android:textColor="@color/black"
-                android:layout_weight="1">
-            </TextView>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="0"
-                android:textColor="@color/black"
-                android:layout_weight="1">
-            </TextView>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="0"
-                android:textColor="@color/black"
-                android:layout_weight="1">
-            </TextView>
-        </LinearLayout>
-
-        <LinearLayout
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black"
+            android:layout_weight="1">
+        </TextView>
+        <TextView
             android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_marginLeft="10dp"
-            android:padding="5dp"
-            android:background="@color/white"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/teamsix"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="MI"
-                android:textColor="@color/backgrnd"
-                android:textStyle="bold"
-                android:layout_weight="1">
-            </TextView>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="0"
-                android:textColor="@color/black"
-                android:layout_weight="1">
-            </TextView>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="0"
-                android:textColor="@color/black"
-                android:layout_weight="1">
-            </TextView>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="0"
-                android:textColor="@color/black"
-                android:layout_weight="1">
-            </TextView>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="0"
-                android:textColor="@color/black"
-                android:layout_weight="1">
-            </TextView>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="0"
-                android:textColor="@color/black"
-                android:layout_weight="1">
-            </TextView>
-        </LinearLayout>
-
-        <LinearLayout
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black"
+            android:layout_weight="1">
+        </TextView>
+        <TextView
             android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            android:background="@color/white"
-            android:layout_marginLeft="10dp"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black"
+            android:layout_weight="1">
+        </TextView>
 
-            <TextView
-                android:id="@+id/teamseven"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="MI"
-                android:textColor="@color/backgrnd"
-                android:textStyle="bold"
-                android:layout_weight="1">
-            </TextView>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="0"
-                android:textColor="@color/black"
-                android:layout_weight="1">
-            </TextView>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="0"
-                android:textColor="@color/black"
-                android:layout_weight="1">
-            </TextView>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="0"
-                android:textColor="@color/black"
-                android:layout_weight="1">
-            </TextView>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="0"
-                android:textColor="@color/black"
-                android:layout_weight="1">
-            </TextView>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="0"
-                android:textColor="@color/black"
-                android:layout_weight="1">
-            </TextView>
-        </LinearLayout>
-
-        <LinearLayout
+        <TextView
             android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            android:background="@color/white"
-            android:layout_marginLeft="10dp"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/teameight"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="MI"
-                android:textColor="@color/backgrnd"
-                android:textStyle="bold"
-                android:layout_weight="1">
-            </TextView>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="0"
-                android:textColor="@color/black"
-                android:layout_weight="1">
-            </TextView>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="0"
-                android:textColor="@color/black"
-                android:layout_weight="1">
-            </TextView>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="0"
-                android:textColor="@color/black"
-                android:layout_weight="1">
-            </TextView>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="0"
-                android:textColor="@color/black"
-                android:layout_weight="1">
-            </TextView>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="0"
-                android:textColor="@color/black"
-                android:layout_weight="1">
-            </TextView>
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black"
+            android:layout_weight="1">
+        </TextView>
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:layout_marginLeft="10dp"
+        android:background="@color/white"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="MI"
+            android:id="@+id/teamfour"
+            android:textColor="@color/backgrnd"
+            android:textStyle="bold"
+            android:layout_weight="1">
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black"
+            android:layout_weight="1">
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black"
+            android:layout_weight="1">
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black"
+            android:layout_weight="1">
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black"
+            android:layout_weight="1">
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black"
+            android:layout_weight="1">
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:layout_marginLeft="10dp"
+        android:background="@color/white"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="MI"
+            android:id="@+id/teamfive"
+            android:textColor="@color/backgrnd"
+            android:textStyle="bold"
+            android:layout_weight="1">
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black"
+            android:layout_weight="1">
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black"
+            android:layout_weight="1">
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black"
+            android:layout_weight="1">
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black"
+            android:layout_weight="1">
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black"
+            android:layout_weight="1">
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:layout_marginLeft="10dp"
+        android:background="@color/white"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="MI"
+            android:id="@+id/teamsix"
+            android:textColor="@color/backgrnd"
+            android:textStyle="bold"
+            android:layout_weight="1">
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black"
+            android:layout_weight="1">
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black"
+            android:layout_weight="1">
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black"
+            android:layout_weight="1">
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black"
+            android:layout_weight="1">
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black"
+            android:layout_weight="1">
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:layout_marginLeft="10dp"
+        android:background="@color/white"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="MI"
+            android:id="@+id/teamseven"
+            android:textColor="@color/backgrnd"
+            android:textStyle="bold"
+            android:layout_weight="1">
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black"
+            android:layout_weight="1">
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black"
+            android:layout_weight="1">
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black"
+            android:layout_weight="1">
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black"
+            android:layout_weight="1">
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black"
+            android:layout_weight="1">
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:layout_marginLeft="10dp"
+        android:background="@color/white"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="MI"
+            android:id="@+id/teameight"
+            android:textColor="@color/backgrnd"
+            android:textStyle="bold"
+            android:layout_weight="1">
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black"
+            android:layout_weight="1">
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black"
+            android:layout_weight="1">
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black"
+            android:layout_weight="1">
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black"
+            android:layout_weight="1">
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black"
+            android:layout_weight="1">
+        </TextView>
+    </LinearLayout>
+
+
+
+</LinearLayout>

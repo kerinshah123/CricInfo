@@ -304,6 +304,7 @@ public class LoginSignUpActivity extends AppCompatActivity implements AdapterVie
             public void onClick(View view) {
 
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                intent.putExtra("hint","skip");
                 startActivity(intent);
 
             }
@@ -331,7 +332,10 @@ public class LoginSignUpActivity extends AppCompatActivity implements AdapterVie
                             editor.putString(Email_shared, loginemail.getText().toString());
 
                             editor.commit();
-                            startActivity(new Intent(LoginSignUpActivity.this,HomeActivity.class));
+                           // startActivity(new Intent(LoginSignUpActivity.this,HomeActivity.class));
+                            Intent intent=new Intent(getApplicationContext(),HomeActivity.class);
+                            intent.putExtra("hint","unskip");
+                            startActivity(intent);
                         } else {
                             Toast.makeText(LoginSignUpActivity.this, "Email or Password Not correct", Toast.LENGTH_SHORT).show();
                         }

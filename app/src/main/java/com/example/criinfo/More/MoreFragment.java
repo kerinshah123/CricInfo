@@ -15,7 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.example.criinfo.Home.HomeActivity;
 import com.example.criinfo.LoginSignUpActivity;
 import com.example.criinfo.More.TournamentsTabs.Tournaments;
 import com.example.criinfo.R;
@@ -29,7 +31,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
  */
 public class MoreFragment extends Fragment {
     Button teams;
-    LinearLayout mytournament,tournamnet,myprofile,myteam,logoutlayout,aboutuslayout,contactuslayout;
+  public   LinearLayout mytournament,tournamnet,myprofile,myteam,logoutlayout,aboutuslayout,contactuslayout;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -97,6 +100,10 @@ public class MoreFragment extends Fragment {
         editor = sharedPreferences.edit();
 
         type=sharedPreferences.getString("type","");
+        if (HomeActivity.usertype.equals("skip"))
+        {
+            logoutlayout.setVisibility(View.GONE);
+        }
 
         myteam.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -7,7 +7,9 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.example.criinfo.Info.InfoFragment;
 import com.example.criinfo.Match.MatchFragment;
@@ -20,6 +22,7 @@ public class HomeActivity extends AppCompatActivity {
 
     BottomNavigationView main_nav;
     FrameLayout main_frame;
+    public static String usertype;
 
     HomeFragment homeFragment = new HomeFragment();
     InfoFragment infoFragment = new InfoFragment();
@@ -34,6 +37,7 @@ public class HomeActivity extends AppCompatActivity {
 
         main_frame = findViewById(R.id.main_frame);
         main_nav = findViewById(R.id.main_nav);
+        usertype=getIntent().getStringExtra("hint");
 
         setTitle("Cricinfo");
         setfragment(homeFragment);
