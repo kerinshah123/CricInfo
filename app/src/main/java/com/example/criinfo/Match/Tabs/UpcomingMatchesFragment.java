@@ -108,8 +108,6 @@ public class UpcomingMatchesFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
-       // mQueue = Volley.newRequestQueue(getContext());
-
         progressBar.setVisibility(View.VISIBLE);
 
        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);

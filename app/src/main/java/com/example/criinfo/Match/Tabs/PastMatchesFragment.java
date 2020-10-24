@@ -19,14 +19,23 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.criinfo.Home.HomeAdapter;
 import com.example.criinfo.Home.Matchpojo;
+import com.example.criinfo.Match.MatchAdapter;
 import com.example.criinfo.R;
+import com.example.criinfo.Utils.Utils;
+import com.example.criinfo.network.ApiClient;
+import com.example.criinfo.network.ApiInterface;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,13 +46,8 @@ public class PastMatchesFragment extends Fragment {
 
     RecyclerView recyclerView;
 
-    private RequestQueue mQueue;
-    private StringRequest request;
-    HomeAdapter adp;
-    String score1, score2;
-
-    String url = "http://mapps.cricbuzz.com/cbzios/match/livematches";
-    List<Matchpojo> ar1;
+    MatchAdapter adp;
+    ArrayList<Matchpojo> ar1 ;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -92,202 +96,97 @@ public class PastMatchesFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_past_matches, container, false);
 
         recyclerView = v.findViewById(R.id.recycler);
-        ar1 = new ArrayList<>();
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
-        mQueue = Volley.newRequestQueue(getContext());
-
-
-        request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        Call<ResponseBody> call = apiInterface.getPastMatches(Utils.apikey);
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(String response) {
+            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
                 try {
-
-                    JSONObject jsona = new JSONObject(response);
-                    JSONArray jsonarray = jsona.getJSONArray("matches");
-
-                    int a = jsonarray.length();
-
-
-                    for (int i = 0; i < a; i++) {
-
-                        JSONObject jsonobject = jsonarray.getJSONObject(i);
-
-                        JSONObject jsonobject2 = jsonobject.getJSONObject("header");
-
-                        String past_match = jsonobject2.getString("state");
-
-                        if (past_match.equals("complete")|| past_match.equals("mom")) {
-
-                            String matchid = jsonobject.getString("match_id");
-                            String seriesname = jsonobject.getString("series_name");
-
-                            String type = jsonobject2.getString("type");
-
-                            String status = jsonobject2.getString("status");
-                            String state = jsonobject2.getString("state");
-
-                            if (state.equals("complete")) {
-                                JSONObject jsonobject3 = jsonobject.getJSONObject("venue");
-                                String location = jsonobject3.getString("name") + ", " + jsonobject3.getString("location");
-
-
-                                JSONObject jsonobject8 = jsonobject.getJSONObject("team1");
-                                String team1 = jsonobject8.getString("name");
-                                JSONObject jsonobject9 = jsonobject.getJSONObject("team2");
-                                String team2 = jsonobject9.getString("name");
-
-                                JSONObject jsonobject4 = jsonobject.getJSONObject("bat_team");
-                                JSONArray jsonArray1 = jsonobject4.getJSONArray("innings");
-
-
-                                if (jsonArray1.length() == 0) {
-                                    return;
-                                } else {
-                                    JSONObject jsonobject5 = jsonArray1.getJSONObject(0);
-                                    score1 = jsonobject5.getString("score") + "/" + jsonobject5.getString("wkts") + " in " + jsonobject5.getString("overs");
-
-                                }
-
-                                JSONObject jsonobject6 = jsonobject.getJSONObject("bow_team");
-                                JSONArray jsonArray2 = jsonobject6.getJSONArray("innings");
-
-                                if (jsonArray2.length() == 0) {
-                                    return;
-                                } else {
-                                    JSONObject jsonobject7 = jsonArray2.getJSONObject(0);
-                                    score2 = jsonobject7.getString("score") + "/" + jsonobject7.getString("wkts") + " in " + jsonobject7.getString("overs");
-                                }
-
-
-                                Matchpojo pj = new Matchpojo(seriesname, type, jsonobject2.getString("match_desc"), location, status, team1, team2, score1, score2, matchid);
-                                ar1.add(pj);
-                            } else if (state.equals("preview")) {
-                                String matchdescription = jsonobject2.getString("match_desc");
-
-                                JSONObject jsonobject3 = jsonobject.getJSONObject("venue");
-                                String location = jsonobject3.getString("name") + ", " + jsonobject3.getString("location");
-
-
-                                JSONObject jsonobject8 = jsonobject.getJSONObject("team1");
-                                String team1 = jsonobject8.getString("name");
-                                JSONObject jsonobject9 = jsonobject.getJSONObject("team2");
-                                String team2 = jsonobject9.getString("name");
-
-
-                                Matchpojo pj = new Matchpojo(seriesname, type, jsonobject2.getString("match_desc"), location, status, team1, team2, "00/0", "00/0", matchid);
-                                ar1.add(pj);
-
-                            } else if (state.equals("toss")) {
-                                String matchdescription = jsonobject2.getString("toss") + ", " + jsonobject2.getString("match_desc");
-
-                                JSONObject jsonobject3 = jsonobject.getJSONObject("venue");
-                                String location = jsonobject3.getString("name") + ", " + jsonobject3.getString("location");
-
-
-                                JSONObject jsonobject8 = jsonobject.getJSONObject("team1");
-                                String team1 = jsonobject8.getString("name");
-                                JSONObject jsonobject9 = jsonobject.getJSONObject("team2");
-                                String team2 = jsonobject9.getString("name");
-
-
-                                Matchpojo pj = new Matchpojo(seriesname, type, matchdescription, location, status, team1, team2, "00/0", "00/0", matchid);
-                                ar1.add(pj);
-
-                            } else if (state.equals("inprogress")) {
-
-                                JSONObject jsonobject3 = jsonobject.getJSONObject("venue");
-                                String location = jsonobject3.getString("name") + ", " + jsonobject3.getString("location");
-
-
-                                JSONObject jsonobject8 = jsonobject.getJSONObject("team1");
-                                String team1 = jsonobject8.getString("name");
-                                JSONObject jsonobject9 = jsonobject.getJSONObject("team2");
-                                String team2 = jsonobject9.getString("name");
-
-                                JSONObject jsonobject4 = jsonobject.getJSONObject("bat_team");
-                                JSONArray jsonArray1 = jsonobject4.getJSONArray("innings");
-                                if (jsonArray1.length() == 0) {
-                                    return;
-                                } else {
-                                    JSONObject jsonobject5 = jsonArray1.getJSONObject(0);
-                                    score1 = jsonobject5.getString("score") + "/" + jsonobject5.getString("wkts") + " in " + jsonobject5.getString("overs");
-
-                                }
-
-                                JSONObject jsonobject6 = jsonobject.getJSONObject("bow_team");
-                                JSONArray jsonArray2 = jsonobject6.getJSONArray("innings");
-
-                                if (jsonArray2.length() == 0) {
-                                    return;
-                                } else {
-                                    JSONObject jsonobject7 = jsonArray2.getJSONObject(0);
-                                    score2 = jsonobject7.getString("score") + "/" + jsonobject7.getString("wkts") + " in " + jsonobject7.getString("overs");
-                                }
-
-
-                                Matchpojo pj = new Matchpojo(seriesname, type, jsonobject2.getString("match_desc"), location, status, team1, team2, score1, score2, matchid);
-                                ar1.add(pj);
-
-                            } else if (state.equals("innings break")) {
-
-                                JSONObject jsonobject3 = jsonobject.getJSONObject("venue");
-                                String location = jsonobject3.getString("name") + ", " + jsonobject3.getString("location");
-
-
-                                JSONObject jsonobject8 = jsonobject.getJSONObject("team1");
-                                String team1 = jsonobject8.getString("name");
-                                JSONObject jsonobject9 = jsonobject.getJSONObject("team2");
-                                String team2 = jsonobject9.getString("name");
-
-                                JSONObject jsonobject4 = jsonobject.getJSONObject("bat_team");
-                                JSONArray jsonArray1 = jsonobject4.getJSONArray("innings");
-
-
-                                if (jsonArray1.length() == 0) {
-                                    return;
-                                } else {
-                                    JSONObject jsonobject5 = jsonArray1.getJSONObject(0);
-                                    score1 = jsonobject5.getString("score") + "/" + jsonobject5.getString("wkts") + " in " + jsonobject5.getString("overs");
-
-                                }
-
-
-                                Matchpojo pj = new Matchpojo(seriesname, type, jsonobject2.getString("match_desc"), location, status, team1, team2, score1, "Not Bat Yet", matchid);
-                                ar1.add(pj);
-
-                            } else {
-
-                            }
-
-
-                        }
-                        adp = new HomeAdapter(getContext(), ar1);
-                        recyclerView.setAdapter(adp);
-
-                    }
-                } catch (JSONException e) {
+                    parseData(response.body().string());
+                } catch (IOException e) {
                     e.printStackTrace();
-                    Toast.makeText(getContext(), "Catch", Toast.LENGTH_SHORT).show();
                 }
-
-
             }
-        }, new Response.ErrorListener() {
+
             @Override
-            public void onErrorResponse(VolleyError error) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
 
-                System.out.println(error.getMessage());
-                Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
             }
-        }) {
+        });
 
-        };
-
-        mQueue.add(request);
 
 
         return v;
+    }
+
+    private void parseData(String string) {
+        try {
+            JSONObject jsonObject = new JSONObject(string);
+            JSONArray jsonArray = jsonObject.getJSONArray("data");
+            ar1 = new ArrayList<>();
+
+            for(int i =0;i<jsonArray.length();i++){
+                JSONObject object = jsonArray.getJSONObject(i);
+                callApi(Integer.parseInt(object.getString("unique_id")));
+
+            }
+
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void callApi(int unique_id) {
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        Call<ResponseBody> call = apiInterface.getPastMatchesData(Utils.apikey,unique_id);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
+                try {
+                    parseMAtchData(response.body().string());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    private void parseMAtchData(String string) {
+
+        try {
+            JSONObject jsonObject = new JSONObject(string);
+            Matchpojo matchpojo = new Matchpojo();
+            System.out.println(jsonObject);
+            matchpojo.setTypeofmatch(jsonObject.getString("description"));
+            matchpojo.setTeam1(jsonObject.getString("team-1"));
+            matchpojo.setTeam2(jsonObject.getString("team-2"));
+            matchpojo.setMatchdescription(jsonObject.getJSONObject("provider").getString("pubDate").substring(0,10));
+
+            System.out.println(jsonObject.getString("description"));
+
+            if(!jsonObject.getString("stat").equals("")){
+                ar1.add(matchpojo);
+                adp=new MatchAdapter(getContext(),ar1);
+                recyclerView.setAdapter(adp);
+            }
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
     }
 }

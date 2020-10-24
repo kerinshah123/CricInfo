@@ -121,55 +121,57 @@ public class MatchTypeSelection extends AppCompatActivity {
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
                             Team team = documentSnapshot.toObject(Team.class);
                             if (team.getMatchDate().contains(matchdate)) {
-                                Toast.makeText(MatchTypeSelection.this, "Select Any Other Date Team is Already Playing on that day", Toast.LENGTH_SHORT).show();
-                            }
-
-                        }
-                    });
-                    DocumentReference documentReference2 = db.collection("teams").document(Team2);
-                    documentReference2.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                        @Override
-                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            Team team = documentSnapshot.toObject(Team.class);
-                            if (team.getMatchDate().contains(matchdate)) {
-                                Toast.makeText(MatchTypeSelection.this, "Please select any Other Date these Teams are already playing on this day", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MatchTypeSelection.this,  team.getName()+" is Already Playing on that day", Toast.LENGTH_SHORT).show();
                             } else {
+                                DocumentReference documentReference2 = db.collection("teams").document(Team2);
+                                documentReference2.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                        Team team = documentSnapshot.toObject(Team.class);
+                                        if (team.getMatchDate().contains(matchdate)) {
+                                            Toast.makeText(MatchTypeSelection.this,  team.getName()+" is already playing on this day", Toast.LENGTH_SHORT).show();
+                                        } else {
 
-                                    addToTeam(Team1);
-                                    addToTeam(Team2);
+                                            addToTeam(Team1);
+                                            addToTeam(Team2);
 
-                                    Map<String, Object> Schedule = new HashMap<>();
-                                    Schedule.put("team1", Team1);
-                                    Schedule.put("team2", Team2);
-                                    Schedule.put("LeagueId", tournamentId);
-                                    Schedule.put("Match Date", matchdate);
-                                    Schedule.put("Match Ball", ball.getText().toString());
-                                    Schedule.put("Match Type", match.getText().toString());
+                                            Map<String, Object> Schedule = new HashMap<>();
+                                            Schedule.put("team1", Team1);
+                                            Schedule.put("team2", Team2);
+                                            Schedule.put("LeagueId", tournamentId);
+                                            Schedule.put("matchDate", matchdate);
+                                            Schedule.put("matchBall", ball.getText().toString());
+                                            Schedule.put("matchType", match.getText().toString());
 
-                                    db.collection("schedule")
-                                            .add(Schedule)
-                                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                                @Override
-                                                public void onSuccess(DocumentReference documentReference) {
-                                                    finish();
+                                            db.collection("schedule")
+                                                    .add(Schedule)
+                                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                        @Override
+                                                        public void onSuccess(DocumentReference documentReference) {
 
-                                                    Toast.makeText(MatchTypeSelection.this, "Schedule Created Successfully", Toast.LENGTH_SHORT).show();
-                                                    startActivity(new Intent(getApplicationContext(), MyTournamentInfo.class));
+                                                            Toast.makeText(MatchTypeSelection.this, "Schedule Created Successfully", Toast.LENGTH_SHORT).show();
+                                                            finish();
+                                                            startActivity(new Intent(getApplicationContext(), MyTournamentInfo.class));
 
 
-                                                }
-                                            })
-                                            .addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    Toast.makeText(MatchTypeSelection.this, "Please fill all the details", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    })
+                                                    .addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                            Toast.makeText(MatchTypeSelection.this, "Please fill all the details", Toast.LENGTH_SHORT).show();
 
-                                                    //System.out.println(e.getMessage());
-                                                }
-                                            });
+                                                            //System.out.println(e.getMessage());
+                                                        }
+                                                    });
+                                        }
+                                    }
+                                });
                             }
+
                         }
                     });
+
                 }
             }
         });
@@ -230,7 +232,7 @@ public class MatchTypeSelection extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(getApplicationContext(), "Date Change", Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(getApplicationContext(), "Date Change", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

@@ -19,4 +19,10 @@ public interface ApiInterface {
 
     @GET("matches")
     Call<ResponseBody> getMatches(@Query("apikey") String token);
+
+    @GET("cricket")
+    Call<ResponseBody> getPastMatches(@Query("apikey") String apikey);
+
+    @GET("cricketScore")
+    Call<ResponseBody> getPastMatchesData(@Query("apikey")String apikey,@Query("unique_id") int unique_id);
 }

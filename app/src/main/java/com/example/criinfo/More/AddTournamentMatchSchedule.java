@@ -120,8 +120,6 @@ public class AddTournamentMatchSchedule extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull final TeamHolder holder, final int position, @NonNull final Team model) {
 
-
-
                     Glide.with(getApplicationContext()).load(model.getImage())
                             .placeholder(R.drawable.profile)
                             .into(holder.image);

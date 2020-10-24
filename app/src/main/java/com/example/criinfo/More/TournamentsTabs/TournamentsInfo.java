@@ -61,7 +61,7 @@ public class TournamentsInfo extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 if (!task.getResult().isEmpty()) {
-                                    if (document.getId().equals(sharedPreferences.getString("tourId", ""))) {
+                                    if (document.getId().equals(sharedPreferences.getString("tournamentId", ""))) {
                                         Glide.with(getApplicationContext())
                                                 .load(document.getString("image"))
                                                 .placeholder(R.drawable.team)

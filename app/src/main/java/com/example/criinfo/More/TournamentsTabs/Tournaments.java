@@ -66,7 +66,7 @@ public class Tournaments extends AppCompatActivity {
                     public void onClick(View v) {
 
                         SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("tourId",getSnapshots().getSnapshot(position).getId());
+                        editor.putString("tournamentId",getSnapshots().getSnapshot(position).getId());
                         editor.commit();
                         startActivity(new Intent(getApplicationContext(), TournamentsInfo.class));
 
