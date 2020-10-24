@@ -1,17 +1,37 @@
 package com.example.criinfo.More.MyTournamentTabs;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.criinfo.More.AddTournamentMatchSchedule;
+import com.example.criinfo.More.Schedule;
+import com.example.criinfo.More.TournamentsTabs.TournamentsScheduleFragment;
 import com.example.criinfo.R;
+import com.example.criinfo.Utils.Utils;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +41,12 @@ import com.example.criinfo.R;
 public class TournamentSchecduleFragment extends Fragment {
 
     Button addMatchtoschedule;
+    SharedPreferences sharedPreferences;
+    FirestoreRecyclerAdapter adapter;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    RecyclerView recyclerView;
+    ProgressBar progressBar;
+    String tournamentId, userId;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -78,6 +104,117 @@ public class TournamentSchecduleFragment extends Fragment {
             }
         });
 
+        recyclerView = view.findViewById(R.id.mytournamentshowschedule);
+
+        sharedPreferences = getContext().getSharedPreferences(Utils.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        userId = sharedPreferences.getString("userId", "");
+        tournamentId = sharedPreferences.getString("tournamentId", "");
+
+        final Query query = FirebaseFirestore.getInstance()
+                .collection("schedule").whereEqualTo("LeagueId",tournamentId);
+
+
+        FirestoreRecyclerOptions<Schedule> options = new FirestoreRecyclerOptions.Builder<Schedule>()
+                .setQuery(query, Schedule.class)
+                .build();
+
+        adapter = new FirestoreRecyclerAdapter<Schedule ,MatchHolder>(options) {
+            @Override
+            public void onBindViewHolder(final MatchHolder holder, final int position, final Schedule model) {
+
+
+                holder.league.setText(model.getMatchType());
+                holder.date.setText(model.getMatchDate());
+
+                db.collection("tournaments").document(model.getLeagueId())
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                holder.type.setText(task.getResult().getString("tournament"));
+
+                            }
+                        });
+
+
+                db.collection("teams").document(model.getTeam1())
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                holder.team1.setText(task.getResult().getString("sortname"));
+                                Glide.with(getActivity()).load(task.getResult().getString("image"))
+                                        .placeholder(R.drawable.team)
+                                        .into(holder.oneImage);
+
+                            }
+                        });
+
+                db.collection("teams").document(model.getTeam2())
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                holder.team2.setText(task.getResult().getString("sortname"));
+                                Glide.with(getActivity()).load(task.getResult().getString("image"))
+                                        .placeholder(R.drawable.team)
+                                        .into(holder.twoImage);
+                            }
+                        });
+
+                holder.match.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(getActivity(),MyTournamentInfo.class);
+                        i.putExtra("Id",getSnapshots().getSnapshot(position).getId());
+                        startActivity(i);
+                    }
+                });
+            }
+
+            @Override
+            public MatchHolder onCreateViewHolder(ViewGroup group, int i) {
+                // Using a custom layout called R.layout.message for each item, we create a new instance of the viewholder
+                View view = LayoutInflater.from(group.getContext())
+                        .inflate(R.layout.schedule_list, group, false);
+                return new MatchHolder(view);
+            }
+        };
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(adapter);
+
+
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapter.stopListening();
+    }
+
+    private class MatchHolder extends RecyclerView.ViewHolder {
+        TextView type, team1, team2, date, league;
+        CircularImageView oneImage, twoImage;
+        LinearLayout match;
+
+        public MatchHolder(@NonNull View itemView) {
+            super(itemView);
+            type = itemView.findViewById(R.id.typeofmatch);
+            team1 = itemView.findViewById(R.id.team1);
+            team2 = itemView.findViewById(R.id.team2);
+            league = itemView.findViewById(R.id.league_name);
+            oneImage = itemView.findViewById(R.id.team_one_image);
+            twoImage = itemView.findViewById(R.id.team_two_image);
+            date = itemView.findViewById(R.id.matchdescription);
+            match = itemView.findViewById(R.id.itemlayout);
+        }
     }
 }
