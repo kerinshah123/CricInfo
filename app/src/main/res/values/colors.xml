@@ -8,4 +8,6 @@
     <color name="backgrnd">#329A65</color>
     <color name="lightbackgrnd">#E5E5E5</color>
     <color name="black_overlay">#66000000</color>
+    <color name="blue">#1E90FF</color>
+
 </resources>

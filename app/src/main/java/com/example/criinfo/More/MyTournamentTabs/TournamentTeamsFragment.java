@@ -48,8 +48,8 @@ public class TournamentTeamsFragment extends Fragment {
     LinearLayout addTeam;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    SharedPreferences sharedPreferences ;
-    String teamId,usetId,tournamentId;
+    SharedPreferences sharedPreferences;
+    String teamId, usetId, tournamentId;
     FirestoreRecyclerAdapter adapter;
 
     public TournamentTeamsFragment() {
@@ -94,22 +94,21 @@ public class TournamentTeamsFragment extends Fragment {
 
         sharedPreferences = getContext().getSharedPreferences(Utils.SHARED_PREF_NAME, Context.MODE_PRIVATE);
 
-        usetId = sharedPreferences.getString("userId","");
-        teamId = sharedPreferences.getString("teamId","");
-        tournamentId = sharedPreferences.getString("tournamentId","");
+        usetId = sharedPreferences.getString("userId", "");
+        teamId = sharedPreferences.getString("teamId", "");
+        tournamentId = sharedPreferences.getString("tournamentId", "");
 
         db.collection("tournaments")
-                .whereEqualTo("leaguemanager",usetId)
+                .whereEqualTo("leaguemanager", usetId)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                if(!task.getResult().isEmpty()){
+                                if (!task.getResult().isEmpty()) {
                                     addTeam.setVisibility(View.VISIBLE);
-                                }
-                                else {
+                                } else {
                                     addTeam.setVisibility(View.GONE);
                                 }
                             }
@@ -122,12 +121,12 @@ public class TournamentTeamsFragment extends Fragment {
 
 
         final Query query = FirebaseFirestore.getInstance()
-                .collection("teams").whereArrayContains("leagueId",tournamentId);
+                .collection("teams").whereArrayContains("leagueId", tournamentId);
 
         FirestoreRecyclerOptions<Team> options = new FirestoreRecyclerOptions.Builder<Team>()
                 .setQuery(query, Team.class)
                 .build();
-        adapter  = new FirestoreRecyclerAdapter<Team, TeamHolder>(options) {
+        adapter = new FirestoreRecyclerAdapter<Team, TeamHolder>(options) {
             @Override
             public void onBindViewHolder(TeamHolder holder, final int position, final Team model) {
 
@@ -151,7 +150,7 @@ public class TournamentTeamsFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
 
-        return  view;
+        return view;
     }
 
 
@@ -160,6 +159,32 @@ public class TournamentTeamsFragment extends Fragment {
         super.onStart();
         adapter.startListening();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        db.collection("tournaments")
+                .whereEqualTo("leaguemanager", usetId)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                if (!task.getResult().isEmpty()) {
+                                    addTeam.setVisibility(View.VISIBLE);
+                                } else {
+                                    addTeam.setVisibility(View.GONE);
+                                }
+                            }
+                        } else {
+
+                            addTeam.setVisibility(View.GONE);
+                        }
+                    }
+                });
+    }
+
     @Override
     public void onStop() {
         super.onStop();
@@ -170,6 +195,7 @@ public class TournamentTeamsFragment extends Fragment {
         TextView name;
         CircularImageView image;
         LinearLayout team;
+
         public TeamHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.team_name);

@@ -59,7 +59,7 @@
                     android:text="Profile"
                     android:textSize="20dp"
                     android:paddingVertical="10dp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blue"
                     android:paddingHorizontal="20dp"
                     android:drawableEnd="@drawable/down"
                     ></TextView>
@@ -94,7 +94,7 @@
                     android:text="Personal Information"
                     android:textSize="20dp"
                     android:paddingVertical="10dp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blue"
                     android:paddingHorizontal="20dp"
                     android:drawableEnd="@drawable/down"
                     ></TextView>
@@ -295,7 +295,7 @@
                     android:text="Statastics"
                     android:textSize="20dp"
                     android:paddingVertical="10dp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blue"
                     android:paddingHorizontal="20dp"
                     android:drawableEnd="@drawable/down"
                     ></TextView>
