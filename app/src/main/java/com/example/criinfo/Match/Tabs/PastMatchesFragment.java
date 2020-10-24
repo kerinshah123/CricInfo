@@ -176,7 +176,7 @@ public class PastMatchesFragment extends Fragment {
 
             System.out.println(jsonObject.getString("description"));
 
-            if(!jsonObject.getString("stat").equals("")){
+            if(!jsonObject.getString("stat").equals("") || !jsonObject.getString("stat").equals("Live")){
                 ar1.add(matchpojo);
                 adp=new MatchAdapter(getContext(),ar1);
                 recyclerView.setAdapter(adp);

@@ -100,7 +100,7 @@ public class MoreFragment extends Fragment {
         editor = sharedPreferences.edit();
 
         type=sharedPreferences.getString("type","");
-        if (HomeActivity.usertype.equals("skip"))
+        if (type.equals(""))
         {
             logoutlayout.setVisibility(View.GONE);
         }
