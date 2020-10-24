@@ -304,7 +304,6 @@ public class LoginSignUpActivity extends AppCompatActivity implements AdapterVie
             public void onClick(View view) {
 
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                intent.putExtra("hint","skip");
                 startActivity(intent);
 
             }

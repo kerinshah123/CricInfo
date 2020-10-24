@@ -22,7 +22,7 @@ public class HomeActivity extends AppCompatActivity {
 
     BottomNavigationView main_nav;
     FrameLayout main_frame;
-    public static String usertype;
+
 
     HomeFragment homeFragment = new HomeFragment();
     InfoFragment infoFragment = new InfoFragment();
@@ -37,7 +37,6 @@ public class HomeActivity extends AppCompatActivity {
 
         main_frame = findViewById(R.id.main_frame);
         main_nav = findViewById(R.id.main_nav);
-        usertype=getIntent().getStringExtra("hint");
 
         setTitle("Cricinfo");
         setfragment(homeFragment);

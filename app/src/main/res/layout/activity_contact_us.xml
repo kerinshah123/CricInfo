@@ -36,9 +36,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/lightbackgrnd"
-                android:textSize="20dp"
-                android:padding="5dp"
-                android:textStyle="bold" />
+                android:textSize="15dp"
+                android:paddingHorizontal="5dp"
+                android:paddingVertical="10dp"
+
+                 />
 
 
             <TextView
@@ -54,9 +56,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/lightbackgrnd"
-                android:textSize="20dp"
-                android:padding="5dp"
-                android:textStyle="bold" />
+                android:textSize="15dp"
+                android:paddingHorizontal="5dp"
+                android:paddingVertical="10dp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -70,14 +72,13 @@
                 android:id="@+id/fullquery"
                 android:background="@color/lightbackgrnd"
                 android:layout_marginTop="10dp"
-                android:padding="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="200dp"
                 android:lines="12"
-                android:minLines="12"
                 android:gravity="top|left"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                android:textSize="15dp"
+                android:paddingHorizontal="5dp"
+                android:paddingVertical="10dp"/>
 
             <Button
                 android:id="@+id/reply"
