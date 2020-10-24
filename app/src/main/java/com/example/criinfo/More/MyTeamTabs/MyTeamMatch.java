@@ -48,8 +48,8 @@ public class MyTeamMatch extends Fragment {
     RecyclerView recyclerView;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    SharedPreferences sharedPreferences ;
-    String teamId,userId;
+    SharedPreferences sharedPreferences;
+    String teamId, userId;
     FirestoreRecyclerAdapter adapter;
 
     public MyTeamMatch() {
@@ -92,8 +92,8 @@ public class MyTeamMatch extends Fragment {
         recyclerView = view.findViewById(R.id.myteam_match_recycler);
 
         sharedPreferences = getContext().getSharedPreferences(Utils.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        userId = sharedPreferences.getString("userId","");
-        teamId = sharedPreferences.getString("teamId","");
+        userId = sharedPreferences.getString("userId", "");
+        teamId = sharedPreferences.getString("teamId", "");
 
         final Query query = FirebaseFirestore.getInstance()
                 .collection("schedule");
@@ -103,11 +103,11 @@ public class MyTeamMatch extends Fragment {
                 .setQuery(query, Schedule.class)
                 .build();
 
-        adapter  = new FirestoreRecyclerAdapter<Schedule, MatchHolder>(options) {
+        adapter = new FirestoreRecyclerAdapter<Schedule, MatchHolder>(options) {
             @Override
             public void onBindViewHolder(final MatchHolder holder, final int position, final Schedule model) {
 
-                if(model.getTeam1().equals(teamId) || model.getTeam2().equals(teamId)){
+                if (model.getTeam1().equals(teamId) || model.getTeam2().equals(teamId)) {
                     holder.league.setText(model.getMatchType());
                     holder.date.setText(model.getMatchDate());
 
@@ -127,10 +127,10 @@ public class MyTeamMatch extends Fragment {
                             .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                   holder.team1.setText(task.getResult().getString("sortname"));
-                                   Glide.with(getActivity()).load(task.getResult().getString("image"))
-                                           .placeholder(R.drawable.team)
-                                           .into(holder.oneImage);
+                                    holder.team1.setText(task.getResult().getString("sortname"));
+                                    Glide.with(getActivity()).load(task.getResult().getString("image"))
+                                            .placeholder(R.drawable.team)
+                                            .into(holder.oneImage);
                                 }
                             });
 
@@ -139,18 +139,15 @@ public class MyTeamMatch extends Fragment {
                             .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                   holder.team2.setText(task.getResult().getString("sortname"));
-                                   Glide.with(getActivity()).load(task.getResult().getString("image"))
-                                           .placeholder(R.drawable.team)
-                                           .into(holder.twoImage);
+                                    holder.team2.setText(task.getResult().getString("sortname"));
+                                    Glide.with(getActivity()).load(task.getResult().getString("image"))
+                                            .placeholder(R.drawable.team)
+                                            .into(holder.twoImage);
                                 }
                             });
-                }
-                else {
+                } else {
                     holder.match.setVisibility(View.GONE);
                 }
-
-
 
 
             }
@@ -168,7 +165,7 @@ public class MyTeamMatch extends Fragment {
         recyclerView.setAdapter(adapter);
 
 
-        return  view;
+        return view;
     }
 
     @Override
@@ -176,6 +173,7 @@ public class MyTeamMatch extends Fragment {
         super.onStart();
         adapter.startListening();
     }
+
     @Override
     public void onStop() {
         super.onStop();
@@ -183,8 +181,8 @@ public class MyTeamMatch extends Fragment {
     }
 
     private class MatchHolder extends RecyclerView.ViewHolder {
-        TextView type,team1,team2,date,league;
-        CircularImageView oneImage,twoImage;
+        TextView type, team1, team2, date, league;
+        CircularImageView oneImage, twoImage;
         LinearLayout match;
 
         public MatchHolder(@NonNull View itemView) {
