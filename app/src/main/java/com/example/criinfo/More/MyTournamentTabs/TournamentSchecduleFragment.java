@@ -122,7 +122,7 @@ public class TournamentSchecduleFragment extends Fragment {
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     count++;
-                                    Toast.makeText(getActivity(), count+"", Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(getActivity(), count+"", Toast.LENGTH_SHORT).show();
                                 }
                                 if(count < 2)
                                 {

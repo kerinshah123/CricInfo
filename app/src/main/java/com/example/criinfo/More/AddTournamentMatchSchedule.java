@@ -86,7 +86,7 @@ public class AddTournamentMatchSchedule extends AppCompatActivity {
 //                int selectedIdMatch = selectMatchtype.getCheckedRadioButtonId();
 //                match = findViewById(selectedIdMatch);
 
-                Toast.makeText(AddTournamentMatchSchedule.this,Count+"", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(AddTournamentMatchSchedule.this,Count+"", Toast.LENGTH_SHORT).show();
 
                 if (Count == 2) {
                     Intent i = new Intent(AddTournamentMatchSchedule.this,MatchTypeSelection.class);
@@ -131,12 +131,12 @@ public class AddTournamentMatchSchedule extends AppCompatActivity {
                                 Count++;
                                 String tempteam2 = getSnapshots().getSnapshot(position).getId();
                                 Teams.add(tempteam2);
-                                Toast.makeText(AddTournamentMatchSchedule.this,Count+"", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(AddTournamentMatchSchedule.this,Count+"", Toast.LENGTH_SHORT).show();
                             } else {
                                 String tempteam3 = getSnapshots().getSnapshot(position).getId();
                                 Teams.remove(tempteam3);
                                 Count--;
-                                Toast.makeText(AddTournamentMatchSchedule.this,Count+"", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(AddTournamentMatchSchedule.this,Count+"", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
