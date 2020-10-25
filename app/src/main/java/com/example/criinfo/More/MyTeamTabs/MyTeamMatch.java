@@ -110,13 +110,23 @@ public class MyTeamMatch extends Fragment {
                 if (model.getTeam1().equals(teamId) || model.getTeam2().equals(teamId)) {
                     holder.league.setText(model.getMatchType());
                     holder.date.setText(model.getMatchDate());
-
+//                    if(model.getWinner().isEmpty())
+//                    {
+//                        holder.winner.setText("Result is Yet to be decalared");
+//                    }
+//                    else
+//                    {
+//                        holder.winner.setText(model.getWinner());
+//                    }
+//
+//                    holder.team1score.setText(model.getTeam1score());
+//                    holder.team2score.setText(model.getTeam2score());
                     db.collection("tournaments").document(model.getLeagueId())
                             .get()
                             .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                    holder.type.setText(task.getResult().getString("tournament"));
+//                                    holder.type.setText(task.getResult().getString("tournament"));
 
                                 }
                             });
@@ -181,7 +191,7 @@ public class MyTeamMatch extends Fragment {
     }
 
     private class MatchHolder extends RecyclerView.ViewHolder {
-        TextView type, team1, team2, date, league;
+        TextView type, team1, team2, date, league,winner,team1score,team2score;
         CircularImageView oneImage, twoImage;
         LinearLayout match;
 
@@ -195,6 +205,9 @@ public class MyTeamMatch extends Fragment {
             twoImage = itemView.findViewById(R.id.team_two_image);
             date = itemView.findViewById(R.id.matchdescription);
             match = itemView.findViewById(R.id.itemlayout);
+//            winner = itemView.findViewById(R.id.winner);
+//            team1score = itemView.findViewById(R.id.team1score);
+//            team2score = itemView.findViewById(R.id.team2score);
         }
     }
 }

@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.criinfo.LoginSignUpActivity;
 import com.example.criinfo.R;
+import com.example.criinfo.Utils.Utils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -29,6 +30,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.example.criinfo.LoginSignUpActivity.Email_shared;
+import static com.example.criinfo.LoginSignUpActivity.SHARED_PREF_NAME;
+
 public class MyProfile extends AppCompatActivity {
     ImageView name_edit,email_edit,number_edit;
     RelativeLayout rrname,rremail,rrnumber;
@@ -39,6 +43,8 @@ public class MyProfile extends AppCompatActivity {
     TextInputLayout change_name,change_email,change_number;
 
     FirebaseFirestore viewprofile;
+
+    SharedPreferences sharedPreferences;
 
     String userrefID;
 
@@ -66,9 +72,9 @@ public class MyProfile extends AppCompatActivity {
 
         viewprofile = FirebaseFirestore.getInstance();
 
+        sharedPreferences = getApplicationContext().getSharedPreferences(Utils.SHARED_PREF_NAME, Context.MODE_PRIVATE);
 
-        SharedPreferences sharedPreferences= getSharedPreferences(LoginSignUpActivity.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        email=sharedPreferences.getString(LoginSignUpActivity.Email_shared,LoginSignUpActivity.SHARED_PREF_NAME);
+        email=sharedPreferences.getString(Email_shared, SHARED_PREF_NAME);
 
         viewprofile.collection("user")
                 .whereEqualTo("email",email)
@@ -121,7 +127,11 @@ public class MyProfile extends AppCompatActivity {
                 updateProfile.put("name" ,username.getText().toString());
                 updateProfile.put("email" ,useremail.getText().toString());
                 updateProfile.put("number" ,usernumber.getText().toString());
+                sharedPreferences = getApplicationContext().getSharedPreferences(Utils.SHARED_PREF_NAME, Context.MODE_PRIVATE);
 
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("email",useremail.getText().toString());
+                editor.commit();
                 documentReference.update(updateProfile)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override

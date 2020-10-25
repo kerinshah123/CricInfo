@@ -112,12 +112,23 @@ public class TournamentsScheduleFragment extends Fragment {
                     holder.league.setText(model.getMatchType());
                     holder.date.setText(model.getMatchDate());
 
+                    if(model.getWinner().isEmpty())
+                    {
+                        holder.winner.setText("Result is Yet to be decalared");
+                    }
+                    else
+                    {
+                        holder.winner.setText(model.getWinner());
+                    }
+                holder.team1score.setText(model.getTeam1score());
+                holder.team2score.setText(model.getTeam2score());
+
                     db.collection("tournaments").document(model.getLeagueId())
                             .get()
                             .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                    holder.type.setText(task.getResult().getString("tournament"));
+
 
                                 }
                             });
@@ -154,7 +165,7 @@ public class TournamentsScheduleFragment extends Fragment {
             public MatchHolder onCreateViewHolder(ViewGroup group, int i) {
                 // Using a custom layout called R.layout.message for each item, we create a new instance of the viewholder
                 View view = LayoutInflater.from(group.getContext())
-                        .inflate(R.layout.schedule_list, group, false);
+                        .inflate(R.layout.tournamentschedulelist, group, false);
                 return new MatchHolder(view);
             }
         };
@@ -179,13 +190,12 @@ public class TournamentsScheduleFragment extends Fragment {
     }
 
     private class MatchHolder extends RecyclerView.ViewHolder {
-        TextView type, team1, team2, date, league;
+        TextView team1, team2, date, league,winner,team1score,team2score;
         CircularImageView oneImage, twoImage;
         LinearLayout match;
 
         public MatchHolder(@NonNull View itemView) {
             super(itemView);
-            type = itemView.findViewById(R.id.typeofmatch);
             team1 = itemView.findViewById(R.id.team1);
             team2 = itemView.findViewById(R.id.team2);
             league = itemView.findViewById(R.id.league_name);
@@ -193,6 +203,9 @@ public class TournamentsScheduleFragment extends Fragment {
             twoImage = itemView.findViewById(R.id.team_two_image);
             date = itemView.findViewById(R.id.matchdescription);
             match = itemView.findViewById(R.id.itemlayout);
+            winner = itemView.findViewById(R.id.winner);
+            team1score = itemView.findViewById(R.id.team1score);
+            team2score = itemView.findViewById(R.id.team2score);
         }
     }
 }

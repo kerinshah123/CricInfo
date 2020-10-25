@@ -42,7 +42,7 @@ public class CreateTournament extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_tournament);
-        noteam = findViewById(R.id.noteamLayout);
+        noteam = findViewById(R.id.notournamentLayout);
         recyclerView = findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         progressBar = findViewById(R.id.progress);
@@ -115,12 +115,14 @@ public class CreateTournament extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         adapter.startListening();
+        noteam.setVisibility(View.GONE);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         adapter.stopListening();
+        noteam.setVisibility(View.GONE);
     }
 
     private class TeamHolder extends RecyclerView.ViewHolder {

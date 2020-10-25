@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,10 +30,15 @@ import com.example.criinfo.Utils.Utils;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.text.SimpleDateFormat;
@@ -47,12 +53,14 @@ import java.util.Locale;
 public class TournamentSchecduleFragment extends Fragment {
 
     Button addMatchtoschedule;
+    RelativeLayout layout2;
     SharedPreferences sharedPreferences;
     FirestoreRecyclerAdapter adapter;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     RecyclerView recyclerView;
     ProgressBar progressBar;
     String tournamentId, userId;
+    int count;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -105,8 +113,39 @@ public class TournamentSchecduleFragment extends Fragment {
         addMatchtoschedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getActivity(), AddTournamentMatchSchedule.class);
-                startActivity(i);
+
+                db.collection("teams")
+                        .whereArrayContains("leagueId",tournamentId)
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    count++;
+                                    Toast.makeText(getActivity(), count+"", Toast.LENGTH_SHORT).show();
+                                }
+                                if(count < 2)
+                                {
+
+
+                                        Toast.makeText(getActivity(), "There are less than Two teams in the tournament", Toast.LENGTH_SHORT).show();
+
+
+                                }
+
+                                else {
+                                    Intent i = new Intent(getActivity(), AddTournamentMatchSchedule.class);
+                                    startActivity(i);
+
+                                }
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
             }
         });
 
@@ -132,6 +171,17 @@ public class TournamentSchecduleFragment extends Fragment {
                 holder.league.setText(model.getMatchType());
                 holder.date.setText(model.getMatchDate());
                 holder.league.setText(model.getMatchType());
+                if(model.getWinner().isEmpty())
+                {
+                    holder.winner.setText("Result is Yet to be decalared");
+                }
+                else
+                {
+                    holder.winner.setText(model.getWinner());
+                }
+
+                holder.team1score.setText(model.getTeam1score());
+                holder.team2score.setText(model.getTeam2score());
 
                 db.collection("tournaments").document(model.getLeagueId())
                         .get()
@@ -243,7 +293,7 @@ public class TournamentSchecduleFragment extends Fragment {
     }
 
     private class MatchHolder extends RecyclerView.ViewHolder {
-        TextView team1, team2, date, league;
+        TextView team1, team2, date, league,winner,team1score,team2score;
         CircularImageView oneImage, twoImage;
         LinearLayout match;
 
@@ -257,6 +307,9 @@ public class TournamentSchecduleFragment extends Fragment {
             twoImage = itemView.findViewById(R.id.team_two_image);
             date = itemView.findViewById(R.id.matchdescription);
             match = itemView.findViewById(R.id.itemlayout);
+            winner = itemView.findViewById(R.id.winner);
+            team1score = itemView.findViewById(R.id.team1score);
+            team2score = itemView.findViewById(R.id.team2score);
         }
     }
 }

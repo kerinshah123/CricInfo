@@ -41,7 +41,7 @@ public class AddMatchResult extends AppCompatActivity {
     ArrayList<String> winnername = new ArrayList<String>();
     String scheduleId;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    String Team1Id, Team2Id, winningTeamName, winTeamId, wins,resultId;
+    String Team1Id, Team2Id, winningTeamName, winTeamId, wins,resultId,winstatu;
     ImageView team2flag, team1flag;
     TextView team2name, team1name;
     Button saveresult;
@@ -238,7 +238,7 @@ public class AddMatchResult extends AppCompatActivity {
 
     private void updateResult(String winTeamId) {
 
-        String winstatu = winningTeamName + " Win By " + winstatus.getText().toString();
+        winstatu = winningTeamName + " Win By " + winstatus.getText().toString();
         Map<String, Object> Resultupdate = new HashMap<>();
         Resultupdate.put("team1score", team1score.getText().toString());
         Resultupdate.put("team2score", team2score.getText().toString());
@@ -253,6 +253,7 @@ public class AddMatchResult extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(AddMatchResult.this, "Result Save Successfully", Toast.LENGTH_SHORT).show();
+                        updateSchedule();
                         finish();
                         startActivity(new Intent(getApplicationContext(), MyTournamentInfo.class));
                     }
@@ -267,7 +268,7 @@ public class AddMatchResult extends AppCompatActivity {
 
     private void saveResult(String winTeamId) {
 
-        String winstatu = winningTeamName + " Win By " + winstatus.getText().toString();
+        winstatu = winningTeamName + " Win By " + winstatus.getText().toString();
         Map<String, Object> Result = new HashMap<>();
         Result.put("team1score", team1score.getText().toString());
         Result.put("team2score", team2score.getText().toString());
@@ -284,6 +285,7 @@ public class AddMatchResult extends AppCompatActivity {
                     public void onSuccess(DocumentReference documentReference) {
 
                         Toast.makeText(AddMatchResult.this, "Result Save Successfully", Toast.LENGTH_SHORT).show();
+                        updateSchedule();
                         finish();
                         startActivity(new Intent(getApplicationContext(), MyTournamentInfo.class));
 
@@ -295,8 +297,28 @@ public class AddMatchResult extends AppCompatActivity {
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(AddMatchResult.this, "Please fill all the details", Toast.LENGTH_SHORT).show();
 
-
                     }
                 });
+    }
+
+    private void updateSchedule() {
+
+        db.collection("schedule").document(scheduleId)
+                .update(
+                        "team1score",team1score.getText().toString()+" / "+team1wicket.getText().toString() + "",
+                        "team2score",team2score.getText().toString()+" / "+team2wicket.getText().toString() + "",
+                        "winner",winstatu
+                ).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(AddMatchResult.this, "Update successfully", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(AddMatchResult.this, "Update Failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 }

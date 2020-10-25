@@ -1,6 +1,7 @@
 package com.example.criinfo.More.TournamentsTabs;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -16,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.criinfo.More.MyTeamTabs.MyTeamInfo;
 import com.example.criinfo.More.MyTournamentTabs.Team;
 import com.example.criinfo.More.MyTournamentTabs.TournamentTeamsFragment;
 import com.example.criinfo.R;
@@ -135,6 +137,17 @@ public class TournamentsTeamsFragment extends Fragment {
                         .placeholder(R.drawable.profile)
                         .into(holder.image);
                 holder.name.setText(model.getName());
+                holder.team.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("teamId",getSnapshots().getSnapshot(position).getId());
+                        editor.commit();
+                        Intent i = new Intent(getActivity(), MyTeamInfo.class);
+
+                        startActivity(i);
+                    }
+                });
 
             }
 

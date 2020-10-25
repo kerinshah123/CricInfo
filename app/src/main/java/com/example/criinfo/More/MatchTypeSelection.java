@@ -93,6 +93,7 @@ public class MatchTypeSelection extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         startDate = task.getResult().getString("startdate");
+
                         endDate = task.getResult().getString("enddate");
                     }
                 });
@@ -107,14 +108,15 @@ public class MatchTypeSelection extends AppCompatActivity {
                 match = findViewById(selectedIdMatch);
                 matchdate = Matchdate.getText().toString();
 
-                if (selectball.getCheckedRadioButtonId() == -1) {
-                    Toast.makeText(MatchTypeSelection.this, "Plzz Select Ball Types", Toast.LENGTH_SHORT).show();
-                } else if (selectMatchtype.getCheckedRadioButtonId() == -1) {
-                    Toast.makeText(MatchTypeSelection.this, "Plzz Select Match Types", Toast.LENGTH_SHORT).show();
-                } else if (matchdate.isEmpty()) {
-                    Toast.makeText(MatchTypeSelection.this, "Plzz Select Date", Toast.LENGTH_SHORT).show();
 
-                } else {
+                if (matchdate.isEmpty()) {
+                    Toast.makeText(MatchTypeSelection.this, "Plzz Select Date", Toast.LENGTH_SHORT).show();
+                }
+                else if (selectball.getCheckedRadioButtonId() == -1) {
+                    Toast.makeText(MatchTypeSelection.this, "Plzz Select Ball Types", Toast.LENGTH_SHORT).show();
+                }else if (selectMatchtype.getCheckedRadioButtonId() == -1) {
+                    Toast.makeText(MatchTypeSelection.this, "Plzz Select Match Types", Toast.LENGTH_SHORT).show();
+                }  else {
                     DocumentReference documentReference = db.collection("teams").document(Team1);
                     documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
@@ -211,6 +213,40 @@ public class MatchTypeSelection extends AppCompatActivity {
                     String myFormat = "MM/dd/yy"; //In which you need put here
                     start = new SimpleDateFormat(myFormat, Locale.US);
                     Matchdate.setText(start.format(myCalendar.getTime()));
+//
+//                    int day = Integer.parseInt(new SimpleDateFormat("dd", Locale.getDefault()).format(new Date()));
+//                    int year = Integer.parseInt(new SimpleDateFormat("yy", Locale.getDefault()).format(new Date()));
+//                    int month = Integer.parseInt(new SimpleDateFormat("MM", Locale.getDefault()).format(new Date()));
+//
+//                    String matchdate = startDate;
+//
+//                    int matchmonth = Integer.parseInt(matchdate.substring(0,2));
+//                    int matchday = Integer.parseInt(matchdate.substring(3,5));
+//                    int matchyear = Integer.parseInt(matchdate.substring(6,8));
+//
+//                    if(matchyear == year || year > matchyear)
+//                    {
+//                        if(matchmonth == month || month > matchmonth)
+//                        {
+//                            if(matchday == day || day > matchday)
+//                            {
+//                                startDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+//                            }
+//                            else
+//                            {
+//
+//                            }
+//                        }
+//                        else
+//                        {
+////                                startDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+//
+//                        }
+//                    }
+//                    else
+//                    {
+////                            startDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+//                    }
 
                     try {
                         Date date1 = new SimpleDateFormat("MM/dd/yy").parse(startDate);
