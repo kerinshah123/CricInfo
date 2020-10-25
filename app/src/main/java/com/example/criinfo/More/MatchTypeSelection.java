@@ -142,6 +142,9 @@ public class MatchTypeSelection extends AppCompatActivity {
                                             Schedule.put("matchDate", matchdate);
                                             Schedule.put("matchBall", ball.getText().toString());
                                             Schedule.put("matchType", match.getText().toString());
+                                            Schedule.put("team1score", "00/0");
+                                            Schedule.put("team2score","00/0");
+                                            Schedule.put("winner", "");
 
                                             db.collection("schedule")
                                                     .add(Schedule)

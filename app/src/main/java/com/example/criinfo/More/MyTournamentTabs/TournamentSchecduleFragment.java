@@ -17,8 +17,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.criinfo.More.AddMatchResult;
 import com.example.criinfo.More.AddTournamentMatchSchedule;
 import com.example.criinfo.More.Schedule;
 import com.example.criinfo.More.TournamentsTabs.TournamentsScheduleFragment;
@@ -32,6 +34,10 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.mikhaellopez.circularimageview.CircularImageView;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -125,13 +131,14 @@ public class TournamentSchecduleFragment extends Fragment {
 
                 holder.league.setText(model.getMatchType());
                 holder.date.setText(model.getMatchDate());
+                holder.league.setText(model.getMatchType());
 
                 db.collection("tournaments").document(model.getLeagueId())
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                holder.type.setText(task.getResult().getString("tournament"));
+
 
                             }
                         });
@@ -165,9 +172,44 @@ public class TournamentSchecduleFragment extends Fragment {
                 holder.match.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent i = new Intent(getActivity(),MyTournamentInfo.class);
-                        i.putExtra("Id",getSnapshots().getSnapshot(position).getId());
-                        startActivity(i);
+                        int day = Integer.parseInt(new SimpleDateFormat("dd", Locale.getDefault()).format(new Date()));
+                        int year = Integer.parseInt(new SimpleDateFormat("yy", Locale.getDefault()).format(new Date()));
+                        int month = Integer.parseInt(new SimpleDateFormat("MM", Locale.getDefault()).format(new Date()));
+
+                        String matchdate = model.getMatchDate();
+
+                        int matchmonth = Integer.parseInt(matchdate.substring(0,2));
+                        int matchday = Integer.parseInt(matchdate.substring(3,5));
+                        int matchyear = Integer.parseInt(matchdate.substring(6,8));
+
+                        if(matchyear == year || year > matchyear)
+                        {
+                            if(matchmonth == month || month > matchmonth)
+                            {
+                                if(matchday == day || day > matchday)
+                                {
+                                    Intent i = new Intent(getActivity(), AddMatchResult.class);
+                                    i.putExtra("Id",getSnapshots().getSnapshot(position).getId());
+                                    startActivity(i);
+                                }
+                                else
+                                {
+                                    Toast.makeText(getActivity(), "you cannot change result", Toast.LENGTH_SHORT).show();
+
+                                }
+                            }
+                            else
+                            {
+                                Toast.makeText(getActivity(), "you cannot change result", Toast.LENGTH_SHORT).show();
+
+                            }
+                        }
+                        else
+                        {
+                            Toast.makeText(getActivity(), "you cannot change result", Toast.LENGTH_SHORT).show();
+
+                        }
+
                     }
                 });
             }
@@ -176,7 +218,7 @@ public class TournamentSchecduleFragment extends Fragment {
             public MatchHolder onCreateViewHolder(ViewGroup group, int i) {
                 // Using a custom layout called R.layout.message for each item, we create a new instance of the viewholder
                 View view = LayoutInflater.from(group.getContext())
-                        .inflate(R.layout.schedule_list, group, false);
+                        .inflate(R.layout.tournamentschedulelist, group, false);
                 return new MatchHolder(view);
             }
         };
@@ -201,13 +243,13 @@ public class TournamentSchecduleFragment extends Fragment {
     }
 
     private class MatchHolder extends RecyclerView.ViewHolder {
-        TextView type, team1, team2, date, league;
+        TextView team1, team2, date, league;
         CircularImageView oneImage, twoImage;
         LinearLayout match;
 
         public MatchHolder(@NonNull View itemView) {
             super(itemView);
-            type = itemView.findViewById(R.id.typeofmatch);
+
             team1 = itemView.findViewById(R.id.team1);
             team2 = itemView.findViewById(R.id.team2);
             league = itemView.findViewById(R.id.league_name);

@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/layout"
+    tools:context=".More.AddMatchResult">
+
+    <LinearLayout
+        android:id="@+id/itemlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/lightbackgrnd"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@android:color/white"
+            android:orientation="vertical"
+            android:paddingLeft="15dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/team1flag"
+                    android:layout_width="59dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/england">
+
+                </ImageView>
+
+                <TextView
+                    android:id="@+id/team1name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="10dp"
+                    android:text="ENGLAND"
+                    android:textColor="@color/backgrnd"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/team1score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".25"
+                    android:hint="Run"
+                    android:maxLength="3"
+                    android:padding="10dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/backgrnd"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".25"
+                    android:text="/"
+                    android:textAlignment="center"
+                    android:textColor="@color/backgrnd"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/team1wicket"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".25"
+                    android:hint="Wicket"
+                    android:maxLength="2"
+                    android:textAlignment="center"
+                    android:textColor="@color/backgrnd"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <ImageView
+                    android:id="@+id/team2flag"
+                    android:layout_width="59dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/australia"
+                    >
+
+                </ImageView>
+
+                <TextView
+                    android:id="@+id/team2name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="10dp"
+                    android:text="AUSTRALIA"
+                    android:textColor="@color/backgrnd"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    />
+
+                <EditText
+                    android:id="@+id/team2score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".25"
+                    android:hint="Run"
+                    android:maxLength="3"
+                    android:padding="10dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/backgrnd"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".25"
+                    android:text="/"
+                    android:textAlignment="center"
+                    android:textColor="@color/backgrnd"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    />
+
+                <EditText
+                    android:id="@+id/team2wicket"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".25"
+                    android:hint="Wicket"
+                    android:maxLength="2"
+                    android:textAlignment="center"
+                    android:textColor="@color/backgrnd"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="0dp"
+            android:background="@android:color/darker_gray"
+            />
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:padding="5dp"
+            android:text="Winner Of The match"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            />
+
+
+        <Spinner
+            android:id="@+id/winner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:outlineAmbientShadowColor="@color/colorPrimary"
+            android:outlineSpotShadowColor="@color/colorPrimary"
+            android:textAlignment="center"
+
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="0dp"
+            android:background="@android:color/darker_gray" />
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="Win By "
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/winstatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="Win Margin "
+            android:textColorHint="@color/colorPrimary" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/saveresult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/button_round"
+        android:paddingBottom="10dp"
+        android:text="Save Result"
+        android:textAllCaps="false"
+        android:textColor="@color/white" />
+
+</RelativeLayout>
