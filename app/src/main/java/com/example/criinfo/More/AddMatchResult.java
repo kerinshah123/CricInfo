@@ -3,7 +3,9 @@ package com.example.criinfo.More;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.criinfo.More.MyTournamentTabs.MyTournamentInfo;
 import com.example.criinfo.R;
+import com.example.criinfo.Utils.Utils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -39,13 +42,17 @@ public class AddMatchResult extends AppCompatActivity {
     Spinner winner;
     RelativeLayout layout;
     ArrayList<String> winnername = new ArrayList<String>();
+    SharedPreferences sharedPreferences;
     String scheduleId;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    String Team1Id, Team2Id, winningTeamName, winTeamId, wins,resultId,winstatu;
+    String Team1Id, Team2Id, winningTeamName, winTeamId,databasewinteamId, wins,resultId,winstatu,tournamentId,lossteam;
     ImageView team2flag, team1flag;
     TextView team2name, team1name;
     Button saveresult;
     EditText team1score, team2score, team1wicket, team2wicket, winstatus;
+
+
+    int matchPlayed,matchwin,point,lossTeammatchPlayed,lossTeammatchLoss,matchloss,lossTeammatchwin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +73,9 @@ public class AddMatchResult extends AppCompatActivity {
         winstatus = findViewById(R.id.winstatus);
 
         layout = findViewById(R.id.layout);
+
+        sharedPreferences = getSharedPreferences(Utils.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        tournamentId = sharedPreferences.getString("tournamentId", "");
 
 
         winnername.add("Select Winner For This Match");
@@ -90,6 +100,7 @@ public class AddMatchResult extends AppCompatActivity {
                                    team2score.setText(String.valueOf(document.getString("team2score")));
                                    team2wicket.setText(String.valueOf(document.getString("team2wicket")));
                                    team1wicket.setText(String.valueOf(document.getString("team1wicket")));
+                                    databasewinteamId = document.getString("winTeamId");
 
                                    saveresult.setText("Update Result");
 
@@ -176,6 +187,14 @@ public class AddMatchResult extends AppCompatActivity {
                                                     String id = document.getId();
                                                     if (id.equals(Team1Id) || id.equals(Team2Id)) {
                                                         winTeamId = String.valueOf(document.getId());
+                                                        if(id.equals(Team1Id))
+                                                        {
+                                                            lossteam = Team2Id;
+                                                        }
+                                                        else
+                                                        {
+                                                            lossteam = Team1Id;
+                                                        }
 //                                                    Toast.makeText(AddMatchResult.this, winTeamId+"", Toast.LENGTH_SHORT).show();
                                                         saveResult(winTeamId);
                                                     }
@@ -219,6 +238,14 @@ public class AddMatchResult extends AppCompatActivity {
                                                     String id = document.getId();
                                                     if (id.equals(Team1Id) || id.equals(Team2Id)) {
                                                         winTeamId = String.valueOf(document.getId());
+                                                        if(id.equals(Team1Id))
+                                                        {
+                                                            lossteam = Team2Id;
+                                                        }
+                                                        else
+                                                        {
+                                                            lossteam = Team1Id;
+                                                        }
 //                                                    Toast.makeText(AddMatchResult.this, winTeamId+"", Toast.LENGTH_SHORT).show();
                                                         updateResult(winTeamId);
                                                     }
@@ -236,7 +263,7 @@ public class AddMatchResult extends AppCompatActivity {
 
     }
 
-    private void updateResult(String winTeamId) {
+    private void updateResult(final String winTeamId) {
 
         winstatu = winningTeamName + " Win By " + winstatus.getText().toString();
         Map<String, Object> Resultupdate = new HashMap<>();
@@ -256,6 +283,10 @@ public class AddMatchResult extends AppCompatActivity {
                         updateSchedule();
                         finish();
                         startActivity(new Intent(getApplicationContext(), MyTournamentInfo.class));
+//                        if(!databasewinteamId.equals(winTeamId))
+//                        {
+//                            updatewinpointstable(winTeamId);
+//                        }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -266,7 +297,106 @@ public class AddMatchResult extends AppCompatActivity {
 
     }
 
-    private void saveResult(String winTeamId) {
+    private void updatewinpointstable(String winTeamId) {
+
+        db.collection("pointstable")
+                .whereEqualTo("teamId",winTeamId)
+                .whereEqualTo("LeagueId",tournamentId)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            matchloss= Integer.parseInt(String.valueOf(document.get("matchloss")));
+                            matchwin= Integer.parseInt(String.valueOf(document.get("matchwin")));
+                            point= Integer.parseInt(String.valueOf(document.get("point")));
+
+                            point = point + 2;
+                            matchloss--;
+                            matchwin++;
+
+                            db.collection("pointstable")
+                                    .document(document.getId())
+                                    .update("matchloss",matchloss,
+                                            "matchwin",matchwin,
+                                            "point",point
+                                    )
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            updatelossteampoint(lossteam);
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(AddMatchResult.this, "Error", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                            Toast.makeText(AddMatchResult.this, matchPlayed+" "+matchwin+" "+point+" ", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(AddMatchResult.this, "Error", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    private void updatelossteampoint(String lossteam) {
+
+        db.collection("pointstable")
+                .whereEqualTo("teamId",lossteam)
+                .whereEqualTo("LeagueId",tournamentId)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            lossTeammatchLoss = Integer.parseInt(String.valueOf(document.get("matchloss")));
+                            lossTeammatchwin =  Integer.parseInt(String.valueOf(document.get("matchwin")));
+                            point =  Integer.parseInt(String.valueOf(document.get("point")));
+
+                            lossTeammatchLoss++;
+                            lossTeammatchwin--;
+                            point = point - 2;
+
+
+                            db.collection("pointstable")
+                                    .document(document.getId())
+                                    .update("matchwin",lossTeammatchwin,
+                                            "matchloss",lossTeammatchLoss,
+                                            "point",point
+                                    )
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Toast.makeText(AddMatchResult.this, "Result Save Successfully", Toast.LENGTH_SHORT).show();
+
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(AddMatchResult.this, "Error", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+
+                        }
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(AddMatchResult.this, "Error", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    private void saveResult(final String winTeamId) {
 
         winstatu = winningTeamName + " Win By " + winstatus.getText().toString();
         Map<String, Object> Result = new HashMap<>();
@@ -286,8 +416,8 @@ public class AddMatchResult extends AppCompatActivity {
 
                         Toast.makeText(AddMatchResult.this, "Result Save Successfully", Toast.LENGTH_SHORT).show();
                         updateSchedule();
-                        finish();
-                        startActivity(new Intent(getApplicationContext(), MyTournamentInfo.class));
+                        winpointstable(winTeamId);
+
 
 
                     }
@@ -299,6 +429,101 @@ public class AddMatchResult extends AppCompatActivity {
 
                     }
                 });
+    }
+
+    private void winpointstable(String winTeamId) {
+
+        db.collection("pointstable")
+                .whereEqualTo("teamId",winTeamId)
+                .whereEqualTo("LeagueId",tournamentId)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            matchPlayed= Integer.parseInt(String.valueOf(document.get("matchPlayed")));
+                            matchwin= Integer.parseInt(String.valueOf(document.get("matchwin")));
+                            point= Integer.parseInt(String.valueOf(document.get("point")));
+
+                            point = point + 2;
+                            matchPlayed++;
+                            matchwin++;
+
+                            db.collection("pointstable")
+                                    .document(document.getId())
+                                    .update("matchPlayed",matchPlayed,
+                                            "matchwin",matchwin,
+                                            "point",point
+                                    )
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(AddMatchResult.this, "Win Point Added", Toast.LENGTH_SHORT).show();
+                                    lossteampoint(lossteam);
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(AddMatchResult.this, "Error", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                            Toast.makeText(AddMatchResult.this, matchPlayed+" "+matchwin+" "+point+" ", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(AddMatchResult.this, "Error", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    private void lossteampoint(String lossteam) {
+        db.collection("pointstable")
+                .whereEqualTo("teamId",lossteam)
+                .whereEqualTo("LeagueId",tournamentId)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            lossTeammatchPlayed = Integer.parseInt(String.valueOf(document.get("matchPlayed")));
+                            lossTeammatchLoss =  lossTeammatchPlayed = Integer.parseInt(String.valueOf(document.get("matchloss")));
+
+                            lossTeammatchLoss++;
+                            lossTeammatchPlayed++;
+
+                            db.collection("pointstable")
+                                    .document(document.getId())
+                                    .update("matchPlayed",lossTeammatchPlayed,
+                                            "matchloss",lossTeammatchLoss
+                                    )
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Toast.makeText(AddMatchResult.this, "Result Save Successfully", Toast.LENGTH_SHORT).show();
+                                            finish();
+                                            startActivity(new Intent(getApplicationContext(), MyTournamentInfo.class));
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(AddMatchResult.this, "Error", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                        }
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(AddMatchResult.this, "Error", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void updateSchedule() {

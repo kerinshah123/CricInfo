@@ -28,11 +28,15 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.mikhaellopez.circularimageview.CircularImageView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class TournamentTeams extends AppCompatActivity {
     RecyclerView recyclerView;
@@ -40,7 +44,7 @@ public class TournamentTeams extends AppCompatActivity {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     SharedPreferences sharedPreferences;
-    String tournamentId, usetId;
+    String tournamentId, usetId,teamId;
     FirestoreRecyclerAdapter adapter;
 
     @Override
@@ -95,6 +99,7 @@ public class TournamentTeams extends AppCompatActivity {
                         if (model.getLeagueId().contains(tournamentId)) {
                             Toast.makeText(getApplicationContext(), "Team Already in League", Toast.LENGTH_SHORT).show();
                         } else {
+                            teamId = getSnapshots().getSnapshot(position).getId().toString();
                             addToTournament(getSnapshots().getSnapshot(position).getId().toString());
                         }
                     }
@@ -124,6 +129,29 @@ public class TournamentTeams extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(getApplicationContext(), "Team Added Successfully", Toast.LENGTH_SHORT).show();
+                        Map<String, Object> pointstable = new HashMap<>();
+                        pointstable.put("LeagueId",tournamentId);
+                        pointstable.put("teamId",teamId);
+                        pointstable.put("point",0);
+                        pointstable.put("matchPlayed",0);
+                        pointstable.put("matchwin",0);
+                        pointstable.put("matchloss",0);
+
+
+                        db.collection("pointstable")
+                                .add(pointstable)
+                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                    @Override
+                                    public void onSuccess(DocumentReference documentReference) {
+                                        Toast.makeText(TournamentTeams.this, "Team Added To pointstable", Toast.LENGTH_SHORT).show();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(TournamentTeams.this, "Some Error", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
