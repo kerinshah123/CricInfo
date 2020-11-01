@@ -18,6 +18,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.criinfo.R;
@@ -49,7 +50,7 @@ public class TournamentRegistration extends AppCompatActivity {
     StorageReference sRef;
     FirebaseFirestore Host_firebaseStorage;
     EditText tournamentname, contactnumber, country, location;
-    TextInputEditText startdate, enddate;
+    TextView startdate, enddate;
     TextInputLayout sdate, edate;
     FirebaseFirestore db;
     SharedPreferences sharedPreferences;
