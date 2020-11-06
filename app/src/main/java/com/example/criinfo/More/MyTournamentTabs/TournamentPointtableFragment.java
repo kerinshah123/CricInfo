@@ -1,14 +1,34 @@
 package com.example.criinfo.More.MyTournamentTabs;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.criinfo.More.PointsTablePojo;
+import com.example.criinfo.More.TournamentTeams;
 import com.example.criinfo.R;
+import com.example.criinfo.Utils.Utils;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +36,14 @@ import com.example.criinfo.R;
  * create an instance of this fragment.
  */
 public class TournamentPointtableFragment extends Fragment {
+
+    RecyclerView pointstable;
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    SharedPreferences sharedPreferences;
+    String tournamentId;
+    FirestoreRecyclerAdapter pointstableadapter;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +89,83 @@ public class TournamentPointtableFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tournament_pointtable, container, false);
+        View view = inflater.inflate(R.layout.fragment_tournament_pointtable, container, false);
+
+        pointstable=view.findViewById(R.id.pointstable);
+
+        sharedPreferences = getActivity().getSharedPreferences(Utils.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        tournamentId = sharedPreferences.getString("tournamentId", "");
+
+        final Query query = FirebaseFirestore.getInstance()
+                .collection("pointstable").whereEqualTo("LeagueId",tournamentId).orderBy("point", Query.Direction.DESCENDING);
+
+        FirestoreRecyclerOptions<PointsTablePojo> options = new FirestoreRecyclerOptions.Builder<PointsTablePojo>()
+                .setQuery(query, PointsTablePojo.class)
+                .build();
+
+        pointstableadapter = new FirestoreRecyclerAdapter<PointsTablePojo, Pointholder>(options) {
+            @NonNull
+            @Override
+            public Pointholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pointstablelayout, parent, false);
+                return new Pointholder(view);
+            }
+
+            @Override
+            protected void onBindViewHolder(@NonNull final Pointholder holder, int position, @NonNull PointsTablePojo model) {
+
+                holder.teamwin.setText(String.valueOf(model.getMatchwin()));
+                holder.teamloss.setText(String.valueOf(model.getMatchloss()));
+                holder.teamplayed.setText(String.valueOf(model.getMatchPlayed()));
+                holder.teampoints.setText(String.valueOf(model.getPoint()));
+
+                db.collection("teams")
+                        .document(model.getTeamId())
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                holder.teamsortname.setText(String.valueOf(task.getResult().getString("sortname")));
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+        };
+        pointstable.setLayoutManager(new LinearLayoutManager(getActivity()));
+        pointstable.setAdapter(pointstableadapter);
+
+        return view;
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+        pointstableadapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        pointstableadapter.stopListening();
+    }
+
+
+    private class Pointholder extends RecyclerView.ViewHolder {
+        TextView teamsortname,teamplayed,teamloss,teamwin,teampoints;
+
+        public Pointholder(@NonNull View itemView) {
+            super(itemView);
+           teamsortname = itemView.findViewById(R.id.teamsortname);
+           teamplayed = itemView.findViewById(R.id.teamplayed);
+           teamloss = itemView.findViewById(R.id.teamloss);
+           teamwin = itemView.findViewById(R.id.teamwin);
+           teampoints = itemView.findViewById(R.id.teampoints);
+
+        }
+    }
+
 }

@@ -297,10 +297,10 @@ public class AddMatchResult extends AppCompatActivity {
 
     }
 
-    private void updatewinpointstable(String winTeamId) {
+    private void updatewinpointstable(String updatewinTeamId) {
 
         db.collection("pointstable")
-                .whereEqualTo("teamId",winTeamId)
+                .whereEqualTo("teamId",updatewinTeamId)
                 .whereEqualTo("LeagueId",tournamentId)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
