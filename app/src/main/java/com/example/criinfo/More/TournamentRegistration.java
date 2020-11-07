@@ -49,7 +49,8 @@ public class TournamentRegistration extends AppCompatActivity {
     CircularImageView tournamentimage;
     StorageReference sRef;
     FirebaseFirestore Host_firebaseStorage;
-    EditText tournamentname, contactnumber, country, location;
+    EditText tournamentname, contactnumber, country;
+    TextView location;
     TextView startdate, enddate;
     TextInputLayout sdate, edate;
     FirebaseFirestore db;
@@ -57,6 +58,7 @@ public class TournamentRegistration extends AppCompatActivity {
     ProgressBar progressBar;
     String downloadUri;
     SimpleDateFormat start;
+    String loactionname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +67,7 @@ public class TournamentRegistration extends AppCompatActivity {
 
         tournamentimage = findViewById(R.id.tournamentimg);
         tournamentname = findViewById(R.id.tournamnetname);
-        location = findViewById(R.id.location);
+        location = findViewById(R.id.addlocation);
         // contactnumber = findViewById(R.id.contactnumber);
         country = findViewById(R.id.country);
         progressBar = findViewById(R.id.progressBar);
@@ -79,6 +81,30 @@ public class TournamentRegistration extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         sRef = FirebaseStorage.getInstance().getReference("TournamentImage");
         sharedPreferences = getApplicationContext().getSharedPreferences(Utils.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+
+        Intent intent = getIntent();
+        loactionname = intent.getStringExtra("locationname");
+        if (loactionname.isEmpty())
+        {
+            location.setText("ex: Quebec Cricket Ground");
+        }
+        else
+        {
+            location.setText(loactionname);
+        }
+
+//
+//        loactionname = sharedPreferences.getString("locationname", "");
+//
+//        if (loactionname.isEmpty())
+//        {
+//            location.setText("ex: Quebec Cricket Ground");
+//        }
+//        else
+//        {
+//            location.setText(loactionname);
+//        }
+
         System.out.println(sharedPreferences.getString("userId", ""));
         final Calendar myCalendar = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -104,6 +130,12 @@ public class TournamentRegistration extends AppCompatActivity {
             }
 
         };
+        location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(TournamentRegistration.this,AddTournamentLocation.class));
+            }
+        });
 
         final DatePickerDialog.OnDateSetListener date1 = new DatePickerDialog.OnDateSetListener() {
 

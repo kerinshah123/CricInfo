@@ -108,6 +108,7 @@ public class CreateTournament extends AppCompatActivity {
 
     public void createtournament(View view) {
         Intent intent = new Intent(getApplicationContext(), TournamentRegistration.class);
+        intent.putExtra("locationname" , "");
         startActivity(intent);
     }
 

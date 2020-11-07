@@ -161,8 +161,8 @@
                     android:textStyle="bold"
                     android:text="Add Location" />
 
-                <EditText
-                    android:id="@+id/location"
+                <TextView
+                    android:id="@+id/addlocation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="ex: Quebec Cricket Ground"
