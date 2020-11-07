@@ -93,7 +93,7 @@ String matchid,mom,batonename,batonescore,battwoname,battwoscore;
                  result.setText(status);
 
                        type = jsonobject2.getString("type");
-                     sub = status.substring(0, 6);
+//                     sub = status.substring(0, 6);
 
                           JSONObject jsonobject8 = jsonobject.getJSONObject("team1");
                           team1 = jsonobject8.getString("name");
