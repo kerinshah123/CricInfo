@@ -2,6 +2,7 @@ package com.example.criinfo.Home;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.criinfo.R;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,13 +28,16 @@ String matchid,mom,batonename,batonescore,battwoname,battwoscore;
     String status,type,team1,team2,score1,score2,matchdescription,sub,bwlname,bwlovers,batsman1name,batsman2name,batsman1score,batsman2score ;
     private RequestQueue mQueue;
     private StringRequest request,request1;
-    String url = "http://mapps.cricbuzz.com/cbzios/match/livematches";
+
+
+    ImageView teamfirst,teamsecond;
+    String teamek,teamdo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matchopen);
-
+        String url = "http://mapps.cricbuzz.com/cbzios/match/livematches";
         versus=findViewById(R.id.versus);
         result=findViewById(R.id.result);
         teamone=findViewById(R.id.team1);
@@ -48,9 +53,12 @@ String matchid,mom,batonename,batonescore,battwoname,battwoscore;
         bowlername=findViewById(R.id.bowlername);
         bowlerovers=findViewById(R.id.bowlerovers);
         commentary=findViewById(R.id.commentary);
+        teamfirst=findViewById(R.id.teamfirst);
+        teamsecond=findViewById(R.id.teamsecond);
 
 
         matchcode=  getIntent().getStringExtra("matchid");
+
 
 
 
@@ -93,6 +101,12 @@ String matchid,mom,batonename,batonescore,battwoname,battwoscore;
                            team2 = jsonobject9.getString("name");
 
 
+                  teamek = getFlag(team1);
+                  teamdo = getFlag(team2);
+
+                  Picasso.get().load(teamek).into(teamfirst);
+                  Picasso.get().load(teamdo).into(teamsecond);
+
 
                            if (state.equals("preview"))
                            {
@@ -111,6 +125,8 @@ String matchid,mom,batonename,batonescore,battwoname,battwoscore;
                                batsmantwoscore.setVisibility(View.GONE);
                                bowlername.setVisibility(View.GONE);
                                bowlerovers.setVisibility(View.GONE);
+
+
                            }
 
                           else if (state.equals("innings break"))
@@ -155,6 +171,7 @@ String matchid,mom,batonename,batonescore,battwoname,battwoscore;
                                resultmatch.setText("Result - " + status);
                                bowlername.setVisibility(View.GONE);
                                bowlerovers.setVisibility(View.GONE);
+
 
                                if (batsmanarray.length()==1)
                                {
@@ -233,6 +250,7 @@ String matchid,mom,batonename,batonescore,battwoname,battwoscore;
                                batsmantwoscore.setText(batsman2score);
                                bowlerovers.setText(bwlovers);
 
+
                                updation();
 
                            }
@@ -253,6 +271,7 @@ String matchid,mom,batonename,batonescore,battwoname,battwoscore;
                                batsmanonescore.setVisibility(View.GONE);
                                batsmantwoscore.setVisibility(View.GONE);
                                bowlerovers.setVisibility(View.GONE);
+
 
                            }
                           else if (state.equals("inprogress"))
@@ -322,6 +341,7 @@ String matchid,mom,batonename,batonescore,battwoname,battwoscore;
                                   batsmanonescore.setText(batsman1score);
                                   batsmantwoscore.setText(batsman2score);
                                   bowlerovers.setText(bwlovers);
+
 
                                   updation();
 
@@ -407,6 +427,84 @@ return;
 
 
 
+
+
+    }
+
+    public String getFlag(String country)
+    {
+        if(country.equalsIgnoreCase("Pakistan"))
+        {return "https://flagcdn.com/w160/pk.png";
+        }
+        else if (country.equalsIgnoreCase("India"))
+        {
+            return "https://flagcdn.com/w160/in.png";
+        }
+        else if (country.equalsIgnoreCase("Australia"))
+        {
+            return "https://flagcdn.com/w160/au.png";
+        }
+        else if (country.equalsIgnoreCase("New Zealand"))
+        {
+            return "https://flagcdn.com/w160/nz.png";
+        }
+        else if (country.equalsIgnoreCase("Zimbabwe"))
+        {
+            return "https://flagcdn.com/w160/zw.png";
+        }
+        else if (country.equalsIgnoreCase("England"))
+        {
+            return "https://flagcdn.com/w160/gb-eng.png";
+        }
+        else if (country.equalsIgnoreCase("Afghanistan"))
+        {
+            return "https://flagcdn.com/w160/af.png";
+        }
+        else if (country.equalsIgnoreCase("Sri Lanka"))
+        {
+            return "https://flagcdn.com/w160/lk.png";
+        }
+        else if (country.equalsIgnoreCase("Bangladesh"))
+        {
+            return "https://flagcdn.com/w160/bd.png";
+        }
+        else if (country.equalsIgnoreCase("Sunrisers Hyderabad"))
+        {
+            return "https://png.pngitem.com/pimgs/s/127-1270226_srh-logo-ipl-2018-png-download-ipl-team.png";
+        }
+        else if (country.equalsIgnoreCase("Royal Challengers Bangalore"))
+        {
+            return "https://png.pngitem.com/pimgs/s/124-1245124_australia-s-world-cup-player-of-the-tournament.png";
+        }
+        else if (country.equalsIgnoreCase("Mumbai Indians"))
+        {
+            return "https://png.pngitem.com/pimgs/s/124-1245168_mumbai-indians-logo-png-image-free-download-searchpng.png";
+        }
+        else if (country.equalsIgnoreCase("Rajasthan Royals"))
+        {
+            return "https://png.pngitem.com/pimgs/s/160-1605910_rajasthan-royals-logo-vector-rajasthanroyals-hd-png-download.png";
+        }
+
+        else if (country.equalsIgnoreCase("Kings Xi Punjab"))
+        {
+            return "https://png.pngitem.com/pimgs/s/191-1919662_kings-xi-punjab-logos-png-download-kings-xi.png";
+        }
+        else if (country.equalsIgnoreCase("Delhi Capitals"))
+        {
+            return "https://png.pngitem.com/pimgs/s/127-1270122_ipl-2018-auctions-are-taking-palce-at-delhi.png";
+        }
+        else if (country.equalsIgnoreCase("Kolkata kNight Riders"))
+        {
+            return "https://png.pngitem.com/pimgs/s/332-3321485_kolkata-knight-riders-logo-ipl-kolkata-knight-riders.png";
+        }
+        else if (country.equalsIgnoreCase("Chennai Super Kings"))
+        {
+            return "https://png.pngitem.com/pimgs/s/127-1270691_chennai-super-kings-logo-png-image-free-download.png";
+        }
+
+        else{
+            return "https://logos.co/1024/royalty-free-cricket-batsman-over-green-square-background-logo-by-patrimonio-2857.jpg";
+        }
 
 
     }

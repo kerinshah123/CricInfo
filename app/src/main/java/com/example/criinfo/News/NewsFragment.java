@@ -46,7 +46,6 @@ public class NewsFragment extends Fragment {
 
 
 
-    String url = "http://newsapi.org/v2/everything?language=en&q=cricket&from=2020-06-09&sortBy=popularity&apiKey=f8513c13f26b4d81b6d7f6128291b8a2";
     NewsAdapter adp;
     List<NewsPojo> ar1;
 
@@ -105,7 +104,7 @@ public class NewsFragment extends Fragment {
 
 
 
-        request = new StringRequest(Request.Method.GET,"http://newsapi.org/v2/everything?language=en&q=cricket&from="+date+"&sortBy=popularity&apiKey=f8513c13f26b4d81b6d7f6128291b8a2", new Response.Listener<String>() {
+        request = new StringRequest(Request.Method.GET,"http://newsapi.org/v2/everything?language=en&q=cricket&from=2020-11-06&sortBy=popularity&apiKey=f8513c13f26b4d81b6d7f6128291b8a2", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

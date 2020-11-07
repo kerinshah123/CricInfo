@@ -101,6 +101,7 @@ android:orientation="vertical"
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/teamone"
                     android:layout_width="59dp"
                     android:layout_height="match_parent"
                     android:src="@drawable/england">
@@ -144,6 +145,7 @@ android:orientation="vertical"
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/teamtwo"
                     android:layout_width="59dp"
                     android:layout_height="match_parent"
                     android:src="@drawable/australia">
