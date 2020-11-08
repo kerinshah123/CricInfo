@@ -8,6 +8,12 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.criinfo.R;
 import com.example.criinfo.Utils.Utils;
@@ -23,7 +29,6 @@ import java.io.IOException;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 
 public class PlayerInfo extends AppCompatActivity {
     int id;
@@ -37,6 +42,8 @@ public class PlayerInfo extends AppCompatActivity {
     boolean profileVisible = false;
     boolean personalVisible = false;
     boolean battingVisible = false;
+    private RequestQueue mQueue;
+    private StringRequest request;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,23 +154,41 @@ public class PlayerInfo extends AppCompatActivity {
     }
 
     private void callApi() {
-        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<ResponseBody> call = apiInterface.getPlayerInfo(Utils.apikey, id);
-        call.enqueue(new Callback<ResponseBody>() {
+        mQueue = Volley.newRequestQueue(getApplicationContext());
+        request = new StringRequest(Request.Method.GET, "https://cricapi.com/api/playerStats/?apikey="+Utils.apikey+"&pid="+id, new com.android.volley.Response.Listener<String>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    parseData(response.body().string());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+            public void onResponse(String response) {
+                parseData(response);
 
+            }
+        }, new Response.ErrorListener() {
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onErrorResponse(VolleyError error) {
+
 
             }
         });
+
+        mQueue.add(request);
+
+
+//        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+//        Call<ResponseBody> call = apiInterface.getPlayerInfo(Utils.apikey, id);
+//        call.enqueue(new Callback<ResponseBody>() {
+//            @Override
+//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//                try {
+//                    parseData(response.body().string());
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//
+//            }
+//        });
     }
 
     private void parseData(String string) {

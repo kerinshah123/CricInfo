@@ -60,6 +60,7 @@ public class TournamentRegistration extends AppCompatActivity {
     SimpleDateFormat start;
     String loactionname;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,28 +83,16 @@ public class TournamentRegistration extends AppCompatActivity {
         sRef = FirebaseStorage.getInstance().getReference("TournamentImage");
         sharedPreferences = getApplicationContext().getSharedPreferences(Utils.SHARED_PREF_NAME, Context.MODE_PRIVATE);
 
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         loactionname = intent.getStringExtra("locationname");
-        if (loactionname.isEmpty())
-        {
+        if (loactionname.isEmpty()) {
             location.setText("ex: Quebec Cricket Ground");
-        }
-        else
-        {
+        } else {
             location.setText(loactionname);
         }
 
-//
-//        loactionname = sharedPreferences.getString("locationname", "");
-//
-//        if (loactionname.isEmpty())
-//        {
-//            location.setText("ex: Quebec Cricket Ground");
-//        }
-//        else
-//        {
-//            location.setText(loactionname);
-//        }
+
+        loactionname = sharedPreferences.getString("locationname", "");
 
         System.out.println(sharedPreferences.getString("userId", ""));
         final Calendar myCalendar = Calendar.getInstance();
@@ -123,7 +112,7 @@ public class TournamentRegistration extends AppCompatActivity {
 
             private void updateLabel() {
                 String myFormat = "MM/dd/yy"; //In which you need put here
-                 start = new SimpleDateFormat(myFormat, Locale.US);
+                start = new SimpleDateFormat(myFormat, Locale.US);
 
                 startdate.setText(start.format(myCalendar.getTime()));
 
@@ -133,9 +122,12 @@ public class TournamentRegistration extends AppCompatActivity {
         location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(TournamentRegistration.this,AddTournamentLocation.class));
+                Intent intent1 = new Intent(getApplicationContext(), AddTournamentLocation.class);
+                startActivityForResult(intent1, 100);
+                // onPause();
             }
         });
+
 
         final DatePickerDialog.OnDateSetListener date1 = new DatePickerDialog.OnDateSetListener() {
 
@@ -147,7 +139,6 @@ public class TournamentRegistration extends AppCompatActivity {
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 updateLabel2();
-
 
 
             }
@@ -182,7 +173,7 @@ public class TournamentRegistration extends AppCompatActivity {
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH));
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    datePickerDialog.getDatePicker().setMinDate(myCalendar.getTimeInMillis()-1000);
+                    datePickerDialog.getDatePicker().setMinDate(myCalendar.getTimeInMillis() - 1000);
                 }
                 datePickerDialog.show();
 
@@ -215,70 +206,67 @@ public class TournamentRegistration extends AppCompatActivity {
             tournamentimage.setImageURI(imguri);
 
         }
+
+        if (requestCode == 100 && resultCode == 100) {
+            location.setText(data.getStringExtra("locationname"));
+        }
     }
 
     public void toaddtournaments(View view) {
 
-            if (tournamentname.getText().toString().isEmpty()  ||
-                    location.getText().toString().isEmpty() || country.getText().toString().isEmpty() || startdate.getText().toString().isEmpty() || enddate.getText().toString().isEmpty()) {
-                Toast.makeText(this, "All Field Required", Toast.LENGTH_SHORT).show();
+        if (tournamentname.getText().toString().isEmpty() ||
+                location.getText().toString().isEmpty() || country.getText().toString().isEmpty() || startdate.getText().toString().isEmpty() || enddate.getText().toString().isEmpty()) {
+            Toast.makeText(this, "All Field Required", Toast.LENGTH_SHORT).show();
+        } else {
+
+
+            progressBar.setVisibility(View.VISIBLE);
+
+            if (imguri == null || imguri.equals(Uri.EMPTY)) {
+                downloadUri = "";
+                Toast.makeText(this, "Plz Add Image", Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.GONE);
             } else {
-
-
-                progressBar.setVisibility(View.VISIBLE);
-
-                if (imguri == null || imguri.equals(Uri.EMPTY)) {
-                    downloadUri = "";
-                    Toast.makeText(this, "Plz Add Image", Toast.LENGTH_SHORT).show();
-                    progressBar.setVisibility(View.GONE);
-                }
-                else{
-                    final StorageReference storageReference = sRef.child(System.currentTimeMillis() + "." + imguri);
-                    storageReference.putFile(imguri).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                        @Override
-                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                            if (!task.isSuccessful()) {
-                                throw task.getException();
-                            }
-                            return storageReference.getDownloadUrl();
+                final StorageReference storageReference = sRef.child(System.currentTimeMillis() + "." + imguri);
+                storageReference.putFile(imguri).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                    @Override
+                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                        if (!task.isSuccessful()) {
+                            throw task.getException();
                         }
-                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Uri> task) {
-                            if (task.isSuccessful()) {
-                                Handler handler = new Handler();
-                                handler.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
+                        return storageReference.getDownloadUrl();
+                    }
+                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        if (task.isSuccessful()) {
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
 
-                                    }
-                                }, 500);
-                            }
-
-                            downloadUri = task.getResult().toString();
-                            callAdd();
-
-
+                                }
+                            }, 500);
                         }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getApplicationContext(), "Image Upload Failed", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
+
+                        downloadUri = task.getResult().toString();
+                        callAdd();
 
 
-
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(), "Image Upload Failed", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
+
+
         }
-
-
-
+    }
 
     private void callAdd() {
-
-
         ArrayList<String> teamsId = new ArrayList<>();
         Map<String, Object> tour = new HashMap<>();
         tour.put("tournament", tournamentname.getText().toString());
@@ -300,7 +288,7 @@ public class TournamentRegistration extends AppCompatActivity {
                         finish();
                         progressBar.setVisibility(View.GONE);
                         Toast.makeText(TournamentRegistration.this, "Tournament Created Successfully", Toast.LENGTH_SHORT).show();
-                        //startActivity(new Intent(getApplicationContext(),teamManagerTeam.class));
+                        startActivity(new Intent(getApplicationContext(), CreateTournament.class));
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

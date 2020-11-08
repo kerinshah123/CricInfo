@@ -15,6 +15,12 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.criinfo.R;
 import com.example.criinfo.Utils.Utils;
 import com.example.criinfo.network.ApiClient;
@@ -31,7 +37,6 @@ import java.util.ArrayList;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,6 +48,9 @@ public class InfoFragment extends Fragment {
     RecyclerView recyclerView;
     ProgressBar progressBar;
     EditText editText;
+
+    private RequestQueue mQueue;
+    private StringRequest request;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -122,25 +130,55 @@ public class InfoFragment extends Fragment {
     private void callApi(CharSequence s) {
         progressBar.setVisibility(View.VISIBLE);
         playerArrayList.clear();
-        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<ResponseBody> call = apiInterface.matches(Utils.apikey, String.valueOf(s));
-        call.enqueue(new Callback<ResponseBody>() {
+
+
+        mQueue = Volley.newRequestQueue(getContext());
+        request = new StringRequest(Request.Method.GET, "https://cricapi.com/api/playerFinder/?apikey="+Utils.apikey+"&name="+s, new com.android.volley.Response.Listener<String>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    parseData(response.body().string());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            public void onResponse(String response) {
+                parseData(response);
 
             }
-
+        }, new Response.ErrorListener() {
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onErrorResponse(VolleyError error) {
+
 
             }
         });
+
+        mQueue.add(request);
+
+
+
+
+
+//        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+//        Call<ResponseBody> call = apiInterface.matches(Utils.apikey, String.valueOf(s));
+//        call.enqueue(new Callback<ResponseBody>() {
+//            @Override
+//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//                try {
+//                    parseData(response.body().string());
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//
+//            }
+//        });
     }
+
+
+
+
+
+
+
 
     private void parseData(String string) {
         try {

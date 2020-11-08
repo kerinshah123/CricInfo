@@ -7,22 +7,21 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:padding="5dp"
-        android:layout_marginLeft="10dp"
+        android:weightSum="5"
         android:background="@color/white"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/teamsortname"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="MI"
+            android:layout_weight="1"
+            android:text="MAD 317"
             android:textColor="@color/backgrnd"
-            android:textStyle="bold"
-            android:layout_weight="1">
-        </TextView>
+            android:textStyle="bold"></TextView>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:id="@+id/teamplayed"
@@ -31,7 +30,7 @@
 
         </TextView>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="0"
             android:textColor="@color/black"
@@ -39,23 +38,16 @@
             android:layout_weight="1">
         </TextView>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="0"
             android:textColor="@color/black"
             android:id="@+id/teamloss"
             android:layout_weight="1">
         </TextView>
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:text="0"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:layout_weight="1">-->
-<!--        </TextView>-->
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="0"
             android:textColor="@color/black"

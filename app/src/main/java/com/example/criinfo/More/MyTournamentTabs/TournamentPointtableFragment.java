@@ -96,6 +96,7 @@ public class TournamentPointtableFragment extends Fragment {
         sharedPreferences = getActivity().getSharedPreferences(Utils.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         tournamentId = sharedPreferences.getString("tournamentId", "");
 
+
         final Query query = FirebaseFirestore.getInstance()
                 .collection("pointstable").whereEqualTo("LeagueId",tournamentId).orderBy("point", Query.Direction.DESCENDING);
 

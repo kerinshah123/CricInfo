@@ -25,4 +25,7 @@ public interface ApiInterface {
 
     @GET("cricketScore")
     Call<ResponseBody> getPastMatchesData(@Query("apikey")String apikey,@Query("unique_id") int unique_id);
+
+    @GET("everything")
+    Call<ResponseBody> getNewsData(@Query("apiKey") String key, @Query("language") String language, @Query("q") String q,@Query("from") String date);
 }

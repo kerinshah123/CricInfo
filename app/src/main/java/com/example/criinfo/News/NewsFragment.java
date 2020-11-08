@@ -18,15 +18,22 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.criinfo.R;
+import com.example.criinfo.network.ApiClient;
+import com.example.criinfo.network.ApiInterface;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -98,53 +105,93 @@ public class NewsFragment extends Fragment {
         Calendar c = Calendar.getInstance();
         String date = sdf.format(c.getTime());
 
-        mQueue = Volley.newRequestQueue(getContext());
+//        mQueue = Volley.newRequestQueue(getContext());
+//        request = new StringRequest(Request.Method.GET, "http://newsapi.org/v2/everything?language=en&q=cricket&from=2020-11-06&sortBy=popularity&apiKey=f8513c13f26b4d81b6d7f6128291b8a2", new com.android.volley.Response.Listener<String>() {
+//
+//            @Override
+//            public void onResponse(String response) {
+//                try {
+//
+//                    JSONObject jsona = new JSONObject(response);
+//
+//                    JSONArray jsonArray = jsona.getJSONArray("articles");
+//
+//                    for (int i = 0; i < jsonArray.length(); i++) {
+//                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+//                        NewsPojo pj = new NewsPojo(jsonObject.getString("urlToImage"), jsonObject.getString("author"), jsonObject.getString("url"), jsonObject.getString("title"), jsonObject.getString("publishedAt"));
+//                        ar1.add(pj);
+//                    }
+//
+//                    adp = new NewsAdapter(getContext(), ar1);
+//                    recyclerView.setAdapter(adp);
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                    Toast.makeText(getContext(), "Catch", Toast.LENGTH_SHORT).show();
+//                }
+//
+//
+//            }
+//        }, new Response.ErrorListener() {
+//
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//
+//                Toast.makeText(getContext(),"Error",Toast.LENGTH_SHORT).show();
+//            }
+//        }){
+//
+//        };
+//
+//        mQueue.add(request);
 
-
-
-
-
-        request = new StringRequest(Request.Method.GET,"http://newsapi.org/v2/everything?language=en&q=cricket&from=2020-11-06&sortBy=popularity&apiKey=f8513c13f26b4d81b6d7f6128291b8a2", new Response.Listener<String>() {
+        ApiInterface apiInterface = ApiClient.getClientNews().create(ApiInterface.class);
+        Call<ResponseBody> call = apiInterface.getNewsData("f8513c13f26b4d81b6d7f6128291b8a2","en","cricket",date);
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(String response) {
+            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
                 try {
-
-                    JSONObject jsona = new JSONObject(response);
-
-                    JSONArray jsonArray =   jsona.getJSONArray("articles");
-
-
-                    for(int i=0;i<jsonArray.length();i++)
-                    {
-                        JSONObject jsonObject=    jsonArray.getJSONObject(i);
-                        NewsPojo pj=new NewsPojo(jsonObject.getString("urlToImage"),jsonObject.getString("author"),jsonObject.getString("url"),jsonObject.getString("title"),jsonObject.getString("publishedAt"));
-                        ar1.add(pj);
-                    }
-
-                    adp=new NewsAdapter(getContext(),ar1);
-                    recyclerView.setAdapter(adp);
-                } catch (JSONException e) {
+                    parseData(response.body().string());
+                } catch (IOException e) {
                     e.printStackTrace();
-                    Toast.makeText(getContext(),"Catch",Toast.LENGTH_SHORT).show();
                 }
-
-
             }
-        }, new Response.ErrorListener() {
+
             @Override
-            public void onErrorResponse(VolleyError error) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
 
-                Toast.makeText(getContext(),"Error",Toast.LENGTH_SHORT).show();
             }
-        }){
-
-        };
-
-        mQueue.add(request);
+        } );
 
 
 
 
         return view;
     }
+
+    private void parseData(String string) {
+        try {
+
+            JSONObject jsona = new JSONObject(string);
+            if(!jsona.isNull("articles")){
+                JSONArray jsonArray = jsona.getJSONArray("articles");
+
+
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    NewsPojo pj = new NewsPojo(jsonObject.getString("urlToImage"), jsonObject.getString("author"), jsonObject.getString("url"), jsonObject.getString("title"), jsonObject.getString("publishedAt"));
+                    ar1.add(pj);
+                }
+
+                adp = new NewsAdapter(getContext(), ar1);
+                recyclerView.setAdapter(adp);
+            }
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
 }

@@ -49,6 +49,9 @@ public class PastMatchesFragment extends Fragment {
     MatchAdapter adp;
     ArrayList<Matchpojo> ar1 ;
 
+    private RequestQueue mQueue;
+    private StringRequest request;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -98,71 +101,118 @@ public class PastMatchesFragment extends Fragment {
         recyclerView = v.findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-
-        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<ResponseBody> call = apiInterface.getPastMatches(Utils.apikey);
-        call.enqueue(new Callback<ResponseBody>() {
+        mQueue = Volley.newRequestQueue(getContext());
+        request = new StringRequest(Request.Method.GET, "https://cricapi.com/api/cricket/?apikey="+Utils.apikey, new Response.Listener<String>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
+            public void onResponse(String response) {
+                JSONObject jsonObject = null;
                 try {
-                    parseData(response.body().string());
-                } catch (IOException e) {
+                    jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    ar1 = new ArrayList<>();
+
+                    for(int i =0;i<jsonArray.length();i++){
+                        JSONObject object = jsonArray.getJSONObject(i);
+                        callApiPast(Integer.parseInt(object.getString("unique_id")));
+                    }
+
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            }
 
+            }
+        }, new Response.ErrorListener() {
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onErrorResponse(VolleyError error) {
+
 
             }
         });
 
+        mQueue.add(request);
 
+
+//        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+//        Call<ResponseBody> call = apiInterface.getPastMatches(Utils.apikey);
+//        call.enqueue(new Callback<ResponseBody>() {
+//            @Override
+//            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
+//                try {
+//                    parseData(response.body().string());
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//
+//            }
+//        });
 
         return v;
     }
 
-    private void parseData(String string) {
-        try {
-            JSONObject jsonObject = new JSONObject(string);
-            JSONArray jsonArray = jsonObject.getJSONArray("data");
-            ar1 = new ArrayList<>();
+    private void callApiPast(int unique_id) {
 
-            for(int i =0;i<jsonArray.length();i++){
-                JSONObject object = jsonArray.getJSONObject(i);
-                callApi(Integer.parseInt(object.getString("unique_id")));
-
-            }
-
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    private void callApi(int unique_id) {
-        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<ResponseBody> call = apiInterface.getPastMatchesData(Utils.apikey,unique_id);
-        call.enqueue(new Callback<ResponseBody>() {
+        request = new StringRequest(Request.Method.GET, "https://cricapi.com/api/cricketScore/?unique_id="+unique_id+"&apikey="+Utils.apikey, new Response.Listener<String>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
-                try {
-                    parseMAtchData(response.body().string());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            public void onResponse(String response) {
+                parseMAtchData(response);
             }
-
+        }, new Response.ErrorListener() {
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onErrorResponse(VolleyError error) {
+
 
             }
         });
 
+        mQueue.add(request);
+
+
     }
 
+//    private void parseData(String string) {
+//        try {
+//
+//            JSONObject jsonObject = new JSONObject(string);
+//            JSONArray jsonArray = jsonObject.getJSONArray("data");
+//            ar1 = new ArrayList<>();
+//
+//            for(int i =0;i<jsonArray.length();i++){
+//                JSONObject object = jsonArray.getJSONObject(i);
+//                callApi(Integer.parseInt(object.getString("unique_id")));
+//
+//            }
+//
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
+//
+//    private void callApi(int unique_id) {
+//        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+//        Call<ResponseBody> call = apiInterface.getPastMatchesData(Utils.apikey,unique_id);
+//        call.enqueue(new Callback<ResponseBody>() {
+//            @Override
+//            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
+//                try {
+//                    parseMAtchData(response.body().string());
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//
+//            }
+//        });
+//
+//    }
+//
     private void parseMAtchData(String string) {
 
         try {

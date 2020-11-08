@@ -86,6 +86,7 @@ public class AddTournamentLocation extends FragmentActivity implements OnMapRead
                 name= place.getName();
                 Toast.makeText(getApplicationContext(), "" + destlat + ',' + destLon, Toast.LENGTH_LONG).show();
 
+                mMap.clear();
                 MapReady(mMap , destlat , destLon);
             }
 
@@ -152,7 +153,7 @@ public class AddTournamentLocation extends FragmentActivity implements OnMapRead
         mMap.getUiSettings().setZoomControlsEnabled(true);
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(43.6532, 79.3832);
+        LatLng sydney = new LatLng(45.4659982, -73.6217377);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Montreal"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
@@ -177,7 +178,6 @@ public class AddTournamentLocation extends FragmentActivity implements OnMapRead
         if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 Place place = Autocomplete.getPlaceFromIntent(data);
-
                 Log.i("TAG", "Place: " + place.getName() + ", " + place.getId());
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 // TODO: Handle the error.
@@ -212,9 +212,9 @@ public class AddTournamentLocation extends FragmentActivity implements OnMapRead
 //                SharedPreferences.Editor editor = sharedPreferences.edit();
 //                editor.putString("locationname", name );
 //                editor.commit();
+//                onBackPressed();
                 i.putExtra("locationname",name);
-
-                startActivity(i);
+                setResult(100,i);
                 finish();
                 return false;
             }

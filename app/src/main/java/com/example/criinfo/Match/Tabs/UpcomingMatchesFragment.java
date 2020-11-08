@@ -107,26 +107,42 @@ public class UpcomingMatchesFragment extends Fragment {
         ar1=new ArrayList<>();
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-
         progressBar.setVisibility(View.VISIBLE);
 
-       ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-       Call<ResponseBody> call = apiInterface.getMatches(Utils.apikey);
-       call.enqueue(new Callback<ResponseBody>() {
-           @Override
-           public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
-               try {
-                   parseData(response.body().string());
-               } catch (IOException e) {
-                   e.printStackTrace();
-               }
-           }
+        mQueue = Volley.newRequestQueue(getContext());
+        request = new StringRequest(Request.Method.GET, "https://cricapi.com/api/matches/?apikey="+Utils.apikey, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                parseData(response);
 
-           @Override
-           public void onFailure(Call<ResponseBody> call, Throwable t) {
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
 
-           }
-       });
+
+            }
+        });
+
+        mQueue.add(request);
+
+//       ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+//       Call<ResponseBody> call = apiInterface.getMatches(Utils.apikey);
+//       call.enqueue(new Callback<ResponseBody>() {
+//           @Override
+//           public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
+//               try {
+//                   parseData(response.body().string());
+//               } catch (IOException e) {
+//                   e.printStackTrace();
+//               }
+//           }
+//
+//           @Override
+//           public void onFailure(Call<ResponseBody> call, Throwable t) {
+//
+//           }
+//       });
 
 
    /*     request = new StringRequest(Request.Method.GET,url, new Response.Listener<String>() {
