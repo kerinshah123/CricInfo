@@ -2,11 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.criinfo">
 
-    <!--
-         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
-         Google Maps Android API v2, but you must specify either coarse or fine
-         location permissions for the "MyLocation" functionality.
-    -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -19,44 +14,63 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
 
-        <!--
-             The API key for Google Maps-based APIs is defined as a string resource.
-             (See the file "res/values/google_maps_api.xml").
-             Note that the API key is linked to the encryption key used to sign the APK.
-             You need a different API key for each encryption key, including the release key that is used to
-             sign the APK for publishing.
-             You can define the keys for the debug and release targets in src/debug/ and src/release/.
-        -->
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
         <activity
             android:name=".More.AddTournamentLocation"
-            android:label="@string/title_activity_add_tournament_location"></activity>
+            android:label="@string/title_activity_add_tournament_location"
+            android:parentActivityName=".More.TournamentRegistration"
+            ></activity>
         <activity
             android:name=".More.AddMatchResult"
-            android:label="Match Result" />
-        <activity android:name=".More.MatchTypeSelection" />
+            android:label="Match Result"
+            android:parentActivityName=".More.MyTournamentTabs.MyTournamentInfo"/>
+        <activity android:name=".More.MatchTypeSelection"
+            android:label="Match Selection"
+            android:parentActivityName=".More.AddTournamentMatchSchedule"
+            />
         <activity
             android:name=".Info.PlayerInfo"
-            android:label="Player Info" />
+            android:label="Player Info"
+            />
         <activity
             android:name=".More.MyProfile"
             android:label="My Profile" />
-        <activity android:name=".More.TournamentTeams" />
-        <activity android:name=".More.AddTournamentMatchSchedule" />
-        <activity android:name=".More.TournamentsTabs.Tournaments" />
-        <activity android:name=".More.TournamentsTabs.TournamentsInfo" />
-        <activity android:name=".More.MyTournamentTabs.MyTournamentInfo" />
+        <activity android:name=".More.TournamentTeams"
+            android:label="Teams" />
+        <activity android:name=".More.AddTournamentMatchSchedule"
+            android:label="Match Schedule"
+            android:parentActivityName=".More.MyTournamentTabs.MyTournamentInfo"
+            />
+        <activity android:name=".More.TournamentsTabs.Tournaments"
+            android:label="Tournaments"
+            />
+        <activity android:name=".More.TournamentsTabs.TournamentsInfo"
+            android:label="Tournament"
+            android:parentActivityName=".More.TournamentsTabs.Tournaments"
+            />
+        <activity android:name=".More.MyTournamentTabs.MyTournamentInfo"
+            android:label="My Tournament"
+            android:parentActivityName=".More.TournamentsTabs.Tournaments"
+            />
         <activity
             android:name=".More.CreateTournament"
-            android:label="My Tournaments" />
+            android:label="My Tournaments"
+            android:parentActivityName=".More.TournamentsTabs.Tournaments"
+            />
         <activity
             android:name=".More.TournamentRegistration"
-            android:label="Create Tournament" />
-        <activity android:name=".More.TeamsActivity" />
-        <activity android:name=".More.MyTeamTabs.MyTeamInfo" />
+            android:label="Create Tournament"
+            android:parentActivityName=".More.CreateTournament"/>
+
+        <activity android:name=".More.TeamsActivity"
+            android:label="Teams" />
+        <activity android:name=".More.MyTeamTabs.MyTeamInfo"
+            android:label="Team Information"
+            android:parentActivityName=".More.TeamsActivity"/>
         <activity
             android:name=".More.ContactUs"
             android:label="Contact Us" />
@@ -65,8 +79,11 @@
             android:label="About Us" />
         <activity
             android:name=".More.TeamPlayers"
+            android:label="Team Players"
             android:parentActivityName=".More.TeamManagerTeam" />
-        <activity android:name=".More.AddPlayer" />
+        <activity android:name=".More.AddPlayer"
+            android:label="Add Players"
+            android:parentActivityName=".More.TeamPlayers"/>
         <activity
             android:name=".More.CreateTeam"
             android:label="Create Team"
