@@ -164,9 +164,9 @@ public class AddTournamentLocation extends FragmentActivity implements OnMapRead
 //                SharedPreferences.Editor editor = sharedPreferences.edit();
 //                editor.putString("locationname", name );
 //                editor.commit();
-
+                name="Montreal";
                 i.putExtra("locationname",name);
-                startActivity(i);
+                setResult(100,i);
                 finish();
                 return false;
             }
